@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>噶翻天</title>
+		<link href="css/reset.css" rel="stylesheet" type="text/css">
+		<link href="css/base.css" rel="stylesheet" type="text/css">
+		<link href="css/ui.css" rel="stylesheet" type="text/css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+		<script src="script/msgTips.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		$(function (){
+			$(".top_header").msgTips({
+				Event : "click",			//响应的事件
+				timeOut : 4000,				//提示层显示的时间
+				msg : "为了保证更好的网站体验，请升级IE版本到8.0或以上!",			//显示的消息
+				speed : 300,				//滑动速度
+				type : "warning"			//提示类型（1、success 2、error 3、warning）
+
+			});
+			$("#no").msgTips({
+				Event : "click",			//响应的事件
+				timeOut : 4000,				//提示层显示的时间
+				msg : "很抱歉!您好操作此插件错误，请重新操作！",			//显示的消息
+				speed : 300,				//滑动速度
+				type : "error"			//提示类型（1、success 2、error 3、warning）
+
+			});
+			$("#yes").msgTips({
+				Event : "click",			//响应的事件
+				timeOut : 4000,				//提示层显示的时间
+				msg : "恭喜你!你已成功操作此插件，谢谢使用！",			//显示的消息
+				speed : 300,				//滑动速度
+				type : "success"			//提示类型（1、success 2、error 3、warning）
+
+			});
+
+		});
+		</script>
+	</head>
+	<body>
+	<script type="text/javascript"> 
+	function disableselect(e){ 
+	return false} 
+	function reEnable(){return true 
+	} 
+	//if IE4+ 
+	document.onselectstart=new Function ("return false") 
+	//if NS6 
+	if (window.sidebar){ 
+	if(document.input.onmousedown)return;
+	document.onmousedown=disableselect 
+	document.onclick=reEnable
+	} 
+	</script>
+		<div class="loading_bar"></div>
+		<div class="top_header">
+			<div class="wrapper">
+				<a class="logo fleft" title="噶翻天">
+				</a>
+				<ul class="top_nav">
+					<li><a href="#">噶作</a></li>
+					<li><a href="#">噶技</a></li>
+					<li><a href="#">噶の音</a></li>
+					<li><a href="#">噶の轨迹</a></li>
+				</ul>
+				<div class="top_search fright">
+					<form method="post" onsubmit="return false;" name="search_form" class="search_form">
+						<input type="text" class="search_text fleft" id="search_text" autocomplete="off" placeholder="搜你所搜，噶我所噶"></input>
+						<input type="button" class="search_submit fleft" id="search_submit">
+					</form>
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			$('.loading_bar').animate({'width':'10%'},50);
+		</script>
+		<div class="wrapper">
+			<!--推荐栏-->			
+			<div class="mt80 w100p">
+				<div class="index_tuijian">
+					<div class="fleft">
+						<a class="tuijian">噶老湿推荐</a>
+					</div>
+					<div class="fright siteinfo pt10">
+						<span>原创作品<i>88</i></span>
+						<span>经验文章<i>117</i></span>
+						<span>灵感<i>18</i></span>						
+					</div>
+				</div>
+			</div>
+			<!--主页-->
+			<div class="index_container">
+				<div class="container_left fleft">
+					<div class="first_clu_box fleft">
+						<span class="fleft">
+							<a href="detail.html">							
+								<img src="img/first_img1.jpg" class="hotimg mr10" alt="first" />
+							</a>
+						</span>
+						<h3 class="title">
+							<a href="detail.html">[まかろんソフト]妹スパイラル本体+NoDVD补丁</a>
+						</h3>
+						<p class="pt10">
+							剧场版花开伊吕波的主题曲，这次还是nano.RIPE演唱,老实说当初就是因为nano.RIPE唱的主题曲
+一下子就把我吸引了，因为我一般看动画都是直接跳OP的，不过好听的音乐就会耐心的听完，这次
+剧场版的主题曲也相当的不错，顺便附赠乐队几个其他的不错音乐，比如散华礼弥的OP，打工吧魔
+王大人ED等等，都是很不错的音乐。
+						</p>
+						<footer>
+							<p class="fleft">
+								<span>发表于 </span><a href="#" class="ls">2013年10月11日</a><span>由</span><a href="#"> 噶老湿</a>
+							</p>
+							<p class="fright">
+								<a class="readmore" href="detail.html">继续阅读></a>
+							</p>
+						</footer>
+					</div>
+					<div class="first_clu_box fleft">
+						<span class="fleft">
+							<a href="detail.html">							
+								<img src="img/first_img2.jpg" class="hotimg mr10" alt="first" />
+							</a>
+						</span>
+						<h3 class="title">
+							<a href="detail.html">魔法少女まどか☆マギカ 叛逆の物語 OP PV 「カラフル」</a>
+						</h3>
+						<p class="pt10">
+							魔法少女小圆剧场版已经上映了，看介绍是完全的新作，不像之前的总篇集，不过我目前还是没有看枪版这种残念的东西，等蓝光发售的时候再观看，这样可以获得更好的体验，所以这里先放出的是剧场版的OP，因为这个已经发售了。依然是ClariS演唱，2个未成年的的小妹妹组合，到现在还没有露脸过，难道是长得太奇特么。。。
+						</p>
+						<footer>
+							<p class="fleft">
+								<span>发表于 </span><a href="#" class="ls">2013年10月11日</a><span>由</span><a href="#"> 噶老湿</a>
+							</p>
+							<p class="fright">
+								<a class="readmore" href="detail.html">继续阅读></a>
+							</p>
+						</footer>
+					</div>		
+					<div class="first_clu_box fleft">
+						<span class="fleft">
+							<a href="detail.html">							
+								<img src="img/first_img3.jpg" class="hotimg mr10" alt="first" />
+							</a>
+						</span>
+						<h3 class="title">
+							<a href="detail.html">【Zettai Karen Children】 专题各贴导航</a>
+						</h3>
+						<p class="pt10">
+							絶対(ぜったい)可憐(かれん)!
+						</p>
+						<footer>
+							<p class="fleft">
+								<span>发表于 </span><a href="#" class="ls">2013年10月12日</a><span>由</span><a href="#"> 含屎擦</a>
+							</p>
+							<p class="fright">
+								<a class="readmore" href="detail.html">继续阅读></a>
+							</p>
+						</footer>
+					</div>
+					<div class="first_clu_box fleft">
+						<span class="fleft">
+							<a href="detail.html">							
+								<img src="img/first_img4.jpg" class="hotimg mr10" alt="first" />
+							</a>
+						</span>
+						<h3 class="title">
+							<a href="detail.html">【电磁炮S】 OP2 Eternal Reality fripSide 初回盘</a>
+						</h3>
+						<p class="pt10">
+							这次为大家带来 某不科学的电磁炮S 的OP2 Eternal Reality ，演唱与OP1 Sisiter’s Noise 相同，两支单曲都是由组合 fripSide 演唱，OP2在整体风格上与OP1基本一致所以也是一首节奏感极强的歌~希望大家喜欢！
+OP1因为已经有人发过，所以不会再单独发帖了，本帖会附上OP1的WAV格式，最后有老OP1的帖子的链接。
+						</p>
+						<footer>
+							<p class="fleft">
+								<span>发表于 </span><a href="#" class="ls">2013年10月13日</a><span>由</span><a href="#"> 噶老湿</a>
+							</p>
+							<p class="fright">
+								<a class="readmore" href="detail.html">继续阅读></a>
+							</p>
+						</footer>
+					</div>	
+					<div class="first_clu_box fleft">
+						<span class="fleft">
+							<a href="detail.html">							
+								<img src="img/first_img5.jpg" class="hotimg mr10" alt="first" />
+							</a>
+						</span>
+						<h3 class="title">
+							<a href="detail.html">新海诚 短篇动画 某人的目光</a>
+						</h3>
+						<p class="pt10">
+							本片适合刚毕业，一个人在城市打工的小盆友观看。嗯，生活艰辛什么的，走出社会就懂了。
+讲述了以进入工作岗位为契机而开始独自生活的冈村绫，与自己的父亲、母亲以及猫咪之间的故事。新海诚将再度发挥他擅长的细腻描写手法，描绘出剧中角色那一举一动中所包含的心理和情感。
+						</p>
+						<footer>
+							<p class="fleft">
+								<span>发表于 </span><a href="#" class="ls">2013年10月14日</a><span>由</span><a href="#"> 含屎擦</a>
+							</p>
+							<p class="fright">
+								<a class="readmore" href="detail.html">继续阅读></a>
+							</p>
+						</footer>
+					</div>					
+				</div>
+				<script type="text/javascript">
+					$('.loading_bar').animate({'width':'50%'},50);
+				</script>
+				<div class="container_right fright ofh pb10 pr2 mb30">
+					<div class="brief_right mb30 galaoshi">
+						<div class="g_header ofh">
+							<div class="avator fleft">
+								<a href="blog.html"><img src="img/ga.png"></a>
+							</div>
+							<h3 class="title fleft">噶老湿の背景</h3>
+						</div>
+						<p>种族：龟   性别：未知   诞辰：白垩纪之前<br>
+爱好：斗战龟   口头禅：吃粪啦、噶起来<br>
+自述：アリババは、仕入れたい商材の调达、问屋を探
+せる卸サイトです。OEMや小ロットなどの仕入れの条
+件は、メーカー 问屋に直接交渉。中国から仕入れのた...</p>
+					</div>	
+					<div class="brief_right mb30 hanshica">
+						<div class="g_header ofh">
+							<div class="avator fleft">
+								<a href="blog.html"><img src="img/ga2.png"></a>
+							</div>
+							<h3 class="title fleft">含屎擦の背景</h3>
+						</div>
+						<p>种族：龟   性别：女    诞辰：白垩纪之前<br/>
+爱好：妄想世界   口头禅：噶愣兽<br/>
+自述：一生追随在怪兽的背后，成为它们所说的每一只成
+功的怪兽背后都有一只%#￥#。我的生涯一片无悔，想起
+那天与怪兽夕阳下的奔跑，那是我逝去的青春！.</p>
+					</div>	
+					<div class="grow_footprint mb30">
+						<h3 class="gf_header">成长足迹</h3>
+						<ul class="gf_nav p10">
+							<li><a>噶时光</a></li>
+							<li><a>撸大B的猪圈</a></li>
+							<li><a>博纳影城至尊VIP</a></li>
+							<li><a>肯德基全家桶半价</a></li>
+							<li><a>欢乐家园套餐</a></li>
+							<li><a>脆脆鲨</a></li>
+							<li><a>美好时光海棠</a></li>
+							<li><a>Just Beat It!</a></li>
+						</ul>
+					</div>
+					<div class="g_board">
+						<a class="b_one">狂拽酷炫噶炸天</a>
+						<a class="b_two">高端大气上档次</a>
+						<a class="b_three">低调奢华有内涵</a>
+						<a class="b_four">奔放洋气<br/>有深度</a>
+						<a class="b_five">噶翻天</a>
+					</div>
+				</div> 	
+			</div>
+			<script type="text/javascript">
+				$('.loading_bar').animate({'width':'70%'},50);
+			</script>
+			<!--栏目2-->
+			<div class="clo2_header pt10 pb10">
+				<h2 class="fleft clo_title ml10">
+					<a href="#">栏目2</a>
+				</h2>
+				<p class="fright mr10">
+					<a href="#" class="btn_more"><span>噶全部</span><span class="arrow_more">&nbsp&nbsp&nbsp&nbsp</span></a>					
+				</p>
+			</div>
+			<div class="mt25 w100p ofh clo2_container">
+				<div class="clo2_box">
+					<a>
+						<img src="img/scend_img1.jpg">
+					</a>
+					<div class="project_info">
+						<a href="#">
+							成长给的忧伤
+						</a>
+						<span class="fright view_num">
+							117
+						</span>
+						By 噶老湿
+					</div>
+				</div>
+				<div class="clo2_box">
+					<a>
+						<img src="img/scend_img1.jpg">
+					</a>
+					<div class="project_info">
+						<a href="#">
+							成长给的忧伤
+						</a>
+						<span class="fright view_num">
+							117
+						</span>
+						By 噶老湿
+					</div>
+				</div>
+				<div class="clo2_box">
+					<a>
+						<img src="img/scend_img1.jpg">
+					</a>
+					<div class="project_info">
+						<a href="#">
+							成长给的忧伤
+						</a>
+						<span class="fright view_num">
+							117
+						</span>
+						By 噶老湿
+					</div>
+				</div>
+				<div class="clo2_box">
+					<a>
+						<img src="img/scend_img1.jpg">
+					</a>
+					<div class="project_info">
+						<a href="#">
+							成长给的忧伤
+						</a>
+						<span class="fright view_num">
+							117
+						</span>
+						By 噶老湿
+					</div>
+				</div>
+				<div class="clo2_box">
+					<a>
+						<img src="img/scend_img1.jpg">
+					</a>
+					<div class="project_info">
+						<a href="#">
+							成长给的忧伤
+						</a>
+						<span class="fright view_num">
+							117
+						</span>
+						By 噶老湿
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$('.loading_bar').animate({'width':'90%'},50);
+			</script>
+			<!--友情链接-->
+			<div class="mt80 friend_link">
+				<span><a href="#">琉璃神社</a>&nbsp|&nbsp<a href="#">SLEBEE</a>&nbsp|&nbsp<a href="#">视觉中国</a>&nbsp|&nbsp<a href="#">花瓣网</a></span>
+			</div>
+		</div>	
+		<!--页脚-->
+		<div class="mt35 index_footer mb10">
+			<div class="wrapper">
+				<a href="#" class="mr10">关于噶翻天</a>
+				<a href="#" class="g_qq mr10">噶翻天QQ</a>
+				<a href="#" class="g_weibo">噶翻天微博</a>
+			</div>
+		</div>	
+		<div class="wrapper ofh mt10">
+			<div class="fleft footer_info">
+				<p>
+				本站不提供任何上传下载服务，所有内容均来自分享站点所提供的公开引用资源。<br/> 
+如果有版权内容，请通知作者删除。<br/> 
+本站不支持 IE 浏览器 如果网页显示不正常，请升级到 IE8 及以上<br/> 
+推荐使用 IE10、Firefox、Chrome 等专业浏览器<br/>
+噶老湿推荐使用 Chrome 效果最佳
+				</p>
+			</div>
+			<div class="fright">
+				<span class="footer_my">
+				</span>				
+			</div>
+		</div>
+		<div class="wrapper pt10 txtr pb10">©噶翻天</span></div>
+		<script type="text/javascript">
+			$('.loading_bar').animate({'width':'100%'},50);
+		</script>
+        <a class="goto_top" onClick="pageScroll();"></a>
+	</body>
+
+<script>
+function pageScroll() {
+	
+var scrollPos; 
+if (typeof window.pageYOffset != 'undefined') { 
+   scrollPos = window.pageYOffset; //Netscape
+} 
+else if (typeof document.compatMode != 'undefined' && 
+     document.compatMode != 'BackCompat') { 
+   scrollPos = document.documentElement.scrollTop; //Firefox、Chrome
+} 
+else if (typeof document.body != 'undefined') { 
+   scrollPos = document.body.scrollTop; //IE
+}
+
+window.scrollBy(0,-100);
+scrolldelay = setTimeout('pageScroll()',10);
+if(scrollPos==0) clearTimeout(scrolldelay);
+}
+
+$(document).ready(function(){
+	$('.loading_bar').fadeOut();	
+});
+</script>
+</html>
