@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JRJian Blog</title>
+    <title>Jian Blog</title>
     <description></description>
-    <link>http://huangxuan.me/</link>
-    <atom:link href="http://huangxuan.me/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 28 Nov 2015 22:24:22 +0800</pubDate>
-    <lastBuildDate>Sat, 28 Nov 2015 22:24:22 +0800</lastBuildDate>
+    <link>http://jrjian.github.io/</link>
+    <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 29 Nov 2015 20:45:25 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Nov 2015 20:45:25 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Welcome to JRJian Blog</title>
+        <title>Welcome to Jian Blog</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;“Yeah It’s on. ”&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;section&quot;&gt;前言&lt;/h2&gt;
 
-&lt;p&gt;JRJian 的 Blog 就这么开通了。&lt;/p&gt;
+&lt;p&gt;Jian 的 Blog 就这么开通了。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#build&quot;&gt;跳过废话，直接看技术实现 &lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;2015 年，JRJian 总算有个地方可以好好写点东西了。&lt;/p&gt;
+&lt;p&gt;2015 年，Jian 总算有个地方可以好好写点东西了。&lt;/p&gt;
 
 &lt;p&gt;作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。&lt;/p&gt;
 
@@ -61,13 +61,13 @@
 
 &lt;h2 id=&quot;section-2&quot;&gt;后记&lt;/h2&gt;
 
-&lt;p&gt;蛮喜欢这个主题风格的blog，后续慢慢加强前端的技能，同时build出令自己满意的JRJian Blog!&lt;/p&gt;
+&lt;p&gt;蛮喜欢这个主题风格的blog，后续慢慢加强前端的技能，同时build出令自己满意的Jian Blog!&lt;/p&gt;
 
-&lt;p&gt;—— JRJian 后记于 2015.10&lt;/p&gt;
+&lt;p&gt;—— Jian 后记于 2015.10&lt;/p&gt;
 </description>
         <pubDate>Sat, 28 Nov 2015 20:00:00 +0800</pubDate>
-        <link>http://huangxuan.me/2015/11/28/hello-2015/</link>
-        <guid isPermaLink="true">http://huangxuan.me/2015/11/28/hello-2015/</guid>
+        <link>http://jrjian.github.io/2015/11/28/hello-2015/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2015/11/28/hello-2015/</guid>
         
         <category>生活</category>
         
