@@ -1,6 +1,10 @@
 /* to make lines scroll instead of wrap */
 /* from http://stackoverflow.com/a/23393920 */
 
+code {
+	font-size: 80%;
+}
+
 .highlight pre code * {
   white-space: nowrap;    // this sets all children inside to nowrap
 }
@@ -19,7 +23,7 @@
  * Courtesy of GitHub.com
  */
 
-.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; border: 1px solid #ccc; padding: 6px 10px; border-radius: 3px; }
+.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; border: 1px solid #666; padding: 0px 0px; border-radius: 1px; }
 .highlight .c { color: #999988; font-style: italic; }
 .highlight .err { color: #a61717; background-color: #e3d2d2; }
 .highlight .k { font-weight: bold; }

@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="icon" href="http://jrjian.github.io/img/favicon.ico" type="image/x-icon">
 
-    <title>About - 陈坚涛的博客｜Jian Blog</title>
+    <title>iOS实用小功能 - 陈坚涛的博客｜Jian Blog</title>
 
-    <link rel="canonical" href="http://jrjian.github.io/about/">
+    <link rel="canonical" href="http://jrjian.github.io/2015/12/09/iOS-small-functions/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -127,202 +127,274 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/2015-12-08-iOS-small-functions/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/2015-12-08-iOS-small-functions/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>About</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">Hey, this is Jian.</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                        <a class="tag" href="/tags/#实用功能" title="实用功能">实用功能</a>
+                        
+                    </div>
+                    <h1>iOS实用小功能</h1>
+                    
+                    
+                    <h2 class="subheading"> "平时开发中收集的一些实用小功能"</h2>
+                    
+                    <span class="meta">Posted by Jian on December 9, 2015</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			<!-- Language Selector -->
-<select onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英语 English </option>
-</select>
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-<!-- Chinese Version -->
-<div class="zh">
-    <blockquote>
-        写写代码，听听音乐，聊聊技术，看看电影，追追动漫。
-    </blockquote>
-    程序员，iOS工程师，弄过前端开发，目前就职于深圳中顺易金融服务有限公司（中信信托，顺丰速运，网易合资）。
-    <br>
-    2013/05 -- 2015/04
-    深圳市博科智能科技有限公司 | iOS软件工程师
-    <br>
-    2012/06 -- 2013/05
-    深圳市众信电子商务交易保障促进中心 | WEB前端开发
-    <br><br>
-    热衷于各类 Web & Mobile 产品，还不算个产品设计师。知乎用户，海贼粉，轻微职业病。
-    <br><br>
-    大专生，就读于深圳技师学院软件工程专业07级，目前在读广东技术师范学院本科(预计17年毕业)。学的东西杂七杂八，主要在工作室搞web开发，拿过好多次的奖学金。毕业后自学iOS开发。
-    <br><br>
-    人类，爱唱，也爱好跑步游泳，没事泡泡社交网络，微信知乎AB站。
-    <br><br>
-    <br><br>
-    哦对了，我叫陈坚涛
-</div>
+				<h2 id="section">播打电话号码</h2>
 
-<!-- English Version -->
-<div class="en">
-    <blockquote>
-        Designer or Engineer, things in between.
-    </blockquote>
+<p>1.最直接方式 </p>
 
-    <p>
-        Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven’t found it yet, keep looking. Don’t settle. As with all matters of the heart, you’ll know when you find it.
-    </p>
+<pre><code class="objectivec">[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://020-10086"]];
+</code></pre>
 
-    <p>
-    If you want to live your life in a creative way, as an artist, you have to not look back too much. You have to be willing to take whatever you’ve done and whoever you were and throw them away.
-    </p>
+<p><code>缺点：打完电话后，停留在通讯录界面，不会自动跳回APP界面。</code></p>
 
-    <p style="text-align:right;">
-    -- Steve Jobs
-    </p>
+<p>2.访问私有API</p>
 
-</div>
+<p><em>该方式拨号，会先提示是否进行拨打。</em></p>
 
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    function onLanChange(index){
-        if(index == 0){
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }else{
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        }
+<pre><code class="objectivec">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"telprompt://020-10086"]];
+</code></pre>
+
+<p><code>缺点：私有API，可能会被苹果审核不通过，拒绝发布。</code></p>
+
+<p>3.通过内嵌UIWebView，拨打完毕后，会自动切回APP界面</p>
+
+<pre><code class="objectivec">UIWebView *myWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+[myWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"tel://020-10086"]]];
+</code></pre>
+
+<p><code>注意：不需要addSubview</code></p>
+
+<hr />
+
+<h2 id="app-store">跳转到APP Store评分界面</h2>
+
+<pre><code class="objectivec">NSString *urlStr = @"替换成下面提供的两种方式";
+NSURL *url = [NSURL URLWithString:urlStr];
+if ([[UIApplication sharedApplication] canOpenURL:url]) {
+    [[UIApplication sharedApplication] openURL:url];
+}
+</code></pre>
+
+<p><code>你的设备IOS版本&gt;=IOS7</code> </p>
+
+<pre><code class="objectivec">@"itms-apps://itunes.apple.com/app/YOUR_APP_ID"</code></pre>
+
+<p><code>你的设备IOS版本&lt;IOS7</code></p>
+
+<pre><code class="objectivec">@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=YOUR_APP_ID"</code></pre>
+
+<hr />
+
+<h2 id="section-1">发短信</h2>
+
+<p>1.最直接方式</p>
+
+<pre><code class="objectivec">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sms://10086"]];</code></pre>
+
+<p><code>式缺点：不能指定短信内容，并且操作完毕后，不会跳回APP界面</code></p>
+
+<p>2.采用<code>MFMessageComposeViewController</code></p>
+
+<p>1).先引入框架<code>#import &lt;MessageUI/MessageUI.h&gt;</code>   </p>
+
+<pre><code class="objectivec">if ([MFMailComposeViewController canSendMail]) {
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.body = @"短信内容";
+    messageController.recipients = @[@"收件人列表-1-10086",@"2-10000"];
+    messageController.delegate = self;
+    [self presentViewController:messageController animated:YES completion:nil];
+}
+</code></pre>
+
+<p>2).实现委托</p>
+
+<pre><code class="objectivec">#pragma mark - MFMessageComposeViewControllerDelegate
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    if (result == MessageComposeResultCancelled) {
+        NSLog(@"取消发送");
+    } else if (result == MessageComposeResultSent) {
+        NSLog(@"发送成功");
+    } else {
+        NSLog(@"发送失败");
     }
-    onLanChange(0);
-</script>
+}
+</code></pre>
+
+<p><code>优点：可以指定发送内容，发送完毕可以切回APP界面。</code></p>
+
+<hr />
+
+<h2 id="section-2">发邮件</h2>
+
+<p>1.最直接方式</p>
+
+<pre><code class="objectivec">NSString *url = @"mailto:自己的邮箱@qq.com?cc=抄送人&amp;subject=主题!&amp;body=内容!"; 
+[[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+</code></pre>
+
+<p><code>缺点：字符串复杂，可读性差。</code></p>
+
+<p>2.采用<code>MFMailComposeViewController</code></p>
+
+<p>1).先引入框架<code>#import &lt;MessageUI/MessageUI.h&gt;</code></p>
+
+<pre><code class="objectivec">if ([MFMailComposeViewController canSendMail]) {
+    MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
+    mailController.mailComposeDelegate = self;
+    [mailController setSubject:@"标题"];
+    [mailController setMessageBody:@"邮件内容。" isHTML:NO];
+    [mailController setToRecipients:@[@"收件人1", @"收件人2",]];
+    [mailController setCcRecipients:@[@"抄送人1", @"抄送人2",]];
+    [mailController setBccRecipients:@[@"密送人1", @"密送人2",]];
+    if (mailController)
+        [self presentViewController:mailController animated:YES completion:nil];
+}
+</code></pre>
+
+<p>2).实现委托</p>
+
+<pre><code class="objectivec">#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    /*
+    enum MFMailComposeResult {
+        MFMailComposeResultCancelled, //取消发送
+        MFMailComposeResultSaved, //保存草稿
+        MFMailComposeResultSent, //发送成功
+        MFMailComposeResultFailed, //发送失败
+    };
+    */
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+</code></pre>
+
+<hr />
+
+<h2 id="section-3">应用程序之间跳转</h2>
+
+<p>1.被跳转的APP设置</p>
+
+<p><code>注意：URL Schemes是一个数组，可以用逗号隔开</code></p>
+
+<p><img src="/img/2015-12-08-iOS-small-functions/illustration-1.jpg" alt="设置引导图" /></p>
+
+<p>2.打开其他APP的代码如下，identifier跟schemes就是上图设置的URL Types参数</p>
+
+<pre><code class="objectivec">// @param Identifier:需要跳入的应用程序配置文件设置的APP URL type里面的identifier
+// @param UrlSchemes:需要跳入的应用程序配置文件设置的APP URL type里面的URL scheme
+NSURL *appUrl = [NSURL URLWithString:@"Identifier://UrlSchemes"];
+UIApplication *app = [UIApplication sharedApplication];
+// 1.先判断能否打开软件
+if ([app canOpenURL:appUrl]) {
+    [app openURL:appUrl];
+} else { // 2.不能打开，去appStore下载
+    NSURL *downloadUrl = [NSURL URLWithString:@"yourAppUrl"];
+    if ([app canOpenURL:downloadUrl]) {
+        app openURL:downloadUrl];
+    }
+}
+</code></pre>
+
+<p>3.通过safari游览器打开APP</p>
+
+<p><code>在地址栏输入要打开的APP的URL schemes即可，如testApp://</code><br />
+   <code>带参数形式：testApp://?token=123abct&amp;registered=1</code></p>
+
+<p>4.通过访问网页打开APP</p>
+
+<h1 id="section-4">待续…</h1>
 
 
+                <hr>
+
+                
 
 
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/11/28/hello-2015/" data-toggle="tooltip" data-placement="top" title="Welcome to Jian Blog">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
 
 
+                
 
+                
 
-    		</div>
+            </div>
+
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="">FEATURED TAGS</a></h5>
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                                <a href="/tags/#生活" title="生活" rel="1">
+                				<a href="/tags/#生活" title="生活" rel="1">
                                     生活
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#iOS" title="iOS" rel="1">
+                				<a href="/tags/#iOS" title="iOS" rel="1">
                                     iOS
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#实用功能" title="实用功能" rel="1">
+                				<a href="/tags/#实用功能" title="实用功能" rel="1">
                                     实用功能
                                 </a>
                             
-                        
-                    </div>
+        				
+        			</div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/avatar-jian.jpg" />
-                        
-                        
-                            <p>写写代码，听听音乐，聊聊技术，看看电影，追追动漫。</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://www.zhihu.com/people/yin-xiao-jian">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            <li>
-                                <a target="_blank" href="http://weibo.com/jiantaochen">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://www.facebook.com/JRJian">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/JRJian">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </section>
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -339,10 +411,52 @@
                     
                 </ul>
                 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->

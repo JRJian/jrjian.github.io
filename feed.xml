@@ -5,9 +5,188 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 29 Nov 2015 23:00:52 +0800</pubDate>
-    <lastBuildDate>Sun, 29 Nov 2015 23:00:52 +0800</lastBuildDate>
+    <pubDate>Wed, 09 Dec 2015 00:03:03 +0800</pubDate>
+    <lastBuildDate>Wed, 09 Dec 2015 00:03:03 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>iOS实用小功能</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;播打电话号码&lt;/h2&gt;
+
+&lt;p&gt;1.最直接方式 &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;tel://020-10086&quot;]];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;缺点：打完电话后，停留在通讯录界面，不会自动跳回APP界面。&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.访问私有API&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;该方式拨号，会先提示是否进行拨打。&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;telprompt://020-10086&quot;]];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;缺点：私有API，可能会被苹果审核不通过，拒绝发布。&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.通过内嵌UIWebView，拨打完毕后，会自动切回APP界面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;UIWebView *myWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+[myWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@&quot;tel://020-10086&quot;]]];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;注意：不需要addSubview&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;app-store&quot;&gt;跳转到APP Store评分界面&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;NSString *urlStr = @&quot;替换成下面提供的两种方式&quot;;
+NSURL *url = [NSURL URLWithString:urlStr];
+if ([[UIApplication sharedApplication] canOpenURL:url]) {
+    [[UIApplication sharedApplication] openURL:url];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;你的设备IOS版本&amp;gt;=IOS7&lt;/code&gt; &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;@&quot;itms-apps://itunes.apple.com/app/YOUR_APP_ID&quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;你的设备IOS版本&amp;lt;IOS7&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;@&quot;itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;amp;id=YOUR_APP_ID&quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;发短信&lt;/h2&gt;
+
+&lt;p&gt;1.最直接方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;sms://10086&quot;]];&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;式缺点：不能指定短信内容，并且操作完毕后，不会跳回APP界面&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.采用&lt;code&gt;MFMessageComposeViewController&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;1).先引入框架&lt;code&gt;#import &amp;lt;MessageUI/MessageUI.h&amp;gt;&lt;/code&gt;   &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;if ([MFMailComposeViewController canSendMail]) {
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.body = @&quot;短信内容&quot;;
+    messageController.recipients = @[@&quot;收件人列表-1-10086&quot;,@&quot;2-10000&quot;];
+    messageController.delegate = self;
+    [self presentViewController:messageController animated:YES completion:nil];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2).实现委托&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;#pragma mark - MFMessageComposeViewControllerDelegate
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    if (result == MessageComposeResultCancelled) {
+        NSLog(@&quot;取消发送&quot;);
+    } else if (result == MessageComposeResultSent) {
+        NSLog(@&quot;发送成功&quot;);
+    } else {
+        NSLog(@&quot;发送失败&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;优点：可以指定发送内容，发送完毕可以切回APP界面。&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;发邮件&lt;/h2&gt;
+
+&lt;p&gt;1.最直接方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;NSString *url = @&quot;mailto:自己的邮箱@qq.com?cc=抄送人&amp;amp;subject=主题!&amp;amp;body=内容!&quot;; 
+[[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;缺点：字符串复杂，可读性差。&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.采用&lt;code&gt;MFMailComposeViewController&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;1).先引入框架&lt;code&gt;#import &amp;lt;MessageUI/MessageUI.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;if ([MFMailComposeViewController canSendMail]) {
+    MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
+    mailController.mailComposeDelegate = self;
+    [mailController setSubject:@&quot;标题&quot;];
+    [mailController setMessageBody:@&quot;邮件内容。&quot; isHTML:NO];
+    [mailController setToRecipients:@[@&quot;收件人1&quot;, @&quot;收件人2&quot;,]];
+    [mailController setCcRecipients:@[@&quot;抄送人1&quot;, @&quot;抄送人2&quot;,]];
+    [mailController setBccRecipients:@[@&quot;密送人1&quot;, @&quot;密送人2&quot;,]];
+    if (mailController)
+        [self presentViewController:mailController animated:YES completion:nil];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2).实现委托&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    /*
+    enum MFMailComposeResult {
+        MFMailComposeResultCancelled, //取消发送
+        MFMailComposeResultSaved, //保存草稿
+        MFMailComposeResultSent, //发送成功
+        MFMailComposeResultFailed, //发送失败
+    };
+    */
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;应用程序之间跳转&lt;/h2&gt;
+
+&lt;p&gt;1.被跳转的APP设置&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;注意：URL Schemes是一个数组，可以用逗号隔开&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2015-12-08-iOS-small-functions/illustration-1.jpg&quot; alt=&quot;设置引导图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.打开其他APP的代码如下，identifier跟schemes就是上图设置的URL Types参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;objectivec&quot;&gt;// @param Identifier:需要跳入的应用程序配置文件设置的APP URL type里面的identifier
+// @param UrlSchemes:需要跳入的应用程序配置文件设置的APP URL type里面的URL scheme
+NSURL *appUrl = [NSURL URLWithString:@&quot;Identifier://UrlSchemes&quot;];
+UIApplication *app = [UIApplication sharedApplication];
+// 1.先判断能否打开软件
+if ([app canOpenURL:appUrl]) {
+    [app openURL:appUrl];
+} else { // 2.不能打开，去appStore下载
+    NSURL *downloadUrl = [NSURL URLWithString:@&quot;yourAppUrl&quot;];
+    if ([app canOpenURL:downloadUrl]) {
+        app openURL:downloadUrl];
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.通过safari游览器打开APP&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;在地址栏输入要打开的APP的URL schemes即可，如testApp://&lt;/code&gt;&lt;br /&gt;
+   &lt;code&gt;带参数形式：testApp://?token=123abct&amp;amp;registered=1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;4.通过访问网页打开APP&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;待续…&lt;/h1&gt;
+</description>
+        <pubDate>Wed, 09 Dec 2015 05:49:33 +0800</pubDate>
+        <link>http://jrjian.github.io/2015/12/09/iOS-small-functions/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2015/12/09/iOS-small-functions/</guid>
+        
+        <category>iOS</category>
+        
+        <category>实用功能</category>
+        
+        
+      </item>
     
       <item>
         <title>Welcome to Jian Blog</title>
