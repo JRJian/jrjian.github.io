@@ -5,8 +5,8 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 19 Dec 2015 17:15:08 +0800</pubDate>
-    <lastBuildDate>Sat, 19 Dec 2015 17:15:08 +0800</lastBuildDate>
+    <pubDate>Sat, 19 Dec 2015 17:21:15 +0800</pubDate>
+    <lastBuildDate>Sat, 19 Dec 2015 17:21:15 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -147,7 +147,7 @@ NSLog(@&quot;%@, %@&quot;, className, value);
   &lt;li&gt;&lt;code&gt;NSValueTransformers&lt;/code&gt; 可以很好地用于表示一个转换链。比如，一个应用可能需要把用户输入经过一系列的转换（比如，去掉首尾空格，去掉注音字符，然后让首字母大写）后才能把结果发送到主干系统中。&lt;/li&gt;
   &lt;li&gt;与 &lt;code&gt;block&lt;/code&gt; 不同的是，&lt;code&gt;NSValueTransformer&lt;/code&gt; 封装了反向转换。比如说，你想要把 REST API 中的键值与模型对象的属性一一对应(&lt;a href=&quot;https://github.com/Mantle/Mantle&quot;&gt;Mantle&lt;/a&gt;)；你可以创建一个可以逆向转换的 &lt;code&gt;NSValueTransformer&lt;/code&gt; 类，初始化时把 snake_case 转换为 llamaCase，发送数据到服务器端时把 llamaCase 转换为 snake_case。&lt;/li&gt;
   &lt;li&gt;另外一个优于 &lt;code&gt;block&lt;/code&gt; 的地方是：&lt;code&gt;NSValueTransformer&lt;/code&gt; 子类可以暴露出新的属性来配置转换行为。增加成员变量还可以简单清楚地记录结果，或者保存一些转换过程中需要用到的东西。&lt;/li&gt;
-  &lt;li&gt;不要忘了，我们还可以用在 &lt;code&gt;Core Data&lt;/code&gt; 中使用 &lt;code&gt;NSValueTransformer&lt;/code&gt;，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 &lt;em&gt;(原来我，这个我也不是很懂！)&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;不要忘了，我们还可以用在 &lt;code&gt;Core Data&lt;/code&gt; 中使用 &lt;code&gt;NSValueTransformer&lt;/code&gt;，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 &lt;em&gt;(这个我也不是很懂！)&lt;/em&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Sun, 20 Dec 2015 00:44:33 +0800</pubDate>

@@ -310,7 +310,7 @@ NSLog(@"%@, %@", className, value);
   <li><code>NSValueTransformers</code> 可以很好地用于表示一个转换链。比如，一个应用可能需要把用户输入经过一系列的转换（比如，去掉首尾空格，去掉注音字符，然后让首字母大写）后才能把结果发送到主干系统中。</li>
   <li>与 <code>block</code> 不同的是，<code>NSValueTransformer</code> 封装了反向转换。比如说，你想要把 REST API 中的键值与模型对象的属性一一对应(<a href="https://github.com/Mantle/Mantle">Mantle</a>)；你可以创建一个可以逆向转换的 <code>NSValueTransformer</code> 类，初始化时把 snake_case 转换为 llamaCase，发送数据到服务器端时把 llamaCase 转换为 snake_case。</li>
   <li>另外一个优于 <code>block</code> 的地方是：<code>NSValueTransformer</code> 子类可以暴露出新的属性来配置转换行为。增加成员变量还可以简单清楚地记录结果，或者保存一些转换过程中需要用到的东西。</li>
-  <li>不要忘了，我们还可以用在 <code>Core Data</code> 中使用 <code>NSValueTransformer</code>，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 <em>(原来我，这个我也不是很懂！)</em></li>
+  <li>不要忘了，我们还可以用在 <code>Core Data</code> 中使用 <code>NSValueTransformer</code>，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 <em>(这个我也不是很懂！)</em></li>
 </ol>
 
 
