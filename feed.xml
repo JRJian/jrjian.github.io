@@ -5,9 +5,163 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 13 Dec 2015 21:50:37 +0800</pubDate>
-    <lastBuildDate>Sun, 13 Dec 2015 21:50:37 +0800</lastBuildDate>
+    <pubDate>Sat, 19 Dec 2015 17:15:08 +0800</pubDate>
+    <lastBuildDate>Sat, 19 Dec 2015 17:15:08 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>NSValueTransformer教程</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;由于最近在用Mantle框架，发现代码中使用了 &lt;code&gt;NSValueTransformer&lt;/code&gt;，看懵了，不知道是用来干啥的，根据字面意思猜了个大概是 &lt;em&gt;值转换&lt;/em&gt;，为了认清这个东西，所以去了&lt;a href=&quot;http://nshipster.cn&quot;&gt;NSHipster&lt;/a&gt;查看了相关教程。由于发现作者讲的东西相对对于初学者来说可能有些难消化，所以产生了对原文进行更清晰的讲解的念头。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;是什么？&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;NSValueTransformer&lt;/code&gt; 是一个抽象类，用来将一个输入的类型值转换成另为一个类型值，主要被用于 AppKit 框架的 Cocoa binding 中。它指定了可以处理哪类输入，并且合适时甚至支持反向的转换。&lt;/p&gt;
+
+&lt;p&gt;创建一个 &lt;code&gt;NSValueTransformer&lt;/code&gt; 子类，重写几个必要的方法来实现自定义转化。&lt;br /&gt;
+有些类似于 &lt;code&gt;Protocol&lt;/code&gt;，定义了一些需要子类自己去实现的方法。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;实战&lt;/h2&gt;
+
+&lt;p&gt;下面继承自 &lt;code&gt;NSValueTransformer&lt;/code&gt; 的实现代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface ClassNameTransformer: NSValueTransformer {}// 继承NSValueTransformer
+@end
+
+#pragma mark -
+
+@implementation ClassNameTransformer
+
++ (Class)transformedValueClass {// 输出的源的类型
+    // 经过测试，调用转换的时候，并没有调用该方法，
+    // 该方法只是告诉使用者，我输出的类型是 NSString 类型
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation {// 是否允许逆向转换
+    // YES 需要实现 reverseTransformedValue:
+    // NO 不需要实现
+    // ⚠️：当返回 NO，如果调用了 reverseTransformedValue，
+        由于当前类没有实现该方法，系统会自动调用 transformedValue:
+    return NO; 
+}
+
+- (id)transformedValue:(id)value {// 转换输入的值成另一个值
+    // 返回输入的值对应类型的字符串
+    return (value == nil) ? nil : NSStringFromClass([value class]);
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们通常不会直接初始化 &lt;code&gt;NSValueTransformer&lt;/code&gt;。而是，与 &lt;code&gt;NSPersistentStore&lt;/code&gt; 和 &lt;code&gt;NSURLProtocol&lt;/code&gt; 类似，需要注册相应的实现类&lt;code&gt;setValueTransformer:forName:&lt;/code&gt;，由管理者角色的对象负责初始化它们——这里有点不同的是，你需要为注册的对象指定一个唯一的名字。&lt;/p&gt;
+
+&lt;p&gt;下面是Demo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NSString * const ClassNameTransformerName = @&quot;ClassNameTransformer&quot;;
+
+// 注册
+[NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
+
+// 获得已经注册过的 NSValueTransformer
+NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
+
+NSDate *date = [NSDate date];
+NSString *className = [valueTransformer transformedValue:date];
+
+// 由于 ClassNameTransformer 没有实现 reverseTransformedValue:
+// 故系统自动调用 transformedValue:
+NSString *value     = [valueTransformer reverseTransformedValue:className];
+NSLog(@&quot;%@, %@&quot;, className, value);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果输出 __NSDate， NSTaggedPointerString&lt;/p&gt;
+
+&lt;p&gt;我们可以在实现 &lt;code&gt;ClassNameTransformer&lt;/code&gt; 的时候，在 &lt;code&gt;+initialize&lt;/code&gt; 方法中注册该对象，这样我们在使用的时候，就直接获取该 &lt;code&gt;transformer&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;改版后的代码:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;extern NSString * const ClassNameTransformerName;
+
+@interface ClassNameTransformer: NSValueTransformer {}
+@end
+
+#pragma mark -
+
+NSString * const ClassNameTransformerName = @&quot;ClassNameTransformer&quot;;
+
+@implementation ClassNameTransformer
+
++ (void)initialize {
+    [NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
+}
+
++ (Class)transformedValueClass {
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    return (value == nil) ? nil : NSStringFromClass([value class]);
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改版后的demo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
+
+NSDate *date = [NSDate date];
+NSString *className = [valueTransformer transformedValue:date];
+NSString *value     = [valueTransformer reverseTransformedValue:className];
+NSLog(@&quot;%@, %@&quot;, className, value);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;优化&lt;/h2&gt;
+
+&lt;p&gt;到这里你可能发现了 &lt;code&gt;NSValueTransformer&lt;/code&gt; 的一个大毛病：它太难用了！如果定义多个转换器，那不是有很多冗余的代码？创建一个类，实现一大把的方法，声明一个常量，并且还要在 &lt;code&gt;+initialize&lt;/code&gt; 方法中注册它？我看还是别用算了。&lt;/p&gt;
+
+&lt;p&gt;在这个使用 &lt;code&gt;block&lt;/code&gt; 的年代，我们想要——不对，需要——一种一行（坨）代码就能搞定的实现方式。&lt;/p&gt;
+
+&lt;p&gt;一点儿元编程就可以轻松搞定这件事情。&lt;a href=&quot;https://github.com/mattt/TransformerKit/blob/master/TransformerKit/NSValueTransformer%2BTransformerKit.m#L36&quot;&gt;戳这里获取封装好的代码&lt;/a&gt;，然后我们使用的时候可以如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NSString * const TKCapitalizedStringTransformerName = @&quot;TKCapitalizedStringTransformerName&quot;;
+
+// 注册一个实现了逆向转换的 NSValueTransformer 
+[NSValueTransformer registerValueTransformerWithName:TKCapitalizedStringTransformerName transformedValueClass:[NSString class] returningTransformedValueWithBlock:^id(id value) {
+    return [value capitalizedString];
+} allowingReverseTransformationWithBlock:^id(id value) {
+    return [value lowercaseString];
+}];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;作者是利用了 &lt;code&gt;runtime&lt;/code&gt; 的机制，将这几个需要实现的方法通过用 &lt;code&gt;block&lt;/code&gt; 的方式在运行时动态生成自定义的 &lt;code&gt;NSValueTransformer&lt;/code&gt; 对象，是不是很方便。&lt;br /&gt;
+也许有人会问，这种数据转化我自定义一个类方法不就好了，如果需要逆向，实现两个互相转化的工具方法就好了，为什么需要用 &lt;code&gt;NSValueTransformer&lt;/code&gt; 这么复杂的东西？&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;优点:&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;NSValueTransformers&lt;/code&gt; 可以很好地用于表示一个转换链。比如，一个应用可能需要把用户输入经过一系列的转换（比如，去掉首尾空格，去掉注音字符，然后让首字母大写）后才能把结果发送到主干系统中。&lt;/li&gt;
+  &lt;li&gt;与 &lt;code&gt;block&lt;/code&gt; 不同的是，&lt;code&gt;NSValueTransformer&lt;/code&gt; 封装了反向转换。比如说，你想要把 REST API 中的键值与模型对象的属性一一对应(&lt;a href=&quot;https://github.com/Mantle/Mantle&quot;&gt;Mantle&lt;/a&gt;)；你可以创建一个可以逆向转换的 &lt;code&gt;NSValueTransformer&lt;/code&gt; 类，初始化时把 snake_case 转换为 llamaCase，发送数据到服务器端时把 llamaCase 转换为 snake_case。&lt;/li&gt;
+  &lt;li&gt;另外一个优于 &lt;code&gt;block&lt;/code&gt; 的地方是：&lt;code&gt;NSValueTransformer&lt;/code&gt; 子类可以暴露出新的属性来配置转换行为。增加成员变量还可以简单清楚地记录结果，或者保存一些转换过程中需要用到的东西。&lt;/li&gt;
+  &lt;li&gt;不要忘了，我们还可以用在 &lt;code&gt;Core Data&lt;/code&gt; 中使用 &lt;code&gt;NSValueTransformer&lt;/code&gt;，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 &lt;em&gt;(原来我，这个我也不是很懂！)&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sun, 20 Dec 2015 00:44:33 +0800</pubDate>
+        <link>http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/</guid>
+        
+        <category>iOS</category>
+        
+        <category>NSValueTransformer</category>
+        
+        <category>教程</category>
+        
+        
+      </item>
     
       <item>
         <title>iOS实用小功能</title>

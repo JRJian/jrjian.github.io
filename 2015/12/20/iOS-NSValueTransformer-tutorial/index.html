@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="icon" href="http://jrjian.github.io/img/favicon.ico" type="image/x-icon">
 
-    <title>Welcome to Jian Blog - 陈坚涛的博客｜Jian Blog</title>
+    <title>NSValueTransformer教程 - 陈坚涛的博客｜Jian Blog</title>
 
-    <link rel="canonical" href="http://jrjian.github.io/2015/11/28/hello-2015/">
+    <link rel="canonical" href="http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -129,12 +129,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+<!-- <img src="/img/2015-12-19-iOS-NSValueTransformer-tutorial/post-bg-2015.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
+        background-image: url('/img/2015-12-19-iOS-NSValueTransformer-tutorial/post-bg-2015.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -144,15 +144,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                        <a class="tag" href="/tags/#NSValueTransformer" title="NSValueTransformer">NSValueTransformer</a>
+                        
+                        <a class="tag" href="/tags/#教程" title="教程">教程</a>
                         
                     </div>
-                    <h1>Welcome to Jian Blog</h1>
+                    <h1>NSValueTransformer教程</h1>
                     
                     
-                    <h2 class="subheading"> "Hello World, Hello Blog"</h2>
+                    <h2 class="subheading"> "NSValueTransformer完整教程"</h2>
                     
-                    <span class="meta">Posted by Jian on November 28, 2015</span>
+                    <span class="meta">Posted by Jian on December 20, 2015</span>
                 </div>
             </div>
         </div>
@@ -170,59 +174,144 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
-  <p>“Yeah It’s on. ”</p>
-</blockquote>
+				<h2 id="section">背景</h2>
+<p>由于最近在用Mantle框架，发现代码中使用了 <code>NSValueTransformer</code>，看懵了，不知道是用来干啥的，根据字面意思猜了个大概是 <em>值转换</em>，为了认清这个东西，所以去了<a href="http://nshipster.cn">NSHipster</a>查看了相关教程。由于发现作者讲的东西相对对于初学者来说可能有些难消化，所以产生了对原文进行更清晰的讲解的念头。</p>
 
-<h2 id="section">前言</h2>
+<h2 id="section-1">是什么？</h2>
+<p><code>NSValueTransformer</code> 是一个抽象类，用来将一个输入的类型值转换成另为一个类型值，主要被用于 AppKit 框架的 Cocoa binding 中。它指定了可以处理哪类输入，并且合适时甚至支持反向的转换。</p>
 
-<p>Jian 的 Blog 就这么开通了。</p>
+<p>创建一个 <code>NSValueTransformer</code> 子类，重写几个必要的方法来实现自定义转化。<br />
+有些类似于 <code>Protocol</code>，定义了一些需要子类自己去实现的方法。</p>
 
-<p><a href="#build">跳过废话，直接看技术实现 </a></p>
+<h2 id="section-2">实战</h2>
 
-<p>2015 年，Jian 总算有个地方可以好好写点东西了。</p>
+<p>下面继承自 <code>NSValueTransformer</code> 的实现代码：</p>
 
-<p>作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。</p>
+<pre><code>@interface ClassNameTransformer: NSValueTransformer {}// 继承NSValueTransformer
+@end
 
-<p>在玩了github之后，发现github可以定制自己的网站。所以花了一天时间搞搞Personal Blog!</p>
+#pragma mark -
 
-<p id="build"></p>
-<hr />
+@implementation ClassNameTransformer
 
-<h2 id="section-1">正文</h2>
++ (Class)transformedValueClass {// 输出的源的类型
+    // 经过测试，调用转换的时候，并没有调用该方法，
+    // 该方法只是告诉使用者，我输出的类型是 NSString 类型
+    return [NSString class];
+}
 
-<p>接下来说说搭建这个博客的技术细节。  </p>
++ (BOOL)allowsReverseTransformation {// 是否允许逆向转换
+    // YES 需要实现 reverseTransformedValue:
+    // NO 不需要实现
+    // ⚠️：当返回 NO，如果调用了 reverseTransformedValue，
+        由于当前类没有实现该方法，系统会自动调用 transformedValue:
+    return NO; 
+}
 
-<p>正好之前就有关注过 <a href="https://pages.github.com/">GitHub Pages</a> + <a href="http://jekyllrb.com/">Jekyll</a> 快速 Building Blog 的技术方案，非常轻松时尚。</p>
+- (id)transformedValue:(id)value {// 转换输入的值成另一个值
+    // 返回输入的值对应类型的字符串
+    return (value == nil) ? nil : NSStringFromClass([value class]);
+}
 
-<p>其优点非常明显：</p>
+@end
+</code></pre>
 
-<ul>
-  <li><strong>Markdown</strong> 带来的优雅写作体验</li>
-  <li>非常熟悉的 Git workflow ，<strong>Git Commit 即 Blog Post</strong></li>
-  <li>利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机
-    <ul>
-      <li>如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了</li>
-    </ul>
-  </li>
-  <li>Jekyll 的自定制非常容易，基本就是个模版引擎</li>
-</ul>
+<p>我们通常不会直接初始化 <code>NSValueTransformer</code>。而是，与 <code>NSPersistentStore</code> 和 <code>NSURLProtocol</code> 类似，需要注册相应的实现类<code>setValueTransformer:forName:</code>，由管理者角色的对象负责初始化它们——这里有点不同的是，你需要为注册的对象指定一个唯一的名字。</p>
 
-<hr />
+<p>下面是Demo:</p>
 
-<p>配置的过程中也没遇到什么坑，基本就是 Git 的流程，相当顺手</p>
+<pre><code>NSString * const ClassNameTransformerName = @"ClassNameTransformer";
 
-<p>大的 Jekyll 主题上直接 fork 了 <a href="https://github.com/Huxpro/huxpro.github.io#featured-tags">Hux Blog</a></p>
+// 注册
+[NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
 
-<p>本地调试环境需要 <code>gem install jekyll</code>，结果 rubygem 的源居然被墙了……后来手动改成了我大淘宝的镜像源才成功 <a href="https://ruby.taobao.org">RubyGems 镜像</a></p>
+// 获得已经注册过的 NSValueTransformer
+NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
 
-<p>Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Less 里改就好了（平时更习惯 SCSS 些），**Hux Blog的作者补了很多Bootstrap的缺陷，并且优化了文字布局排版等，具体可以看<a href="https://github.com/Huxpro/huxpro.github.io#featured-tags">原文</a>……</p>
+NSDate *date = [NSDate date];
+NSString *className = [valueTransformer transformedValue:date];
 
-<h2 id="section-2">后记</h2>
+// 由于 ClassNameTransformer 没有实现 reverseTransformedValue:
+// 故系统自动调用 transformedValue:
+NSString *value     = [valueTransformer reverseTransformedValue:className];
+NSLog(@"%@, %@", className, value);
+</code></pre>
 
-<p>蛮喜欢这个主题风格的blog，后续慢慢加强前端的技能，同时build出令自己满意的Jian Blog!</p>
+<p>结果输出 __NSDate， NSTaggedPointerString</p>
 
-<p>—— Jian 后记于 2015.10</p>
+<p>我们可以在实现 <code>ClassNameTransformer</code> 的时候，在 <code>+initialize</code> 方法中注册该对象，这样我们在使用的时候，就直接获取该 <code>transformer</code>。</p>
+
+<p>改版后的代码:</p>
+
+<pre><code>extern NSString * const ClassNameTransformerName;
+
+@interface ClassNameTransformer: NSValueTransformer {}
+@end
+
+#pragma mark -
+
+NSString * const ClassNameTransformerName = @"ClassNameTransformer";
+
+@implementation ClassNameTransformer
+
++ (void)initialize {
+    [NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
+}
+
++ (Class)transformedValueClass {
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    return (value == nil) ? nil : NSStringFromClass([value class]);
+}
+
+@end
+</code></pre>
+
+<p>改版后的demo:</p>
+
+<pre><code>NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
+
+NSDate *date = [NSDate date];
+NSString *className = [valueTransformer transformedValue:date];
+NSString *value     = [valueTransformer reverseTransformedValue:className];
+NSLog(@"%@, %@", className, value);
+</code></pre>
+
+<h2 id="section-3">优化</h2>
+
+<p>到这里你可能发现了 <code>NSValueTransformer</code> 的一个大毛病：它太难用了！如果定义多个转换器，那不是有很多冗余的代码？创建一个类，实现一大把的方法，声明一个常量，并且还要在 <code>+initialize</code> 方法中注册它？我看还是别用算了。</p>
+
+<p>在这个使用 <code>block</code> 的年代，我们想要——不对，需要——一种一行（坨）代码就能搞定的实现方式。</p>
+
+<p>一点儿元编程就可以轻松搞定这件事情。<a href="https://github.com/mattt/TransformerKit/blob/master/TransformerKit/NSValueTransformer%2BTransformerKit.m#L36">戳这里获取封装好的代码</a>，然后我们使用的时候可以如下：</p>
+
+<pre><code>NSString * const TKCapitalizedStringTransformerName = @"TKCapitalizedStringTransformerName";
+
+// 注册一个实现了逆向转换的 NSValueTransformer 
+[NSValueTransformer registerValueTransformerWithName:TKCapitalizedStringTransformerName transformedValueClass:[NSString class] returningTransformedValueWithBlock:^id(id value) {
+    return [value capitalizedString];
+} allowingReverseTransformationWithBlock:^id(id value) {
+    return [value lowercaseString];
+}];
+</code></pre>
+
+<p>作者是利用了 <code>runtime</code> 的机制，将这几个需要实现的方法通过用 <code>block</code> 的方式在运行时动态生成自定义的 <code>NSValueTransformer</code> 对象，是不是很方便。<br />
+也许有人会问，这种数据转化我自定义一个类方法不就好了，如果需要逆向，实现两个互相转化的工具方法就好了，为什么需要用 <code>NSValueTransformer</code> 这么复杂的东西？</p>
+
+<h2 id="section-4">优点:</h2>
+
+<ol>
+  <li><code>NSValueTransformers</code> 可以很好地用于表示一个转换链。比如，一个应用可能需要把用户输入经过一系列的转换（比如，去掉首尾空格，去掉注音字符，然后让首字母大写）后才能把结果发送到主干系统中。</li>
+  <li>与 <code>block</code> 不同的是，<code>NSValueTransformer</code> 封装了反向转换。比如说，你想要把 REST API 中的键值与模型对象的属性一一对应(<a href="https://github.com/Mantle/Mantle">Mantle</a>)；你可以创建一个可以逆向转换的 <code>NSValueTransformer</code> 类，初始化时把 snake_case 转换为 llamaCase，发送数据到服务器端时把 llamaCase 转换为 snake_case。</li>
+  <li>另外一个优于 <code>block</code> 的地方是：<code>NSValueTransformer</code> 子类可以暴露出新的属性来配置转换行为。增加成员变量还可以简单清楚地记录结果，或者保存一些转换过程中需要用到的东西。</li>
+  <li>不要忘了，我们还可以用在 <code>Core Data</code> 中使用 <code>NSValueTransformer</code>，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 <em>(原来我，这个我也不是很懂！)</em></li>
+</ol>
 
 
                 <hr>
@@ -232,21 +321,12 @@
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/2015/11/28/hello-2015"
-                    data-title="Welcome to Jian Blog"
-                    data-url="http://jrjian.github.io/2015/11/28/hello-2015/"
-                    data-images="http://jrjian.github.io/img/post-bg-2015.jpg"
-                    data-content="
-  “Yeah It’s on. ”
-
-
-前言
-
-Jian 的 Blog 就这么开通了。
-
-跳过废话，直接看技术实现 
-
-2015 年，Jian 总算有... | 陈坚涛的博客｜Jian Blog " >
+                    data-thread-key="/2015/12/20/iOS-NSValueTransformer-tutorial"
+                    data-title="NSValueTransformer教程"
+                    data-url="http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/"
+                    data-images="http://jrjian.github.io/img/2015-12-19-iOS-NSValueTransformer-tutorial/post-bg-2015.jpg"
+                    data-content="背景
+由于最近在用Mantle框架，发现代码中使用了 NSValueTransformer，看懵了，不知道是用来干啥的，根据字面意思猜了个大概是 值转换，... | 陈坚涛的博客｜Jian Blog " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -265,10 +345,10 @@ Jian 的 Blog 就这么开通了。
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2015/12/09/iOS-small-functions/" data-toggle="tooltip" data-placement="top" title="iOS实用小功能">Next Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/2015/12/09/iOS-small-functions/" data-toggle="tooltip" data-placement="top" title="iOS实用小功能">&larr; Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
@@ -277,9 +357,9 @@ Jian 的 Blog 就这么开通了。
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/2015/11/28/hello-2015"
-                        data-title="Welcome to Jian Blog"
-                        data-url="http://jrjian.github.io/2015/11/28/hello-2015/" >
+                        data-thread-key="/2015/12/20/iOS-NSValueTransformer-tutorial"
+                        data-title="NSValueTransformer教程"
+                        data-url="http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
