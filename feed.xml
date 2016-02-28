@@ -5,9 +5,1005 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 20 Feb 2016 19:12:33 +0800</pubDate>
-    <lastBuildDate>Sat, 20 Feb 2016 19:12:33 +0800</lastBuildDate>
+    <pubDate>Mon, 29 Feb 2016 00:19:37 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Feb 2016 00:19:37 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>学习Swift开发iOS应用教程第二篇</title>
+        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用第二部分！&lt;/p&gt;
+
+&lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
+
+&lt;p&gt;在系列的第二部分，你将会学到新的技能并且运用到一个猜数字的游戏中！&lt;/p&gt;
+
+&lt;p&gt;你将会使用到第一部分学习到的大部分知识，所以建议先复习下上一篇教程的完整代码finished playground file 。&lt;/p&gt;
+
+&lt;p&gt;准备好进行猜谜！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意: 系列的这一部分，您将开发一个命令行的 OS X 应用程序。因此，你需要最低Xcode 6.1版本来完成这个教程。在开始之前请再三确认您的Xcode版本。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;原型编写&lt;/h1&gt;
+
+&lt;p&gt;在一部分，你将会再现一个经典游戏“Higher or Lower”。电脑将会随机生成一个保密的数字并且引导你来猜测这个数。在每一轮猜测后，计算机会告诉你猜测的数字比保密的数字大或者小直到你猜对为止。同时游戏会记录你猜测的数次。&lt;/p&gt;
+
+&lt;p&gt;首先，在你创建命令行工具应用程序前，先使用playground设计个原型。打开Xcode创建一个playground文件，点击Get started with a playground:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;跟上一篇教程中一样，设置文件名为 &lt;em&gt;MyPlayground，iOS&lt;/em&gt; 平台，然后点击下一步。保存工程文件到你指定的地方。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;删除顶部的注释内容和String的定义，留下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后，复制以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func randomIntBetween(low:Int, high:Int) -&amp;gt; Int {
+  let range = high - (low - 1)
+  return (Int(arc4random()) % range) + (low - 1)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你不需要理解以上全部内容，但是你要知道这个函数是返回一个low和high之间的一个随机数。最后，你会编写你自己的函数，你可以使用这些函数就像第一篇教程使用Int()函数一样。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;是时候表演真正的技术了！&lt;/h1&gt;
+
+&lt;p&gt;首先要做的事情是告诉程序设置一个谜底数字。提供给您的randomIntBetween方法将派上用场。在playground底部编写以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let answer = randomIntBetween(1, high: 100)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你刚刚定义了一个整型常量answer并且初始化为一个1到100之间的随机数。如果你重新编写不同的代码那么返回的结果每次都不想同（这将会使游戏非常的乏味）。&lt;/p&gt;
+
+&lt;p&gt;现在，玩家需要知道游戏规则。你能够使用print()语句打印规则。编写下面这句代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Enter a number between 1 and 100.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不幸的是，playgrounds不支持用户输入。但是命令行工具支持。现在，创建一个新的整型变量用来表示猜测的数字，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var guess = 7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;是时候使用更多第一篇所学到的知识了。你需要一些条件语句告诉玩家他们猜测的数字大于，小于还是等于谜底数字。&lt;/p&gt;
+
+&lt;p&gt;去吧，你自己尝试下。不要害怕查阅第一篇教程的知识或者你已经创建的playground文件。如果你遇到困难，下面是解决方案。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(guess &amp;gt; answer) {
+  print(&quot;Lower!&quot;)
+} else if(guess &amp;lt; answer) {
+  print(&quot;Higher!&quot;)
+} else {
+  print(&quot;Correct! The answer was \(answer).&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;创建一款命令行应用程序&lt;/h1&gt;
+
+&lt;p&gt;Playgrounds能够很好的测试代码片段。但是它不支持用户输入或者用来制作应用程序。&lt;/p&gt;
+
+&lt;p&gt;要做到这一点，你需要在Xcode中创建不同类型的项目，你将会使用OS X(MAC系统)命令行工具，因为这是最简单的开始方式。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;记住 - 这些教程的内容需要Xcode6.1(等于)之后的版本。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;打开Xcode点击Create a new Xcode project按钮。如果你不小心关闭了 “Welcome to Xcode” 窗口或者已经打开了一个Xcode项目，你可以点击顶部菜单File选中New&amp;gt;Project新建个项目。&lt;/p&gt;
+
+&lt;p&gt;然后，在OS X章节中，选中Application&amp;gt;Command Line Tool点击下一步。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在下面的屏幕中，根据指示填写表格：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Product Name: My First Project&lt;/li&gt;
+  &lt;li&gt;Organization Name: 选填。&lt;/li&gt;
+  &lt;li&gt;Organization Identifier: 输入 com.yourname, 例如 com.rybristow&lt;/li&gt;
+  &lt;li&gt;Language: Swift&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击下一步。选择一个保存工程的路径。我建议放在跟第一篇教程中的Playground文件同一个文件夹目录。点击Create之后Xcode会设置好的项目并且打开。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;运行应用程序&lt;/h1&gt;
+
+&lt;p&gt;跟第一次启动Playground文件一样，Xcode已经预先在文件中编写了一些代码。尝试点击屏幕左上方Run按钮。它看起来像一个三角形”Play”按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/5.png&quot; alt=&quot;图5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当你点击了这个按钮。Xcode会运行你的App。注意屏幕底部。有一个横跨底部的框。在右半部分，你应该能看到程序打印的Hello, World!文本。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/6.png&quot; alt=&quot;图6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note: 如果你觉得屏幕比较窄, 你可能不能够一次查看双方底部的框。你可能看到这样的:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果出现这种情况, 在方框的右下角有几个按钮. 点击其中一个右半部有阴影的按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/8.png&quot; alt=&quot;图8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在进入编写第一个应用程序之前，简单的介绍Xcode的一些特性。&lt;/p&gt;
+
+&lt;h1 id=&quot;xcode&quot;&gt;Xcode&lt;/h1&gt;
+&lt;p&gt;Xcode的左窗格中显示的是项目的一部分的文件列表。这些看见的文件都是项目模板为提供使用自动生成的。找到 My First Project Folder 中的main.swift文件，点击它之后将会出现在编辑器中，如下图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/9.png&quot; alt=&quot;图9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;编辑器界面看起来应该是下面这样。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/10.png&quot; alt=&quot;图10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是否似曾相识的赶脚。文件最后一行代码： print(“Hello, World!”)在第一篇教程中你编写过。然而，事情往往不总是相同。当你在Playground中编程，屏幕右边会持续跟踪你编写的每一个变量值。Swift格式的文件并不会这样做，它实际上是用来创建应用程序的。&lt;/p&gt;
+
+&lt;p&gt;如果你使用Objective-C语言来编写App，会有更多的这样的基本文件。并且代码里会定义了一个必要的main函数入口。Swift不再需要这个函数，取而代之项目需要main.swift文件，所以要确保你不尝试重命名此文件。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;从原型到项目&lt;/h1&gt;
+
+&lt;p&gt;首先，删除整行print()语句，保留顶部的注释以及 &lt;code&gt;import Foundation&lt;/code&gt; 这一行。&lt;/p&gt;
+
+&lt;p&gt;现在，你可以从playground拉取一些代码。复制playground里面的代码然后粘贴到main.swift文件的import Foundation代码下面。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let answer = randomIntBetween(0, high: 100)
+ 
+print(&quot;Enter a number between 1 and 100.&quot;)
+ 
+var guess = 7
+ 
+if(guess &amp;gt; answer) {
+  print(&quot;Lower!&quot;)
+} else if(guess &amp;lt; answer) {
+  print(&quot;Higher!&quot;)
+} else {
+  print(&quot;Correct! The answer was \(answer).&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;糟糕！代码报红。不用担心，只不过是因为计算机找不到randomIntBetween()函数。解决办法是下载已经写好的&lt;a href=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2014/10/helpers.swift_.zip&quot;&gt;辅助文件&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;要使用该新文件，首先下载，然后拖拽下载的文件至Xcode工程My First Project文件里面。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/11.png&quot; alt=&quot;图11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;确保你勾选了 &lt;em&gt;Copy items if needed&lt;/em&gt; 选项。这样的话，如果原始文件的位置移动了，您的项目仍然拥有它。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/12.png&quot; alt=&quot;图12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;保存项目并且错误应该会消失。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;支持玩家输入&lt;/h1&gt;
+
+&lt;p&gt;让我们说实话，如果你每猜一次数字需要手动重启游戏应用那是很没劲的。你可以通过允许玩家输入来解决这个问题。helpers.swift文件提供了该方法方便你调用。&lt;br /&gt;
+在main.swift中以下两段代码间插入代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Enter a number between 1 and 100.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var guess = 7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因此你需要一些空间来编写代码，删除下面这行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var guess = 7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;首先你需要创建一个常量来保存玩家的输入。编写以下代码替换刚刚删除的代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let userInput = input()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你刚刚创建了一个String类型变量userInput来存储玩家的键盘输入。非常好，但是你不能够使用String类型跟Int类型进行对比。为了达到效果，首先你得将输入的String类型转化成Int类型。看看你能否通过第一部分学习的知识来完成这项挑战。如果你有困难，我已经为了提供了解决方案。&lt;br /&gt;
+提示：你需要使用到if let语句。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let inputAsInt = Int(userInput)
+if let guess = inputAsInt  {
+ 
+}  else  {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一旦玩家输入的数据类型是整型，程序就会执行if let紧跟着的第一个花括内的代码块，花括号内的代码应该加入之前学到if/else语句。你的代码应该是下面这样子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+let answer = randomIntBetween(1, 100)
+ 
+print(&quot;Enter a number between 1 and 100.&quot;)
+ 
+let userInput = input()
+let inputAsInt = userInput.toInt()
+ 
+if let guess = inputAsInt {
+  if(guess &amp;gt; answer) {
+    print(&quot;Lower!&quot;)
+  } else if(guess &amp;lt; answer) {
+    print(&quot;Higher!&quot;)
+  } else {
+    print(&quot;Correct! The answer was \(answer).&quot;)
+  }
+}  else  {
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在你应该提示玩家如果玩家输入的内容不正确。像这样子：在if let语句的else代码块中添加以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Invalid input! Please enter a number.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;请点击运行按钮来运行你的游戏。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d2/13.png&quot; alt=&quot;图13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;非常棒！但是好像只猜一次就想取得胜利有些难。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;完善游戏&lt;/h1&gt;
+
+&lt;p&gt;你的游戏快完成了！你还需要做的是编写更多的代码完善你的第一个Swift游戏。目前这个游戏只允许玩家猜一次。你希望游戏能让玩家猜测多次直到玩家取得胜利。为了实现这功能，你需要编写一个简单的while循环并且告诉计算机何时退出该循环。在你的程序最下面添加以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;while(true)  {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;剪切所有代码除了常量answer那一行然后粘贴到while循环体内。&lt;br /&gt;
+你的代码应该是这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+let answer = randomIntBetween(0, high: 100)
+var turn = 1
+ 
+while(true) {
+  print(&quot;Guess #\(turn): Enter a number between 1 and 100.&quot;)
+ 
+  let userInput = input()
+  let inputAsInt = Int(userInput)
+  if let guess = inputAsInt  {
+    if(guess &amp;gt; answer) {
+      print(&quot;Lower!&quot;)
+    } else if(guess &amp;lt; answer) {
+      print(&quot;Higher!&quot;)
+    } else {
+      print(&quot;Correct! The answer was \(answer).&quot;)
+      break
+    }
+  }  else  {
+    print(&quot;Invalid input! Please enter a number.&quot;)
+    continue
+  }
+  turn = turn + 1
+}
+ 
+print(&quot;It took you \(turn) tries.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行游戏你将会发现该游戏无法停止。(除非你点击了停止运行按钮)你需要实现一个结束游戏的规则。这需要用到在第一部分所学的break语句。&lt;br /&gt;
+应该在if/else语句中else代码块内加入break语句；&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;} else {
+  print(&quot;Correct! The answer was \(answer).&quot;)
+  break
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当玩家输入正确的答案程序将会退出while循环。&lt;br /&gt;
+最后但不是最不重要的一点,你需要记录玩家总共猜测的次数。&lt;br /&gt;
+在while循环之前创建一个变量turn初始化为1。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var turn = 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在需要调整print()语句打印玩家当前第几轮猜测。代码应该是这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Guess #\(turn): Enter a number between 1 and 100.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;增长变量turn的代码最好位置是放在while循环的底部。在最后的一个右花括号里面加入这行代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;turn = turn + 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后，在while循环之后加入print()语句来告诉用户猜中结果一共花了几次尝试。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;It took you \(turn) tries.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后一个建议在合适的地方加入continue语句告诉玩家的输入不正确。这样一来，玩家就不会不知道发生了什么。else语句是紧跟if/else语句的，所以代码应该是这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;} else  {
+  print(&quot;Invalid input! Please enter a number.&quot;)
+  continue
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你的完整代码应该看起来像：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+let answer = randomIntBetween(0, 100)
+var turn = 1
+ 
+while(true)  {
+ 
+  print(&quot;Guess #\(turn): Enter a number between 1 and 100.&quot;)
+ 
+  let userInput = input()
+ 
+  let inputAsInt = userInput.toInt()
+  if let guess = inputAsInt  {
+ 
+    if(guess &amp;gt; answer) {
+      print(&quot;Lower!&quot;)
+    } else if(guess &amp;lt; answer) {
+      print(&quot;Higher!&quot;)
+    } else {
+      print(&quot;Correct! The answer was \(answer).&quot;)
+      break
+    }
+ 
+  } else  {
+    print(&quot;Invalid input! Please enter a number.&quot;)
+    continue
+  }
+ 
+  turn = turn + 1
+ 
+}
+ 
+print(&quot;It took you \(turn) tries.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;干得好！运行并享受你的游戏。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Guess #1: Enter a number between 1 and 100.
+10
+Higher!
+Guess #2: Enter a number between 1 and 100.
+50
+Higher!
+Guess #3: Enter a number between 1 and 100.
+80
+Lower!
+Guess #4: Enter a number between 1 and 100.
+60
+Higher!
+Guess #5: Enter a number between 1 and 100.
+70
+Higher!
+Guess #6: Enter a number between 1 and 100.
+75
+Lower!
+Guess #7: Enter a number between 1 and 100.
+73
+Correct! The answer was 73.
+It took you 7 tries.
+Program ended with exit code: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;何去何从？&lt;/h1&gt;
+
+&lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn3.raywenderlich.com/wp-content/uploads/2015/09/MyFirstProject.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
+点击该系列下一篇（暂未开放）教程，你将会学到更多的Swift知识包括对象和类的使用！&lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;著作权声明&lt;/h1&gt;
+&lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114173/learn-to-code-ios-apps-with-swift-tutorial-2-your-first-project&quot;&gt;Learn to Code iOS Apps with Swift Tutorial 2: Your first project&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Feb 2016 19:49:33 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/02/28/swift-tutorial-2/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/02/28/swift-tutorial-2/</guid>
+        
+        <category>Swift</category>
+        
+        <category>iOS</category>
+        
+        <category>教程</category>
+        
+        <category>翻译</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>学习Swift开发iOS应用教程第一篇</title>
+        <description>&lt;p&gt;你是否有想过自己创建一个iPhone或者iPad App是多么帅气的事情?&lt;/p&gt;
+
+&lt;p&gt;此时不学更待何时?&lt;/p&gt;
+
+&lt;p&gt;这是一个完全的iOS初级开发者的系列教程，它将会通过各种基础知识(类似开始Swift编程主题或制作一个命令行应用)来一步步引导你开发一个具有丰富的用户界面的iOS应用程序。&lt;/p&gt;
+
+&lt;p&gt;iOS应用开发者是学无止尽的。这次的Swift系列教程你将会学习到Swift开发的基础知识！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：如果你是个编程初学者，这个教程为你而打造！如果你已经有一些编程经验并且想要更快的学习，可以查阅本系列教程。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;开始&lt;/h1&gt;
+
+&lt;p&gt;第一步下载Xcode - 你编写代码的地方。你能够在Mac 的 AppStore中&lt;a href=&quot;https://itunes.apple.com/us/app/xcode/id497799835?mt=12&quot;&gt;免费下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;确保你的Xcode是最新版本 - 必需是Xcode6或者更新的版本&lt;/p&gt;
+
+&lt;p&gt;一旦你安装了Xcode，打开Xcode并且点击 &lt;em&gt;Get started with a playground&lt;/em&gt; 按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：如果你没看到 &lt;em&gt;Welcome to Xcode&lt;/em&gt; 窗口，点击 &lt;em&gt;Window\Welcome to Xcode&lt;/em&gt; 打开它。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Playground是一个简单方式来玩耍Swift。&lt;/p&gt;
+
+&lt;p&gt;运行一个playground程序跟iPhone程序是不同的，然而重要的是可以帮你理解Swift的基础。不要担心，很快你将会创建你自己的iPhone应用程序。&lt;/p&gt;
+
+&lt;p&gt;设置名字：&lt;em&gt;MyPlayground&lt;/em&gt; ，平台选择 &lt;em&gt;iOS&lt;/em&gt; ，然后点击下一步，保存playground项目到你想要存放的地方。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;playgrounds&quot;&gt;Playgrounds介绍&lt;/h1&gt;
+
+&lt;p&gt;你将会看到创建的playground里面已经存在3行代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Playground - noun: a place where people can play
+
+import UIKit
+
+var str = &quot;Hello, playground&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下面是playground代码的每一行解析。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Playground - noun: a place where people can play
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第一行，开头是两个正斜杠，代表一行注释。&lt;br /&gt;
+这行注释是为你准备的或者说是给其他开发者看的。它并没有影响你的代码功能。把它想成”给你的代码加注释的一种方式”。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二行代码 &lt;code&gt;import UIKit&lt;/code&gt; ，把它想成”聪明的苹果开发员写的一些代码”。你现在所需要知道的是你需要这行代码才能让你的代码工作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var str = &quot;Hello, playground&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第三行代码你应该需要聚焦一下。&lt;br /&gt;
+这行代码创建了一个 &lt;code&gt;str&lt;/code&gt; 变量并且持有值”Hello, playground”。在窗口的右边，Xcode会持续跟踪这个 &lt;code&gt;str&lt;/code&gt; 变量的持有值。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;尝试”Hello, playground”改成”Look what I can do!”，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var str = &quot;Look what I can do!&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你能看到窗口右边的值发生了改变了吗？恭喜你，你刚刚编程了!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/5.png&quot; alt=&quot;图5&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;专属计算器&lt;/h1&gt;
+
+&lt;p&gt;让我们看看你还能做啥。在文件底部，尝试编一条基本运算表达式 &lt;code&gt;2+2&lt;/code&gt; 然后键入回车键：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2+2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Playground将会把答案显示在窗口的右边：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/6.png&quot; alt=&quot;图6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;真酷，不是吗？你还可以编写其他的数学表达式。&lt;/p&gt;
+
+&lt;p&gt;挑战：快速通过Playgrounds告诉我 &lt;code&gt;123 * 456&lt;/code&gt; 的结果是什么！&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;br /&gt;
+在playground编写以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;123*456
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在窗口右边的答案如下：&lt;br /&gt;
+&lt;em&gt;56,088&lt;/em&gt;&lt;br /&gt;
+你真是个数学天才！&lt;/p&gt;
+
+&lt;p&gt;把playground当作一个计算器是非常棒的，现在我们继续编写更多的代码！删除所有的代码除了 &lt;code&gt;import UIKit&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;极其重要的是如果你删除这行代码Playground将不会工作。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;变量&lt;/h1&gt;
+
+&lt;p&gt;接下来，是时候来玩玩变量(variables)了。&lt;br /&gt;
+变量是用来存储值的。当你创建了一个变量，应该使用如下句法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var yourVariableName: yourType = yourInitialValue
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下命名是可替代的：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;yourVariableName:可以定义你想要的变量名字，比如str或者age。&lt;/li&gt;
+  &lt;li&gt;yourType:变量的类型，比如String或Int。更多的类型在下面会讲解到。&lt;/li&gt;
+  &lt;li&gt;yourInitialValue：初始化的默认值，比如”Look what I can do!”或者18。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;尝试写个例子！添加以下代码到你的playground底部：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var str: String = &quot;Look what I can do!&quot;
+var age: Int = 18
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第一行代码创建了一个 &lt;code&gt;String&lt;/code&gt; 类型的变量 &lt;code&gt;str&lt;/code&gt; ，并且设置了个初始值为 “Look what I can do!”&lt;br /&gt;
+第二行代码创建了一个 &lt;code&gt;Int&lt;/code&gt; 类型的变量 &lt;code&gt;age&lt;/code&gt;，初始值为18。&lt;/p&gt;
+
+&lt;p&gt;你学了如何创建一个变量，但是你可能想知道 &lt;code&gt;String&lt;/code&gt; 跟 &lt;code&gt;Int&lt;/code&gt; 类型有什么不同，并且还有什么其它的类型。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;类型&lt;/h1&gt;
+
+&lt;p&gt;Swift中的一些基本类型：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Int - 所有的数字或者整数&lt;/li&gt;
+  &lt;li&gt;Double - 浮点数&lt;/li&gt;
+  &lt;li&gt;Bool - true或者false两个值&lt;/li&gt;
+  &lt;li&gt;String - “string”字符或者文字&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用这些数据类型练习。在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var luckyNumber: Int = 7
+var costOfCandy: Double = 1.25
+var hungry: Bool = true
+var name: String = &quot;Ryland&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意playground窗口的右边区域会持续跟踪每一个变量的值。现在，尝试改变字符变量 &lt;code&gt;name&lt;/code&gt; 的值。&lt;br /&gt;
+在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;name = &quot;Ry&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这一行代码不需要使用关键字 &lt;code&gt;var&lt;/code&gt; 或者：&lt;code&gt;String&lt;/code&gt; ，因为变量已经创建过了。你需要做的只是改变它存储的值。&lt;/p&gt;
+
+&lt;p&gt;挑战：尝试一下。在代码底部，创建一个变量来表达你喜欢的视频游戏。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var favoriteGame: String = &quot;超级马里奥&quot;
+favoriteGame = &quot;宠物小精灵。&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;常量&lt;/h1&gt;
+
+&lt;p&gt;一些特殊的变量类型叫常量。&lt;/p&gt;
+
+&lt;p&gt;不再是用 &lt;code&gt;var&lt;/code&gt; 关键字定义，而是 &lt;code&gt;let&lt;/code&gt; 。它使定义的变量不可变，或者说不能够修改。&lt;br /&gt;
+尽可能的，你应该使用 &lt;code&gt;let&lt;/code&gt; 来替代 &lt;code&gt;var&lt;/code&gt; 它能使你的程序跑的更快，因为编译器不需要计算值的改变。任何数据类型都能够被定义成常量，如同任何数据类型都能够被定义成变量一样。&lt;/p&gt;
+
+&lt;p&gt;在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let life: Int = 42
+let pi: Double = 3.14
+let canTouchThis: Bool = false
+let captain: String = &quot;Kirk&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;尝试给 &lt;code&gt;captain&lt;/code&gt; 变量赋新值，例如”Hook”。在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;captain = &quot;Hook&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意你的左手边有个红色小感叹号标志。这代表你的代码有错误。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击标志，会弹出提示错误信息”Cannot assign to ‘let’ value ‘captain’ “。这表示一旦你初始化的变量定义为 &lt;code&gt;let&lt;/code&gt; ，它的值就不能够被改变。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/8.png&quot; alt=&quot;图8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;移除 &lt;code&gt;captain = &quot;Hook&quot;&lt;/code&gt; 来摆脱错误。&lt;br /&gt;
+挑战：定义一个 &lt;code&gt;Int&lt;/code&gt; 常量 &lt;code&gt;favoriteNumber&lt;/code&gt; ，并且设置你喜欢的数字。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let favoriteNumber: Int = 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;inferred-typing&quot;&gt;类型推导（Inferred Typing）&lt;/h1&gt;
+
+&lt;p&gt;打字累了把？不用怕，Swift已经为你想好了。&lt;br /&gt;
+Swift的一个新特性叫类型推导。意思是如果你在定义变量的时候提供了初始化值，Swift能够预期知道数据类型以至于你不需要声明变量的类型。&lt;br /&gt;
+这样不仅能够为编程的时候节省时间，而且能够让你的代码更简单。&lt;/p&gt;
+
+&lt;p&gt;尝试一下将代码 &lt;code&gt;&quot; var luckyNumber: Int = 7 &quot;&lt;/code&gt; 替换成以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; var luckyNumber: Int = 7 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/9.jpg&quot; alt=&quot;图9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这也许看起来不是个大事，但是长远来说它节省了你许多宝贵时间！&lt;br /&gt;
+记住，类型推导只会在你提供了正确的信息后才会工作。如果你希望变量 &lt;code&gt;luckyNumber&lt;/code&gt; 是 &lt;code&gt;Double&lt;/code&gt; 类型，你需要设置 &lt;code&gt;luckyNumber&lt;/code&gt; 等于7.0(清晰的表示它就是个浮点数,而不是一个整型)。&lt;/p&gt;
+
+&lt;p&gt;挑战：将之前的变量或者常量改成使用类型推导。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+ 
+var str = &quot;Look what I can do!&quot;
+var age = 18
+ 
+var luckyNumber = 7
+var costOfCandy = 1.25
+var hungry = true
+var name = &quot;Ryland&quot;
+ 
+name = &quot;Ry&quot;
+ 
+var favoriteGame = &quot;Mario Kart&quot;
+favoriteGame = &quot;Super Smash Bros.&quot;
+ 
+let life = 42
+let pi = 3.14
+let canTouchThis = false
+let captain = &quot;Kirk&quot;
+ 
+let favoriteNumber = 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;比较运算符&lt;/h1&gt;
+
+&lt;p&gt;如前面所解释Playground能够做数学运算，比较数字和值。这些操作符包括如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&amp;gt; 大于&lt;/li&gt;
+  &lt;li&gt;&amp;lt; 小于&lt;/li&gt;
+  &lt;li&gt;== 等于&lt;/li&gt;
+  &lt;li&gt;&amp;gt;= 大于等于&lt;/li&gt;
+  &lt;li&gt;&amp;amp;&amp;amp; 逻辑与&lt;/li&gt;
+  &lt;li&gt;|| 逻辑或&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;能够使用这些操作符来对比两个值。&lt;br /&gt;
+首先，定义一些变量并且初始化它们，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let batmanCoolness = 10
+var supermanCoolness = 9
+var aquamanCoolness = 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;很好！现在你能够使用其中的两个变量进行比较运算符测试。在playground的底部编写如下代码块：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;batmanCoolness &amp;lt; aquamanCoolness
+supermanCoolness &amp;gt;= 8
+batmanCoolness == (aquamanCoolness + supermanCoolness)
+batmanCoolness &amp;gt; aquamanCoolness &amp;amp;&amp;amp; batmanCoolness == (aquamanCoolness + supermanCoolness)
+batmanCoolness &amp;lt; supermanCoolness || aquamanCoolness &amp;lt; supermanCoolness
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;观察窗口右手边的灰色区域。Playground将会将表达式的比较结果显示在里面。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/10.png&quot; alt=&quot;图10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;AND`表达式(&amp;amp;&amp;amp;)，两边的表达式都必须为真才为真。OR表达式(||)，两个表达式只要一个为真就为真。如果左边的表达式已经为真，那么剩下的表达式将不会被执行。&lt;/p&gt;
+
+&lt;p&gt;挑战：尝试为蜘蛛侠定义一个新变量 &lt;code&gt;spidermanCoolness&lt;/code&gt; 并且给它一个冷酷的值。然后尝试使用比较运算符(如 &amp;gt;, &amp;lt;, ==, &amp;amp;&amp;amp;, 和 ||)对比蜘蛛侠和其他超级英雄的冷酷值。 &lt;em&gt;(注意我定义了一个不可变的蝙蝠侠常量 &lt;code&gt;batmanCoolness&lt;/code&gt; ）&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/11.png&quot; alt=&quot;图11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var spidermanCoolness = 7
+(spidermanCoolness + aquamanCoolness) &amp;gt; supermanCoolness
+spidermanCoolness == 7 &amp;amp;&amp;amp; aquamanCoolness == 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;ifelse&quot;&gt;if/else控制流语句&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;if&lt;/code&gt; 语句中，如果表达式为真，计算机将会执行为真的代码块，如果表示为假，计算机将不会执行为真的代码块。&lt;br /&gt;
+在playground的底部编写如下代码块：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (batmanCoolness &amp;gt; spidermanCoolness) {
+  spidermanCoolness = spidermanCoolness - 1
+} else if (batmanCoolness &amp;gt;= spidermanCoolness) {
+  spidermanCoolness = spidermanCoolness - 1
+} else {
+  spidermanCoolness = spidermanCoolness + 1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果蝙蝠侠（Batman）更冷酷那么蜘蛛侠（Spiderman）的冷酷值会递减，如果蜘蛛侠更冷酷那么蜘蛛侠的冷酷值会递增。&lt;/p&gt;
+
+&lt;p&gt;如果蜘蛛侠的冷酷值不等于蝙蝠侠，你可以通过Playground让蜘蛛侠的冷酷值减少至6.正如你看到的灰色区域，程序永远不会进入 &lt;code&gt;else if&lt;/code&gt; 语句，甚至 &lt;code&gt;else if&lt;/code&gt;语句为真。这是因为程序已经找到第一个 &lt;code&gt;if&lt;/code&gt; 语句为真，所以不会检测剩下的 &lt;code&gt;if/else&lt;/code&gt; 语句。&lt;/p&gt;
+
+&lt;p&gt;挑战：在最后一个例子下面使用超级英雄（superheroes）创建你自己的控制流语句。记住，并不是 &lt;code&gt;if&lt;/code&gt; 或者 &lt;code&gt;else if&lt;/code&gt; 语句中必须有一个为真。程序要么执行 &lt;code&gt;else&lt;/code&gt; 语句，要么在程序中继续执行它的下一步内容。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(supermanCoolness &amp;lt; spidermanCoolness)  {
+  supermanCoolness = supermanCoolness - 1 
+  spidermanCoolness = spidermanCoolness + 1
+} else if (supermanCoolness == spidermanCoolness)  {
+  supermanCoolness = supermanCoolness + 1
+  spidermanCoolness = spidermanCoolness + 1
+} else  {
+  supermanCoolness = supermanCoolness + 1 
+  spidermanCoolness = spidermanCoolness - 1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;简单函数&lt;/h1&gt;
+
+&lt;p&gt;函数(Functions)就是一块实现某些任务的代码。例如，一个函数 &lt;code&gt;printMyFavoriteSnack()&lt;/code&gt; 会打印”Pringles”。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/12.jpg&quot; alt=&quot;图12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你可以编写你自己使用的函数，也可以使用别的程序猿（媛）写的函数。例如，苹果提供了一些内置让你使用的功能函数。&lt;br /&gt;
+比如 &lt;code&gt;print()&lt;/code&gt; 函数。当你调用print函数，程序会”打印”圆括号内的内容到控制台上。&lt;/p&gt;
+
+&lt;p&gt;快速尝试一下，在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Hello, World&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你应该会看到 “Hello, World” 打印在你的右手边窗口上。&lt;/p&gt;
+
+&lt;p&gt;任何编程都会涉及到许多不同功能的函数。有时候你会使用到苹果或者其他开发人员的函数，就像刚才完成的功能print，有时候你要自己写函数，稍后你就会体会到。&lt;/p&gt;
+
+&lt;p&gt;挑战：尝试修改函数 &lt;code&gt;print()&lt;/code&gt; 括号内的字符串，告诉大家一些关于你的好事情。另外，你也可以放入一个超级英雄的冷酷值变量到括号内看看发生什么。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;博主真帅&quot;)
+print(batmanCoolness)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;string-interpolation&quot;&gt;字符串插值(String Interpolation)&lt;/h1&gt;
+
+&lt;p&gt;打印一串字符到控制台上已经会了，但是如果你能在一句语句里面打印一串字符和变量值的结合不是更好吗?&lt;/p&gt;
+
+&lt;p&gt;幸运的是，你可以做到！就是字符串插值（String Interpolation）。&lt;/p&gt;
+
+&lt;p&gt;例如你想说“Sally has (some value) apples.”的时候这功能非常有用。在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Sally has \(apples) apples&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看到了啥？通过使用格式 &lt;em&gt;\(变量名)&lt;/em&gt; ，你就能够打印出任何字符串。甚至能够在括号内进行运算操作。在playground的底部编写如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Sally has \(apples - 5) apples&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;做得好！字符串插值会在你每次写代码中运用到。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/13.png&quot; alt=&quot;图13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;挑战：是时候结合你所学的概念。创建两个变量代表班里学生的成绩：John的分数95和Sam的分数为85。然后创建比较他们两个分数的 &lt;code&gt;if/else&lt;/code&gt; 语句，并且打印出John的分数小于，大于，或者等于Sam的分数。我相信你能够做到！&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var johnsGrade = 95
+var samsGrade = 82
+if (johnsGrade &amp;lt; samsGrade) {
+  print(&quot;\(johnsGrade) is less than \(samsGrade)&quot;)
+}
+else if (johnsGrade &amp;gt; samsGrade) {
+  print(&quot;\(johnsGrade) is greater than \(samsGrade)&quot;)
+}
+else {
+  print(&quot;\(johnsGrade) is equal to \(samsGrade)&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;whilewhile-loops&quot;&gt;While循环(While Loops)&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;While&lt;/code&gt; 循环是另一种控制流语句,例如你之前学的 &lt;code&gt;if/else&lt;/code&gt; 语句。它们实际上功能很相似,都必须提供一条可执行的条件语句。&lt;/p&gt;
+
+&lt;p&gt;不同的是，&lt;code&gt;while&lt;/code&gt; 语句不止简单的执行代码块一次，只要 &lt;code&gt;while&lt;/code&gt; 条件语句为真，代码块里面内容会被一直执行。在playground底部添加以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var secondsLeft = 3
+while (secondsLeft &amp;gt; 0) {
+  print(secondsLeft)
+  secondsLeft = secondsLeft - 1
+}
+print(&quot;Blast off!&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;确保你的条件语句在某一时刻变成假。你不会想创建一个死循环，因为会导致出现各种问题以及程序不会继续往下执行。&lt;br /&gt;
+运行代码，你将会看到右手边的（3 times）执行次数，print()函数打印出了每一次循环的内容。一旦多个值被打印出来后，你需要打开另外一个窗口编辑器助手(Assistant Editor)才能看到打印出来的内容。&lt;br /&gt;
+如何打开？找到屏幕顶部菜单，选择 &lt;em&gt;View\Assistant Editor\Show Assistant Editor&lt;/em&gt; 。在框中标记控制台输出,你应该会看到你打印的内容：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/14.png&quot; alt=&quot;图14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;挑战：尝试自己写一个 &lt;code&gt;while&lt;/code&gt; 循环 - 例如创建一个警察正在吃一些甜甜圈的 &lt;code&gt;while&lt;/code&gt; 循环。记住，防止死循环！&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var donutsLeft = 6
+while(donutsLeft &amp;gt; 0)  {
+  print(&quot;You have \(donutsLeft) donuts left&quot;)
+  donutsLeft = donutsLeft - 1
+  print(&quot;You eat one donut&quot;)
+}
+print(&quot;You are all out of donuts :(&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;break&quot;&gt;Break语句&lt;/h1&gt;
+
+&lt;p&gt;你的程序有一些循环的代码，比如 &lt;code&gt;while&lt;/code&gt; 循环，你也许想在一件特殊情况发生的时候退出循环。 &lt;code&gt;break&lt;/code&gt; 命令因此而诞生。根据这个场景在playground底部添加以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var cokesLeft = 7
+var fantasLeft = 4
+while(cokesLeft &amp;gt; 0)  {
+  print(&quot;You have \(cokesLeft) Cokes left.&quot;)
+  cokesLeft = cokesLeft - 1
+  if(cokesLeft &amp;lt;= fantasLeft)  {
+    break
+  }
+}
+print(&quot;You stop drinking Cokes.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在这个例子中，你想要喝冰箱里的可乐直到喝完为止。但是，你发现冰箱里还有芬达。当你发现可乐数量小于等于芬达的数量的时候你决定不喝可乐而去喝完冰箱里的芬达。当出现这种情况时，你退出该循环，并且从而停止喝可乐。(这个例子还蛮蛋疼的)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/15.png&quot; alt=&quot;图15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;挑战：轮到你编程了。创建一个有结束点的 &lt;code&gt;while&lt;/code&gt; 循环。例如老板走到身边的时候停止偷懒。在这个循环中，添加一个 &lt;code&gt;if&lt;/code&gt; 条件语句来 &lt;code&gt;break&lt;/code&gt; 循环。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var goofOffTime = 10
+var bossComing = 0
+while(goofOffTime &amp;gt; 0)  {
+  print(&quot;Goofing off!&quot;)
+  goofOffTime = goofOffTime - 1
+  bossComing = bossComing + 1
+  if(goofOffTime == bossComing)  {
+    break
+  }
+}
+print(&quot;Done goofing off.&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;continue&quot;&gt;Continue语句&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;Continue&lt;/code&gt; 语句跟 &lt;code&gt;break&lt;/code&gt; 语句有些相似，然而，不同于退出循环，它的功能是告诉程序进行下一次循环。在playground底部添加以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var numbers = 0
+while(numbers &amp;lt;= 10)  {
+  if(numbers == 9)  {
+    numbers = numbers + 1
+    continue
+  }
+  print(numbers)
+  numbers = numbers + 1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下来你能在控制台看到程序打印出来的内容，0到10之间的数字被打印出来除了9，因为9太坏，被7吃了。出于这个原因，我们的列表中不能包括他。&lt;br /&gt;
+&lt;img src=&quot;/img/swift-tutorial-series/d1/16.png&quot; alt=&quot;图16&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;挑战：在你的循环中使用 &lt;code&gt;continue&lt;/code&gt; 语句。找一个特定的值写个条件语句进行 &lt;code&gt;continue&lt;/code&gt; 命令进行下一个循环，其他的值继续执行。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;List of World Wars:&quot;)
+var ww = 1
+while(ww &amp;lt;= 5)  {
+  if(ww == 3 || ww == 4)  {
+    ww = ww + 1
+    continue
+  }
+  print(&quot;World War \(ww)&quot;)
+  ww = ww + 1
+}
+print(&quot;That&#39;s the beauty of World War V, Lois. It&#39;s so intense it skips over the other two. - Peter Griffin&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;optionals&quot;&gt;Optionals(可选类型)&lt;/h1&gt;
+
+&lt;p&gt;有时，由于使用了不同的功能，你并不知道一个变量是否有值。当它没有值的时候为 &lt;code&gt;nil&lt;/code&gt; 。这就引入了 &lt;em&gt;optionals(可选类型)&lt;/em&gt; 。&lt;br /&gt;
+可选类型的变量能够包含值或者 &lt;code&gt;nil&lt;/code&gt; 。定义成可选类型表示这个变量可以设置成 &lt;code&gt;nil&lt;/code&gt; 值:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var optionalNumber: Int? = 5
+optionalNumber = nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输入?(问号)将变量定义成可选类型。如果想知道可选变量是包含一个值还是 &lt;code&gt;nil&lt;/code&gt; 值，需要调用 &lt;code&gt;if let&lt;/code&gt; 语句。就像下面这段代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if let number = optionalNumber
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;if let&lt;/code&gt; 语句作用实际上跟if语句很相似。如果 &lt;code&gt;optionalNumber&lt;/code&gt; 包含一个 &lt;code&gt;Int&lt;/code&gt; 整型，&lt;code&gt;number&lt;/code&gt; 变量将会被设置成该值，并且 &lt;code&gt;if let&lt;/code&gt; 花括号内的代码会被执行。&lt;/p&gt;
+
+&lt;p&gt;可选地，如果optionalNumber返回nil你可以设置执行else语句。&lt;/p&gt;
+
+&lt;p&gt;挑战：为 &lt;code&gt;optionalNumber&lt;/code&gt; 编写一条 &lt;code&gt;if let&lt;/code&gt; 语句根据包含值或者 &lt;code&gt;nil&lt;/code&gt; 打印不同的字符串。&lt;br /&gt;
+解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if let number = optionalNumber  {
+  print(&quot;It is a number&quot;)
+}
+else  {
+  print(&quot;It is not a number&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;conversion-between-data-types&quot;&gt;数据类型之间的转换(Conversion Between Data Types)&lt;/h1&gt;
+
+&lt;p&gt;让我们看看它在程序中发挥着什么作用。可选类型能够帮助你在两个变量之间进行类型转换。尝试以下代码将 &lt;code&gt;String&lt;/code&gt; 转换成 &lt;code&gt;Int&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var languagesLearned: String = &quot;3&quot;
+var languagesLearnedNum: Int? = Int(languagesLearned)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;languagesLearned&lt;/code&gt; 定义成 &lt;code&gt;String&lt;/code&gt; 类型并且初始化值为”3”，&lt;code&gt;languagesLearnedNum&lt;/code&gt; 定义成一个可选类型并且等于 &lt;code&gt;toInt()&lt;/code&gt; 。这个方法跟你之前选的 &lt;code&gt;print()&lt;/code&gt; 函数非常相似，不同的是它们是class(类)中的一部分。接下来你会学的更多。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Int()&lt;/code&gt; 是一个构造器，允许你将一个 &lt;code&gt;String&lt;/code&gt; 类型的值转化成 &lt;code&gt;Int&lt;/code&gt; 类型。之所以要将 &lt;code&gt;languagesLearnedNum&lt;/code&gt; 设置成可选类型是因为转化后的值可能为 &lt;code&gt;nil&lt;/code&gt; 。有可能尝试转换的 &lt;code&gt;String&lt;/code&gt; 变量值不是一个数字，而是”Hello, World”。&lt;/p&gt;
+
+&lt;p&gt;编写以下代码来找出答案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if let num = languagesLearnedNum  {
+  print(&quot;It is a number&quot;)
+}
+else  {
+  print(&quot;It is not a number&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;if let&lt;/code&gt; 语句用来检验 &lt;code&gt;languagesLearnedNum&lt;/code&gt; 是否包含值。如果变量包含值，该值赋值到 &lt;code&gt;num&lt;/code&gt; 变量并且执行花括号内的代码。如果为 &lt;code&gt;nil&lt;/code&gt; ，将执行 &lt;code&gt;else&lt;/code&gt; 括号内的代码。&lt;/p&gt;
+
+&lt;p&gt;如果将字符串 &lt;code&gt;languagesLearned&lt;/code&gt; 变量值改成”Three”看看会发生什么。程序将会打印”It is not a number”到控制台因为执行”Three”转成 &lt;code&gt;Int&lt;/code&gt; 返回结果 &lt;code&gt;nil&lt;/code&gt; 给 &lt;code&gt;languagesLearnedNum&lt;/code&gt;变量。&lt;/p&gt;
+
+&lt;p&gt;#综合所学&lt;/p&gt;
+
+&lt;p&gt;挑战：最后一道！尝试编写一个变量存放 &lt;code&gt;String&lt;/code&gt; 转换 &lt;code&gt;Int&lt;/code&gt; 的结果值。接着将结果放在 &lt;code&gt;if&lt;/code&gt; 语句中与其他变量进行比较并执行 &lt;code&gt;print()&lt;/code&gt; 函数。 &lt;code&gt;print()&lt;/code&gt; 函数花括号内应该使用字符串插值(String Interpolation)，因此你可以打印一个值大于/小于另外一个值。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/17.png&quot; alt=&quot;图17&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var tutorialTeam: String = &quot;55&quot;
+var editorialTeam = 23
+ 
+var tutorialTeamNum: Int? = Int(tutorialTeam)
+ 
+if let numTutorial = tutorialTeamNum  {
+  if(numTutorial &amp;gt; editorialTeam)  {
+    print(&quot;\(numTutorial) is greater than \(editorialTeam)&quot;)
+  } else if (numTutorial &amp;lt; editorialTeam) {
+    print(&quot;\(numTutorial) is less than \(editorialTeam)&quot;)
+  } else  {
+    print(&quot;\(numTutorial) is equal to \(editorialTeam)&quot;)
+  }
+} else  {
+  print(&quot;Invalid entry&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;何去何从？&lt;/h1&gt;
+
+&lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn3.raywenderlich.com/wp-content/uploads/2015/09/MyPlaygroundplayground.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
+点击该系列&lt;a href=&quot;/2016/02/28/swift-tutorial-2/&quot;&gt;下一篇&lt;/a&gt;教程，你将会学到如何将你已学到Swift知识来创建一个简单的命令行猜数字游戏！&lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;著作权声明&lt;/h1&gt;
+&lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114148/learn-to-code-ios-apps-with-swift-tutorial-1-welcome-to-programming&quot;&gt;Learn to Code iOS Apps with Swift Tutorial 1: Welcome to Programming&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Feb 2016 05:49:33 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/02/28/swift-tutorial-1/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/02/28/swift-tutorial-1/</guid>
+        
+        <category>Swift</category>
+        
+        <category>iOS</category>
+        
+        <category>教程</category>
+        
+        <category>翻译</category>
+        
+        
+      </item>
     
       <item>
         <title>NSValueTransformer教程</title>
