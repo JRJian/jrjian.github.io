@@ -5,12 +5,12 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Feb 2016 00:19:37 +0800</pubDate>
-    <lastBuildDate>Mon, 29 Feb 2016 00:19:37 +0800</lastBuildDate>
+    <pubDate>Mon, 29 Feb 2016 00:43:41 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Feb 2016 00:43:41 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>学习Swift开发iOS应用教程第二篇</title>
+        <title>学习Swift开发iOS应用教程第二篇「译」</title>
         <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用第二部分！&lt;/p&gt;
 
 &lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
@@ -412,7 +412,7 @@ Program ended with exit code: 0
       </item>
     
       <item>
-        <title>学习Swift开发iOS应用教程第一篇</title>
+        <title>学习Swift开发iOS应用教程第一篇「译」</title>
         <description>&lt;p&gt;你是否有想过自己创建一个iPhone或者iPad App是多么帅气的事情?&lt;/p&gt;
 
 &lt;p&gt;此时不学更待何时?&lt;/p&gt;
