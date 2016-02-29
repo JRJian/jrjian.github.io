@@ -5,9 +5,540 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Feb 2016 00:51:35 +0800</pubDate>
-    <lastBuildDate>Mon, 29 Feb 2016 00:51:35 +0800</lastBuildDate>
+    <pubDate>Mon, 29 Feb 2016 22:35:32 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Feb 2016 22:35:32 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>学习Swift开发iOS应用教程第三篇「译」</title>
+        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用第三部分！&lt;/p&gt;
+
+&lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
+
+&lt;p&gt;在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中！&lt;/p&gt;
+
+&lt;p&gt;在系列的第三部分，你将会创建一个记录用户名和年龄的命令行应用。。&lt;/p&gt;
+
+&lt;p&gt;跟着学习的步伐，这部分你将会学习到Swift关于 &lt;code&gt;Arrays&lt;/code&gt;, &lt;code&gt;Objects&lt;/code&gt;, 和 &lt;code&gt;Classes&lt;/code&gt;的概念。让我们开始吧！&lt;/p&gt;
+
+&lt;p&gt;注意：第二部分一样&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;开始&lt;/h1&gt;
+
+&lt;p&gt;打开Xcode并且创建一个playground file,通过点击 &lt;em&gt;Get started with a playground&lt;/em&gt; :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设置文件名为 &lt;em&gt;Person&lt;/em&gt;, &lt;em&gt;iOS&lt;/em&gt; 平台，点击下一步。保存文件到你指定的路径。&lt;/p&gt;
+
+&lt;p&gt;删除以下内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var str = &quot;Hello, playground&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;classes-and-objects&quot;&gt;类和对象（Classes and Objects）&lt;/h1&gt;
+
+&lt;p&gt;一个 &lt;em&gt;class&lt;/em&gt; 就像一张蓝图，描述着一个对象的行为和它能做什么。它确定了该对象有哪些方法和属性。&lt;/p&gt;
+
+&lt;p&gt;在这个项目中，你将会创建一个 &lt;em&gt;Person&lt;/em&gt; 类。然后给该类创建一些方法和类似 name 和 age 的属性，因此它能够为你的程序提供一些服务支持。&lt;/p&gt;
+
+&lt;p&gt;首先，在 playground 中加入类的定义：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Person  {
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着，给这个类增加一些 &lt;em&gt;properties（属性）&lt;/em&gt;。属性是类的实例所持有的变量属性。例如，每一个人都拥有一个 &lt;em&gt;fist name(名)&lt;/em&gt;, &lt;em&gt;last name(姓)&lt;/em&gt;，和 &lt;em&gt;age(年龄)&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;为类添加属性就是给类创建变量，不同的是它们是添加在类的定义里面。给类添加几个属性：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Person  {
+ 
+  var firstName = &quot;&quot;
+  var lastName = &quot;&quot;
+  var age = 0
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除了属性外，类还拥有 &lt;em&gt;methods（方法或函数）&lt;/em&gt;。方法就是类可以做的一些操作 - 例如，你可能想要添加一个在屏幕打印用户信息的方法 - 事实上，你等会将会干这件事！&lt;/p&gt;
+
+&lt;p&gt;重要的事情先来，这个应用需要用户提供一些信息。复制并且粘贴以下代码在 &lt;em&gt;age&lt;/em&gt; 属性之后：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func input() -&amp;gt; String {
+  let keyboard = NSFileHandle.fileHandleWithStandardInput()
+  let inputData = keyboard.availableData
+  let rawString = NSString(data: inputData, encoding:NSUTF8StringEncoding)
+  if let string = rawString {
+    return string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+  } else {
+    return &quot;Invalid input&quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个方法用来接收用户的字符输入。现在不需要理解它的工作原理；在下一章节你将会学习如何编写你自己的函数。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;编写专属函数&lt;/h1&gt;
+
+&lt;p&gt;在这个类中，你需要编写3个 &lt;em&gt;methods(函数)&lt;/em&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;em&gt;changeFirstName()&lt;/em&gt; 允许用户改变他们的名字&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;enterInfo()&lt;/em&gt; 提示用户输入他们的信息&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;printInfo()&lt;/em&gt; 打印用户信息到控制台&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;开始编写 &lt;em&gt;changeFirstName()&lt;/em&gt; 函数。这个函数接收了一个入参来修改 &lt;em&gt;Person&lt;/em&gt; 的 名字。&lt;/p&gt;
+
+&lt;p&gt;首先你该声明该函数。在 &lt;em&gt;Person&lt;/em&gt; 类里的 &lt;em&gt;input()&lt;/em&gt; 函数后加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func changeFirstName(newFirstName:String)  {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;很好！你刚刚完成了你专属函数的第一步。现在，你需要解决这个函数的实现。在花括号内定义一个 &lt;em&gt;String&lt;/em&gt; 类型的变量 &lt;em&gt;newFirstName&lt;/em&gt;。并且将 &lt;em&gt;newFirstName&lt;/em&gt; 赋值到 &lt;em&gt;Persong&lt;/em&gt; 的 &lt;em&gt;first name(名)&lt;/em&gt; 。函数体内应该看到如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;firstName = newFirstName
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你可在函数内加入任何代码，上面只是个非常简单的例子。&lt;/p&gt;
+
+&lt;p&gt;此时你文件里的代码应该是这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+ 
+class Person  {
+ 
+  var firstName = &quot;&quot;
+  var lastName = &quot;&quot;
+  var age = 0
+ 
+  func input() -&amp;gt; String {
+    let keyboard = NSFileHandle.fileHandleWithStandardInput()
+    let inputData = keyboard.availableData
+    let rawString = NSString(data: inputData, encoding:NSUTF8StringEncoding)
+    if let string = rawString {
+      return string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    } else {
+      return &quot;Invalid input&quot;
+    }
+  }
+ 
+  func changeFirstName(newFirstName:String) {
+    firstName = newFirstName
+  }
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;让我使用你的 &lt;em&gt;class&lt;/em&gt;！&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;类的使用&lt;/h1&gt;
+
+&lt;p&gt;创建一个 &lt;em&gt;Person&lt;/em&gt; 类实例，在 playground 底部加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var newPerson = Person()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你刚刚创建了一个 &lt;em&gt;Person&lt;/em&gt; 类型的 &lt;em&gt;newPerson&lt;/em&gt; 变量并且初始化为 &lt;em&gt;Person&lt;/em&gt; 对象。&lt;/p&gt;
+
+&lt;p&gt;尝试为你的 person 实例设置属性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;newPerson.firstName = &quot;Ry&quot;
+newPerson.lastName = &quot;Bristow&quot;
+newPerson.age = 18
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果移动你的鼠标到右边的眼睛图标，你将会看到 &lt;em&gt;newPerson&lt;/em&gt; 对象的更新后的属性值：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cool，不是吗？你可以使用你写的新方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;newPerson.changeFirstName(&quot;Paul&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在你右手边的窗口，你会看到对象关联的 &lt;em&gt;firstName&lt;/em&gt; 属性值已经改成 “Paul”。&lt;/p&gt;
+
+&lt;p&gt;以上是类的基本使用 - 让我们扩展一下。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;更多的函数&lt;/h1&gt;
+
+&lt;p&gt;现在你已经知道如何编写以及使用专属函数，让我继续为项目添加函数。第一个函数 &lt;em&gt;enterInfo()&lt;/em&gt;。跟之前一页，首先声明函数头。在 &lt;em&gt;Person&lt;/em&gt; 类的 &lt;em&gt;changeFirstName()&lt;/em&gt; 函数之后添加代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func enterInfo()  {
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，我们来编写函数体的实现。为了让用户输入你所期望的内容，你需要告诉用户输入的内容是什么。让我们使用 &lt;em&gt;print()&lt;/em&gt; 语句实现这一点：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;What is the first name?&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这条语句需要在函数的花括号内。叫做函数体。紧接着你需要将 &lt;em&gt;input()&lt;/em&gt; 函数接收的值赋给 &lt;em&gt;firstName&lt;/em&gt; 变量。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;firstName = input()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;该函数等会还有一些代码。现在，我们先聚焦到 &lt;em&gt;printInfo()&lt;/em&gt; 函数。该函数的目的是打印关于 &lt;em&gt;Person&lt;/em&gt; 对象的信息。它应该是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func printInfo()  {
+  print(&quot;First Name: \(firstName)&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;恭喜，你完成了类的原型设计(you have finished prototyping your class)！尽量在 Playground 文件中进行原型设计是非常好的，因为在创建一个完整的应用前它可以让你简单快速的获取经验值。&lt;/p&gt;
+
+&lt;p&gt;此刻的&lt;a href=&quot;http://cdn4.raywenderlich.com/wp-content/uploads/2015/09/Person.playground.zip&quot;&gt;Person.playground&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;现在让我们将这些代码放入命令行工具！&lt;/p&gt;
+
+&lt;h1 id=&quot;swift&quot;&gt;在Swift文件里创建一个类&lt;/h1&gt;
+
+&lt;p&gt;打开Xcode点击 &lt;em&gt;Create a new Xcode project&lt;/em&gt; 按钮。如果你不小心关闭了 “Welcome to Xcode” 窗口或者已经打开了一个Xcode项目，你可以点击顶部菜单File选中 &lt;em&gt;New &amp;gt; Project&lt;/em&gt; 新建个项目。&lt;/p&gt;
+
+&lt;p&gt;然后，在OS X章节中，选中 &lt;em&gt;Application&amp;gt;Command Line Tool&lt;/em&gt; 点击下一步。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在下面的屏幕中，根据指示填写表格：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Product Name: PeopleDatabase&lt;/li&gt;
+  &lt;li&gt;Organization Name: 选填。&lt;/li&gt;
+  &lt;li&gt;Organization Identifier: 输入 com.yourname, 例如 com.rybristow&lt;/li&gt;
+  &lt;li&gt;Language: Swift&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，点击 &lt;em&gt;File\New\File&lt;/em&gt; 然后选择 &lt;em&gt;OS X\Source\Swift File&lt;/em&gt; 模板，接着点击下一步。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/5.png&quot; alt=&quot;图5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;文件命名 &lt;em&gt;Person.swift&lt;/em&gt; 然后点击 &lt;em&gt;Create&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;在 Person.swift 中，复制 Playground 文件中的 Person class（不要复制了test代码）。代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+class Person  {
+ 
+  var firstName = &quot;&quot;
+  var lastName = &quot;&quot;
+  var age = 0
+ 
+  func input() -&amp;gt; String {
+    let keyboard = NSFileHandle.fileHandleWithStandardInput()
+    let inputData = keyboard.availableData
+    let rawString = NSString(data: inputData, encoding:NSUTF8StringEncoding)
+    if let string = rawString {
+      return string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    } else {
+      return &quot;Invalid input&quot;
+    }
+  }
+ 
+  func changeFirstName(newFirstName:String) {
+    firstName = newFirstName
+  }
+ 
+  func enterInfo()  {
+    print(&quot;What is the first name?&quot;)
+    firstName = input()
+  }
+ 
+  func printInfo()  {
+    print(&quot;First Name: \(firstName)&quot;)
+  }
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在你进入 &lt;em&gt;main.swift&lt;/em&gt; 文件编写前，你应该完成 &lt;em&gt;Person&lt;/em&gt; 类的函数。在 &lt;em&gt;Person&lt;/em&gt; 类的 &lt;em&gt;enterInfo()&lt;/em&gt; 函数里添加提示和 input 语句，然后在 &lt;em&gt;printInfo()&lt;/em&gt;  函数里添加打印这两条信息的功能。这是 &lt;em&gt;enterInfo()&lt;/em&gt; 的代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func enterInfo()  {
+  print(&quot;What is the first name?&quot;)
+  firstName = input()
+  print(&quot;What is \(firstName)&#39;s last name?&quot;)
+  lastName = input()
+  print(&quot;How old is \(firstName) \(lastName)&quot;)
+  let userInput = Int(input())
+  if let number = userInput {
+    age = number
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最好不要直接复制粘贴我们提供的代码。花点时间思考和测试下不同的功能。上面的代码块中每个变量都有附带着 &lt;em&gt;print()&lt;/em&gt; 和 &lt;em&gt;input()&lt;/em&gt; 语句，除了 &lt;em&gt;age&lt;/em&gt; 变量复杂一点。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Int&lt;/em&gt; 类型的 &lt;em&gt;age&lt;/em&gt; 变量不能存放 &lt;em&gt;String&lt;/em&gt; 类型的数据，因此需要 &lt;em&gt;toInt()&lt;/em&gt; 函数进行类型转换。如果这看上去很熟悉，那是因为你之前已经用过该函数！记住，该类型转换需要使用 &lt;em&gt;if let&lt;/em&gt; 语句来判断 &lt;em&gt;Int&lt;/em&gt; 类型转换是否成功。&lt;/p&gt;
+
+&lt;p&gt;现在，尝试着自己更新 &lt;em&gt;printInfo()&lt;/em&gt; 函数。尝试输出一些内容类似：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;John Smith is 30 years old
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果你感到困惑，这里提供了一种解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func printInfo()  {
+  print(&quot;\(firstName) \(lastName) is \(age) years old&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果你想再次确认你的工作内容，以下是这章节完整的代码：&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+class Person  {
+ 
+  var firstName = &quot;&quot;
+  var lastName = &quot;&quot;
+  var age = 0
+ 
+  func input() -&amp;gt; String {
+    let keyboard = NSFileHandle.fileHandleWithStandardInput()
+    let inputData = keyboard.availableData
+    let rawString = NSString(data: inputData, encoding:NSUTF8StringEncoding)
+    if let string = rawString {
+      return string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    } else {
+      return &quot;Invalid input&quot;
+    }
+  }
+ 
+  func changeFirstName(newFirstName:String) {
+    firstName = newFirstName
+  }
+ 
+  func enterInfo()  {
+    print(&quot;What is the first name?&quot;)
+    firstName = input()
+    print(&quot;What is \(firstName)&#39;s last name?&quot;)
+    lastName = input()
+    print(&quot;How old is \(firstName) \(lastName)&quot;)
+    let userInput = Int(input())
+    if let number = userInput {
+      age = number
+    }
+  }
+ 
+  func printInfo()  {
+    print(&quot;\(firstName) \(lastName) is \(age) years old&quot;)
+  }
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;class&quot;&gt;测试你的 &lt;em&gt;Class&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;在项目导航控制器点击 &lt;em&gt;main.swift&lt;/em&gt; 文件，并且替换成以下内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+ 
+var newPerson = Person()
+newPerson.enterInfo()
+newPerson.printInfo()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;点击 run 按钮检验你的程序！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;What is the first name?
+Ry
+What is Ry&#39;s last name?
+Bristow
+How old is Ry Bristow
+18
+Ry Bristow is 18 years old
+Program ended with exit code: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;恭喜你 - 您创建了第一个 class!&lt;/p&gt;
+
+&lt;h1 id=&quot;repeat-while-the-repeat-while-loop&quot;&gt;Repeat While 循环语句(The Repeat While Loop)&lt;/h1&gt;
+
+&lt;p&gt;这篇文章，需要用到上一篇教程的辅助函数，因此先下载&lt;a href=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2014/10/helpers.swift_.zip&quot;&gt;here&lt;/a&gt;。拖动 &lt;em&gt;helpers.swift&lt;/em&gt; 文件到你的 Xcode 工程里，确保弹出的选择框选中的是 &lt;em&gt;copy the items&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;允许用户输入多次个人信息是非常好的体验。要做到这一点，让我们试用一个新的循环。&lt;/p&gt;
+
+&lt;p&gt;这个循环叫 &lt;em&gt;repeat…while&lt;/em&gt; 循环。 &lt;em&gt;repeat while&lt;/em&gt; 循环也叫做 &lt;em&gt;do while&lt;/em&gt; 循环。为了避免跟Swift其他框架冲突，Swift2.0 将它重命名为 &lt;em&gt;repeat while&lt;/em&gt; 循环。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;repeat while&lt;/em&gt; 循环不同于 &lt;em&gt;while&lt;/em&gt; 循环，在判断条件语句前，无论如何都会先执行一次代码，然后在判断是否需要循环下一次。&lt;/p&gt;
+
+&lt;p&gt;首先，在 &lt;em&gt;import&lt;/em&gt; 语句下面创建一个String类型变量 &lt;em&gt;response&lt;/em&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var response: String
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着，使用 &lt;em&gt;do…while&lt;/em&gt; 循环&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;repeat  {
+ 
+}  while(response == &quot;y&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后，剪切循环后面的所有代码放入循环体内。&lt;/p&gt;
+
+&lt;p&gt;为了使用户可以控制循环的次数，你需要提示用户是否需要继续，使用 &lt;em&gt;response&lt;/em&gt; 变量接收用户的输入。在 &lt;em&gt;do…while&lt;/em&gt; 函数体右花括号之前加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Do you want to enter another name? (y/n)&quot;)
+response = input()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，用户可以告诉程序是否继续输入通过 &lt;em&gt;y(是)&lt;/em&gt; 或 &lt;em&gt;n(不)&lt;/em&gt; 字符（从技术上来看，任何输入都是退出循环除了 &lt;em&gt;y&lt;/em&gt; ）。 &lt;/p&gt;
+
+&lt;p&gt;如果你想再次确认你的工作内容，以下是这章节完整的代码：&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+var response: String
+ 
+repeat {
+  var newPerson = Person()
+  newPerson.enterInfo()
+  newPerson.printInfo()
+ 
+  print(&quot;Do you want to enter another name? (y/n)&quot;)
+  response = input()
+ 
+} while(response == &quot;y&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;点击 run 按钮再次运行你的程序。尝试多次输入 &lt;em&gt;y&lt;/em&gt; 进行多个用户信息的输入，最后输入 &lt;em&gt;n&lt;/em&gt; 退出循环。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;What is the first name?
+Ry
+What is Ry&#39;s last name?
+Bristow
+How old is Ry Bristow
+18
+Ry Bristow is 18 years  old
+Do you want to enter another name? (y/n)
+y
+What is the first name?
+Ray
+What is Ray&#39;s last name?
+Wenderlich
+How old is Ray Wenderlich
+34
+Ray Wenderlich is 34 years  old
+Do you want to enter another name? (y/n)
+n
+Program ended with exit code: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;arrays&quot;&gt;数组(Arrays)&lt;/h1&gt;
+
+&lt;p&gt;每一次执行循环，程序都会忘记上次循环执行的信息。数组对象能够存放一组对象列表，并且允许你去访问它们。定义一组数组如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var response:String
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var people: [Person] = []
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码创建了一个存放 &lt;em&gt;Person&lt;/em&gt; 类型的 &lt;em&gt;people&lt;/em&gt; 数组变量。通过给类型加上 &lt;em&gt;[]&lt;/em&gt; 中括号，编译器就知道该变量的类型是数组。通过设置等于 &lt;em&gt;[]&lt;/em&gt;，代表创建了一个什么变量都没存放的空数组。&lt;/p&gt;
+
+&lt;p&gt;为了给数组添加对象，你需要用 &lt;em&gt;append()&lt;/em&gt; 函数。让我们试一试。在循环内 &lt;em&gt;enterInfo()&lt;/em&gt; 和 &lt;em&gt;printInfo()&lt;/em&gt; 函数之间插入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;people.append(newPerson)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，每通过提示用户一次信息都会创建一个 &lt;em&gt;newPerson&lt;/em&gt; 对象，接着放入数组里。为了完成项目，在循环下面添加一些实用的 &lt;em&gt;print()&lt;/em&gt; 语句。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(&quot;Number of people in the database: \(people.count)&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面这行代码通过计算 &lt;em&gt;people&lt;/em&gt; 数组的长度告诉用户他往数据库里输入了几个用户信息。&lt;/p&gt;
+
+&lt;p&gt;再一次运行应用，输入两次用户信息。当结束的时候，你将会看到以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Number of people in the database: 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;forfor-loops&quot;&gt;For循环(For Loops)&lt;/h1&gt;
+
+&lt;p&gt;最后一个循环语句：&lt;em&gt;for&lt;/em&gt; 循环。该循环功能是遍历数组里的所有元素。如果你想知道数据库里所有的信息，你就会用到 &lt;em&gt;for&lt;/em&gt; 循环。&lt;/p&gt;
+
+&lt;p&gt;让我们试一试。在 &lt;em&gt;main.swift&lt;/em&gt; 文件最底部加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for onePerson in people  {
+ 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个循环将要做的内容是遍历数组里面的所有 &lt;em&gt;people&lt;/em&gt; 对象。每完成一次循环，&lt;em&gt;index&lt;/em&gt; 索引移动到下一个被遍历的对象并且赋值到 &lt;em&gt;onePerson&lt;/em&gt; 对象，该循环会等所有对象都被遍历完成才会退出。&lt;/p&gt;
+
+&lt;p&gt;在循环体内的加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;onePerson.printInfo()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这行代码将会在用户输入完数据后，打印 &lt;em&gt;people&lt;/em&gt; 数组里面的每一个 &lt;em&gt;Person&lt;/em&gt; 对象的信息。&lt;/p&gt;
+
+&lt;p&gt;干得好！下面的是你今天完成的所有 &lt;em&gt;main.swift&lt;/em&gt; 代码内容。如果你有一些不能解决的问题，它会帮到你。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import Foundation
+var response: String
+var people: [Person] = []
+ 
+repeat {
+  var newPerson = Person()
+  newPerson.enterInfo()
+  people.append(newPerson)
+  newPerson.printInfo()
+ 
+  print(&quot;Do you want to enter another name? (y/n)&quot;)
+  response = input()
+ 
+} while(response == &quot;y&quot;)
+ 
+print(&quot;Number of people in the database: \(people.count)&quot;)
+ 
+for onePerson in people  {
+  onePerson.printInfo()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完成 - 编译运行你的最终版本！已经运行的应用程序的输出结果应该类似如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d3/6.png&quot; alt=&quot;图6&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;何去何从？&lt;/h1&gt;
+
+&lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2015/09/PeopleDatabase.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
+点击该系列[下一篇]（敬请期待）教程，你将会制作你的第一个 &lt;em&gt;iPhone&lt;/em&gt; 游戏！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;著作权声明&lt;/h1&gt;
+
+&lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114234/learn-to-code-ios-apps-with-swift-tutorial-3-arrays-objects-and-classes&quot;&gt;Learn to Code iOS Apps with Swift Tutorial 3: Arrays, Objects, and Classes&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 29 Feb 2016 18:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/02/29/swift-tutorial-3/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/02/29/swift-tutorial-3/</guid>
+        
+        <category>Swift</category>
+        
+        <category>iOS</category>
+        
+        <category>教程</category>
+        
+        <category>翻译</category>
+        
+        
+      </item>
     
       <item>
         <title>学习Swift开发iOS应用教程第二篇「译」</title>
@@ -391,9 +922,14 @@ Program ended with exit code: 0
 &lt;h1 id=&quot;section-7&quot;&gt;何去何从？&lt;/h1&gt;
 
 &lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn3.raywenderlich.com/wp-content/uploads/2015/09/MyFirstProject.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
-点击该系列下一篇（暂未开放）教程，你将会学到更多的Swift知识包括对象和类的使用！&lt;/p&gt;
+点击该系列&lt;a href=&quot;/2016/02/29/swift-tutorial-3/&quot;&gt;下一篇&lt;/a&gt;教程，你将会学到更多的Swift知识包括对象和类的使用！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h1 id=&quot;section-8&quot;&gt;著作权声明&lt;/h1&gt;
+
 &lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114173/learn-to-code-ios-apps-with-swift-tutorial-2-your-first-project&quot;&gt;Learn to Code iOS Apps with Swift Tutorial 2: Your first project&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 28 Feb 2016 19:49:33 +0800</pubDate>
@@ -473,7 +1009,7 @@ var str = &quot;Hello, playground&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;第三行代码你应该需要聚焦一下。&lt;br /&gt;
-这行代码创建了一个 &lt;code&gt;str&lt;/code&gt; 变量并且持有值”Hello, playground”。在窗口的右边，Xcode会持续跟踪这个 &lt;code&gt;str&lt;/code&gt; 变量的持有值。&lt;/p&gt;
+这行代码创建了一个 &lt;em&gt;str&lt;/em&gt; 变量并且持有值”Hello, playground”。在窗口的右边，Xcode会持续跟踪这个 &lt;em&gt;str&lt;/em&gt; 变量的持有值。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
 
@@ -488,7 +1024,7 @@ var str = &quot;Hello, playground&quot;
 
 &lt;h1 id=&quot;section-1&quot;&gt;专属计算器&lt;/h1&gt;
 
-&lt;p&gt;让我们看看你还能做啥。在文件底部，尝试编一条基本运算表达式 &lt;code&gt;2+2&lt;/code&gt; 然后键入回车键：&lt;/p&gt;
+&lt;p&gt;让我们看看你还能做啥。在文件底部，尝试编一条基本运算表达式 &lt;em&gt;2+2&lt;/em&gt; 然后键入回车键：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;2+2
 &lt;/code&gt;&lt;/pre&gt;
@@ -499,7 +1035,7 @@ var str = &quot;Hello, playground&quot;
 
 &lt;p&gt;真酷，不是吗？你还可以编写其他的数学表达式。&lt;/p&gt;
 
-&lt;p&gt;挑战：快速通过Playgrounds告诉我 &lt;code&gt;123 * 456&lt;/code&gt; 的结果是什么！&lt;/p&gt;
+&lt;p&gt;挑战：快速通过Playgrounds告诉我 &lt;em&gt;123 * 456&lt;/em&gt; 的结果是什么！&lt;/p&gt;
 
 &lt;p&gt;解决方案：&lt;br /&gt;
 在playground编写以下代码：&lt;/p&gt;
@@ -540,10 +1076,10 @@ var str = &quot;Hello, playground&quot;
 var age: Int = 18
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;第一行代码创建了一个 &lt;code&gt;String&lt;/code&gt; 类型的变量 &lt;code&gt;str&lt;/code&gt; ，并且设置了个初始值为 “Look what I can do!”&lt;br /&gt;
-第二行代码创建了一个 &lt;code&gt;Int&lt;/code&gt; 类型的变量 &lt;code&gt;age&lt;/code&gt;，初始值为18。&lt;/p&gt;
+&lt;p&gt;第一行代码创建了一个 &lt;em&gt;String&lt;/em&gt; 类型的变量 &lt;em&gt;str&lt;/em&gt; ，并且设置了个初始值为 “Look what I can do!”&lt;br /&gt;
+第二行代码创建了一个 &lt;em&gt;Int&lt;/em&gt; 类型的变量 &lt;em&gt;age&lt;/em&gt;，初始值为18。&lt;/p&gt;
 
-&lt;p&gt;你学了如何创建一个变量，但是你可能想知道 &lt;code&gt;String&lt;/code&gt; 跟 &lt;code&gt;Int&lt;/code&gt; 类型有什么不同，并且还有什么其它的类型。&lt;/p&gt;
+&lt;p&gt;你学了如何创建一个变量，但是你可能想知道 &lt;em&gt;String&lt;/em&gt; 跟 &lt;em&gt;Int&lt;/em&gt; 类型有什么不同，并且还有什么其它的类型。&lt;/p&gt;
 
 &lt;h1 id=&quot;section-3&quot;&gt;类型&lt;/h1&gt;
 
@@ -564,13 +1100,13 @@ var hungry: Bool = true
 var name: String = &quot;Ryland&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;注意playground窗口的右边区域会持续跟踪每一个变量的值。现在，尝试改变字符变量 &lt;code&gt;name&lt;/code&gt; 的值。&lt;br /&gt;
+&lt;p&gt;注意playground窗口的右边区域会持续跟踪每一个变量的值。现在，尝试改变字符变量 &lt;em&gt;name&lt;/em&gt; 的值。&lt;br /&gt;
 在playground的底部编写如下代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;name = &quot;Ry&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;这一行代码不需要使用关键字 &lt;code&gt;var&lt;/code&gt; 或者：&lt;code&gt;String&lt;/code&gt; ，因为变量已经创建过了。你需要做的只是改变它存储的值。&lt;/p&gt;
+&lt;p&gt;这一行代码不需要使用关键字 &lt;em&gt;var&lt;/em&gt; 或者：&lt;em&gt;String&lt;/em&gt; ，因为变量已经创建过了。你需要做的只是改变它存储的值。&lt;/p&gt;
 
 &lt;p&gt;挑战：尝试一下。在代码底部，创建一个变量来表达你喜欢的视频游戏。&lt;br /&gt;
 解决方案：&lt;/p&gt;
@@ -583,8 +1119,8 @@ favoriteGame = &quot;宠物小精灵。&quot;
 
 &lt;p&gt;一些特殊的变量类型叫常量。&lt;/p&gt;
 
-&lt;p&gt;不再是用 &lt;code&gt;var&lt;/code&gt; 关键字定义，而是 &lt;code&gt;let&lt;/code&gt; 。它使定义的变量不可变，或者说不能够修改。&lt;br /&gt;
-尽可能的，你应该使用 &lt;code&gt;let&lt;/code&gt; 来替代 &lt;code&gt;var&lt;/code&gt; 它能使你的程序跑的更快，因为编译器不需要计算值的改变。任何数据类型都能够被定义成常量，如同任何数据类型都能够被定义成变量一样。&lt;/p&gt;
+&lt;p&gt;不再是用 &lt;em&gt;var&lt;/em&gt; 关键字定义，而是 &lt;em&gt;let&lt;/em&gt; 。它使定义的变量不可变，或者说不能够修改。&lt;br /&gt;
+尽可能的，你应该使用 &lt;em&gt;let&lt;/em&gt; 来替代 &lt;em&gt;var&lt;/em&gt; 它能使你的程序跑的更快，因为编译器不需要计算值的改变。任何数据类型都能够被定义成常量，如同任何数据类型都能够被定义成变量一样。&lt;/p&gt;
 
 &lt;p&gt;在playground的底部编写如下代码：&lt;/p&gt;
 
@@ -594,7 +1130,7 @@ let canTouchThis: Bool = false
 let captain: String = &quot;Kirk&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;尝试给 &lt;code&gt;captain&lt;/code&gt; 变量赋新值，例如”Hook”。在playground的底部编写如下代码：&lt;/p&gt;
+&lt;p&gt;尝试给 &lt;em&gt;captain&lt;/em&gt; 变量赋新值，例如”Hook”。在playground的底部编写如下代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;captain = &quot;Hook&quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -603,12 +1139,12 @@ let captain: String = &quot;Kirk&quot;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;点击标志，会弹出提示错误信息”Cannot assign to ‘let’ value ‘captain’ “。这表示一旦你初始化的变量定义为 &lt;code&gt;let&lt;/code&gt; ，它的值就不能够被改变。&lt;/p&gt;
+&lt;p&gt;点击标志，会弹出提示错误信息”Cannot assign to ‘let’ value ‘captain’ “。这表示一旦你初始化的变量定义为 &lt;em&gt;let&lt;/em&gt; ，它的值就不能够被改变。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/8.png&quot; alt=&quot;图8&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;移除 &lt;code&gt;captain = &quot;Hook&quot;&lt;/code&gt; 来摆脱错误。&lt;br /&gt;
-挑战：定义一个 &lt;code&gt;Int&lt;/code&gt; 常量 &lt;code&gt;favoriteNumber&lt;/code&gt; ，并且设置你喜欢的数字。&lt;br /&gt;
+挑战：定义一个 &lt;em&gt;Int&lt;/em&gt; 常量 &lt;em&gt;favoriteNumber&lt;/em&gt; ，并且设置你喜欢的数字。&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let favoriteNumber: Int = 3
@@ -628,7 +1164,7 @@ Swift的一个新特性叫类型推导。意思是如果你在定义变量的时
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/9.jpg&quot; alt=&quot;图9&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这也许看起来不是个大事，但是长远来说它节省了你许多宝贵时间！&lt;br /&gt;
-记住，类型推导只会在你提供了正确的信息后才会工作。如果你希望变量 &lt;code&gt;luckyNumber&lt;/code&gt; 是 &lt;code&gt;Double&lt;/code&gt; 类型，你需要设置 &lt;code&gt;luckyNumber&lt;/code&gt; 等于7.0(清晰的表示它就是个浮点数,而不是一个整型)。&lt;/p&gt;
+记住，类型推导只会在你提供了正确的信息后才会工作。如果你希望变量 &lt;em&gt;luckyNumber&lt;/em&gt; 是 &lt;em&gt;Double&lt;/em&gt; 类型，你需要设置 &lt;em&gt;luckyNumber&lt;/em&gt; 等于7.0(清晰的表示它就是个浮点数,而不是一个整型)。&lt;/p&gt;
 
 &lt;p&gt;挑战：将之前的变量或者常量改成使用类型推导。&lt;br /&gt;
 解决方案：&lt;/p&gt;
@@ -690,9 +1226,9 @@ batmanCoolness &amp;lt; supermanCoolness || aquamanCoolness &amp;lt; supermanCoo
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/10.png&quot; alt=&quot;图10&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;AND`表达式(&amp;amp;&amp;amp;)，两边的表达式都必须为真才为真。OR表达式(||)，两个表达式只要一个为真就为真。如果左边的表达式已经为真，那么剩下的表达式将不会被执行。&lt;/p&gt;
+&lt;p&gt;AND表达式(&amp;amp;&amp;amp;)，两边的表达式都必须为真才为真。OR表达式(||)，两个表达式只要一个为真就为真。如果左边的表达式已经为真，那么剩下的表达式将不会被执行。&lt;/p&gt;
 
-&lt;p&gt;挑战：尝试为蜘蛛侠定义一个新变量 &lt;code&gt;spidermanCoolness&lt;/code&gt; 并且给它一个冷酷的值。然后尝试使用比较运算符(如 &amp;gt;, &amp;lt;, ==, &amp;amp;&amp;amp;, 和 ||)对比蜘蛛侠和其他超级英雄的冷酷值。 &lt;em&gt;(注意我定义了一个不可变的蝙蝠侠常量 &lt;code&gt;batmanCoolness&lt;/code&gt; ）&lt;/em&gt; 。&lt;/p&gt;
+&lt;p&gt;挑战：尝试为蜘蛛侠定义一个新变量 &lt;em&gt;spidermanCoolness&lt;/em&gt; 并且给它一个冷酷的值。然后尝试使用比较运算符(如 &amp;gt;, &amp;lt;, ==, &amp;amp;&amp;amp;, 和 ||)对比蜘蛛侠和其他超级英雄的冷酷值。 &lt;em&gt;(注意我定义了一个不可变的蝙蝠侠常量 batmanCoolness)&lt;/em&gt; 。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/11.png&quot; alt=&quot;图11&quot; /&gt;&lt;/p&gt;
 
@@ -705,7 +1241,7 @@ spidermanCoolness == 7 &amp;amp;&amp;amp; aquamanCoolness == 2
 
 &lt;h1 id=&quot;ifelse&quot;&gt;if/else控制流语句&lt;/h1&gt;
 
-&lt;p&gt;&lt;code&gt;if&lt;/code&gt; 语句中，如果表达式为真，计算机将会执行为真的代码块，如果表示为假，计算机将不会执行为真的代码块。&lt;br /&gt;
+&lt;p&gt;&lt;em&gt;if&lt;/em&gt; 语句中，如果表达式为真，计算机将会执行为真的代码块，如果表示为假，计算机将不会执行为真的代码块。&lt;br /&gt;
 在playground的底部编写如下代码块：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;if (batmanCoolness &amp;gt; spidermanCoolness) {
@@ -719,9 +1255,9 @@ spidermanCoolness == 7 &amp;amp;&amp;amp; aquamanCoolness == 2
 
 &lt;p&gt;如果蝙蝠侠（Batman）更冷酷那么蜘蛛侠（Spiderman）的冷酷值会递减，如果蜘蛛侠更冷酷那么蜘蛛侠的冷酷值会递增。&lt;/p&gt;
 
-&lt;p&gt;如果蜘蛛侠的冷酷值不等于蝙蝠侠，你可以通过Playground让蜘蛛侠的冷酷值减少至6.正如你看到的灰色区域，程序永远不会进入 &lt;code&gt;else if&lt;/code&gt; 语句，甚至 &lt;code&gt;else if&lt;/code&gt;语句为真。这是因为程序已经找到第一个 &lt;code&gt;if&lt;/code&gt; 语句为真，所以不会检测剩下的 &lt;code&gt;if/else&lt;/code&gt; 语句。&lt;/p&gt;
+&lt;p&gt;如果蜘蛛侠的冷酷值不等于蝙蝠侠，你可以通过Playground让蜘蛛侠的冷酷值减少至6。正如你看到的灰色区域，程序永远不会进入 &lt;em&gt;else if&lt;/em&gt; 语句，甚至 &lt;em&gt;else if&lt;/em&gt; 语句为真。这是因为程序已经找到第一个 &lt;em&gt;if&lt;/em&gt; 语句为真，所以不会检测剩下的 &lt;em&gt;if/else&lt;/em&gt; 语句。&lt;/p&gt;
 
-&lt;p&gt;挑战：在最后一个例子下面使用超级英雄（superheroes）创建你自己的控制流语句。记住，并不是 &lt;code&gt;if&lt;/code&gt; 或者 &lt;code&gt;else if&lt;/code&gt; 语句中必须有一个为真。程序要么执行 &lt;code&gt;else&lt;/code&gt; 语句，要么在程序中继续执行它的下一步内容。&lt;/p&gt;
+&lt;p&gt;挑战：在最后一个例子下面使用超级英雄（superheroes）创建你自己的控制流语句。记住，并不是 &lt;em&gt;if&lt;/em&gt; 或者 &lt;em&gt;else if&lt;/em&gt; 语句中必须有一个为真。程序要么执行 &lt;em&gt;else&lt;/em&gt; 语句，要么在程序中继续执行它的下一步内容。&lt;/p&gt;
 
 &lt;p&gt;解决方案：&lt;/p&gt;
 
@@ -739,12 +1275,12 @@ spidermanCoolness == 7 &amp;amp;&amp;amp; aquamanCoolness == 2
 
 &lt;h1 id=&quot;section-6&quot;&gt;简单函数&lt;/h1&gt;
 
-&lt;p&gt;函数(Functions)就是一块实现某些任务的代码。例如，一个函数 &lt;code&gt;printMyFavoriteSnack()&lt;/code&gt; 会打印”Pringles”。&lt;/p&gt;
+&lt;p&gt;函数(Functions)就是一块实现某些任务的代码。例如，一个函数 &lt;em&gt;printMyFavoriteSnack()&lt;/em&gt; 会打印”Pringles”。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/12.jpg&quot; alt=&quot;图12&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;你可以编写你自己使用的函数，也可以使用别的程序猿（媛）写的函数。例如，苹果提供了一些内置让你使用的功能函数。&lt;br /&gt;
-比如 &lt;code&gt;print()&lt;/code&gt; 函数。当你调用print函数，程序会”打印”圆括号内的内容到控制台上。&lt;/p&gt;
+比如 &lt;em&gt;print()&lt;/em&gt; 函数。当你调用print函数，程序会”打印”圆括号内的内容到控制台上。&lt;/p&gt;
 
 &lt;p&gt;快速尝试一下，在playground的底部编写如下代码：&lt;/p&gt;
 
@@ -755,7 +1291,7 @@ spidermanCoolness == 7 &amp;amp;&amp;amp; aquamanCoolness == 2
 
 &lt;p&gt;任何编程都会涉及到许多不同功能的函数。有时候你会使用到苹果或者其他开发人员的函数，就像刚才完成的功能print，有时候你要自己写函数，稍后你就会体会到。&lt;/p&gt;
 
-&lt;p&gt;挑战：尝试修改函数 &lt;code&gt;print()&lt;/code&gt; 括号内的字符串，告诉大家一些关于你的好事情。另外，你也可以放入一个超级英雄的冷酷值变量到括号内看看发生什么。&lt;br /&gt;
+&lt;p&gt;挑战：尝试修改函数 &lt;em&gt;print()&lt;/em&gt; 括号内的字符串，告诉大家一些关于你的好事情。另外，你也可以放入一个超级英雄的冷酷值变量到括号内看看发生什么。&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;print(&quot;博主真帅&quot;)
@@ -782,7 +1318,7 @@ print(batmanCoolness)
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/13.png&quot; alt=&quot;图13&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;挑战：是时候结合你所学的概念。创建两个变量代表班里学生的成绩：John的分数95和Sam的分数为85。然后创建比较他们两个分数的 &lt;code&gt;if/else&lt;/code&gt; 语句，并且打印出John的分数小于，大于，或者等于Sam的分数。我相信你能够做到！&lt;/p&gt;
+&lt;p&gt;挑战：是时候结合你所学的概念。创建两个变量代表班里学生的成绩：John的分数95和Sam的分数为85。然后创建比较他们两个分数的 &lt;em&gt;if/else&lt;/em&gt; 语句，并且打印出John的分数小于，大于，或者等于Sam的分数。我相信你能够做到！&lt;/p&gt;
 
 &lt;p&gt;解决方案：&lt;/p&gt;
 
@@ -801,9 +1337,9 @@ else {
 
 &lt;h1 id=&quot;whilewhile-loops&quot;&gt;While循环(While Loops)&lt;/h1&gt;
 
-&lt;p&gt;&lt;code&gt;While&lt;/code&gt; 循环是另一种控制流语句,例如你之前学的 &lt;code&gt;if/else&lt;/code&gt; 语句。它们实际上功能很相似,都必须提供一条可执行的条件语句。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;While&lt;/em&gt; 循环是另一种控制流语句,例如你之前学的 &lt;em&gt;if/else&lt;/em&gt; 语句。它们实际上功能很相似,都必须提供一条可执行的条件语句。&lt;/p&gt;
 
-&lt;p&gt;不同的是，&lt;code&gt;while&lt;/code&gt; 语句不止简单的执行代码块一次，只要 &lt;code&gt;while&lt;/code&gt; 条件语句为真，代码块里面内容会被一直执行。在playground底部添加以下代码：&lt;/p&gt;
+&lt;p&gt;不同的是，&lt;em&gt;while&lt;/em&gt; 语句不止简单的执行代码块一次，只要 &lt;em&gt;while&lt;/em&gt; 条件语句为真，代码块里面内容会被一直执行。在playground底部添加以下代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var secondsLeft = 3
 while (secondsLeft &amp;gt; 0) {
@@ -819,7 +1355,7 @@ print(&quot;Blast off!&quot;)
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/14.png&quot; alt=&quot;图14&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;挑战：尝试自己写一个 &lt;code&gt;while&lt;/code&gt; 循环 - 例如创建一个警察正在吃一些甜甜圈的 &lt;code&gt;while&lt;/code&gt; 循环。记住，防止死循环！&lt;br /&gt;
+&lt;p&gt;挑战：尝试自己写一个 &lt;em&gt;while&lt;/em&gt; 循环 - 例如创建一个警察正在吃一些甜甜圈的 &lt;em&gt;while&lt;/em&gt; 循环。记住，防止死循环！&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var donutsLeft = 6
@@ -833,7 +1369,7 @@ print(&quot;You are all out of donuts :(&quot;)
 
 &lt;h1 id=&quot;break&quot;&gt;Break语句&lt;/h1&gt;
 
-&lt;p&gt;你的程序有一些循环的代码，比如 &lt;code&gt;while&lt;/code&gt; 循环，你也许想在一件特殊情况发生的时候退出循环。 &lt;code&gt;break&lt;/code&gt; 命令因此而诞生。根据这个场景在playground底部添加以下代码：&lt;/p&gt;
+&lt;p&gt;你的程序有一些循环的代码，比如 &lt;em&gt;while&lt;/em&gt; 循环，你也许想在一件特殊情况发生的时候退出循环。 &lt;em&gt;break&lt;/em&gt; 命令因此而诞生。根据这个场景在playground底部添加以下代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var cokesLeft = 7
 var fantasLeft = 4
@@ -851,7 +1387,7 @@ print(&quot;You stop drinking Cokes.&quot;)
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/15.png&quot; alt=&quot;图15&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;挑战：轮到你编程了。创建一个有结束点的 &lt;code&gt;while&lt;/code&gt; 循环。例如老板走到身边的时候停止偷懒。在这个循环中，添加一个 &lt;code&gt;if&lt;/code&gt; 条件语句来 &lt;code&gt;break&lt;/code&gt; 循环。&lt;br /&gt;
+&lt;p&gt;挑战：轮到你编程了。创建一个有结束点的 &lt;em&gt;while&lt;/em&gt; 循环。例如老板走到身边的时候停止偷懒。在这个循环中，添加一个 &lt;em&gt;if&lt;/em&gt; 条件语句来 &lt;em&gt;break&lt;/em&gt; 循环。&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var goofOffTime = 10
@@ -869,7 +1405,7 @@ print(&quot;Done goofing off.&quot;)
 
 &lt;h1 id=&quot;continue&quot;&gt;Continue语句&lt;/h1&gt;
 
-&lt;p&gt;&lt;code&gt;Continue&lt;/code&gt; 语句跟 &lt;code&gt;break&lt;/code&gt; 语句有些相似，然而，不同于退出循环，它的功能是告诉程序进行下一次循环。在playground底部添加以下代码：&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Continue&lt;/em&gt; 语句跟 &lt;em&gt;break&lt;/em&gt; 语句有些相似，然而，不同于退出循环，它的功能是告诉程序进行下一次循环。在playground底部添加以下代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var numbers = 0
 while(numbers &amp;lt;= 10)  {
@@ -885,7 +1421,7 @@ while(numbers &amp;lt;= 10)  {
 &lt;p&gt;接下来你能在控制台看到程序打印出来的内容，0到10之间的数字被打印出来除了9，因为9太坏，被7吃了。出于这个原因，我们的列表中不能包括他。&lt;br /&gt;
 &lt;img src=&quot;/img/swift-tutorial-series/d1/16.png&quot; alt=&quot;图16&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;挑战：在你的循环中使用 &lt;code&gt;continue&lt;/code&gt; 语句。找一个特定的值写个条件语句进行 &lt;code&gt;continue&lt;/code&gt; 命令进行下一个循环，其他的值继续执行。&lt;br /&gt;
+&lt;p&gt;挑战：在你的循环中使用 &lt;em&gt;continue&lt;/em&gt; 语句。找一个特定的值写个条件语句进行 &lt;em&gt;continue&lt;/em&gt; 命令进行下一个循环，其他的值继续执行。&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;print(&quot;List of World Wars:&quot;)
@@ -903,23 +1439,23 @@ print(&quot;That&#39;s the beauty of World War V, Lois. It&#39;s so intense it s
 
 &lt;h1 id=&quot;optionals&quot;&gt;Optionals(可选类型)&lt;/h1&gt;
 
-&lt;p&gt;有时，由于使用了不同的功能，你并不知道一个变量是否有值。当它没有值的时候为 &lt;code&gt;nil&lt;/code&gt; 。这就引入了 &lt;em&gt;optionals(可选类型)&lt;/em&gt; 。&lt;br /&gt;
-可选类型的变量能够包含值或者 &lt;code&gt;nil&lt;/code&gt; 。定义成可选类型表示这个变量可以设置成 &lt;code&gt;nil&lt;/code&gt; 值:&lt;/p&gt;
+&lt;p&gt;有时，由于使用了不同的功能，你并不知道一个变量是否有值。当它没有值的时候为 &lt;em&gt;nil&lt;/em&gt; 。这就引入了 &lt;em&gt;optionals(可选类型)&lt;/em&gt; 。&lt;br /&gt;
+可选类型的变量能够包含值或者 &lt;em&gt;nil&lt;/em&gt; 。定义成可选类型表示这个变量可以设置成 &lt;em&gt;nil&lt;/em&gt; 值:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var optionalNumber: Int? = 5
 optionalNumber = nil
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;输入?(问号)将变量定义成可选类型。如果想知道可选变量是包含一个值还是 &lt;code&gt;nil&lt;/code&gt; 值，需要调用 &lt;code&gt;if let&lt;/code&gt; 语句。就像下面这段代码：&lt;/p&gt;
+&lt;p&gt;输入?(问号)将变量定义成可选类型。如果想知道可选变量是包含一个值还是 &lt;em&gt;nil&lt;/em&gt; 值，需要调用 &lt;em&gt;if let&lt;/em&gt; 语句。就像下面这段代码：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;if let number = optionalNumber
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;if let&lt;/code&gt; 语句作用实际上跟if语句很相似。如果 &lt;code&gt;optionalNumber&lt;/code&gt; 包含一个 &lt;code&gt;Int&lt;/code&gt; 整型，&lt;code&gt;number&lt;/code&gt; 变量将会被设置成该值，并且 &lt;code&gt;if let&lt;/code&gt; 花括号内的代码会被执行。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;if let&lt;/em&gt; 语句作用实际上跟if语句很相似。如果 &lt;em&gt;optionalNumber&lt;/em&gt; 包含一个 &lt;em&gt;Int&lt;/em&gt; 整型，&lt;em&gt;number&lt;/em&gt; 变量将会被设置成该值，并且 &lt;em&gt;if let&lt;/em&gt; 花括号内的代码会被执行。&lt;/p&gt;
 
 &lt;p&gt;可选地，如果optionalNumber返回nil你可以设置执行else语句。&lt;/p&gt;
 
-&lt;p&gt;挑战：为 &lt;code&gt;optionalNumber&lt;/code&gt; 编写一条 &lt;code&gt;if let&lt;/code&gt; 语句根据包含值或者 &lt;code&gt;nil&lt;/code&gt; 打印不同的字符串。&lt;br /&gt;
+&lt;p&gt;挑战：为 &lt;em&gt;optionalNumber&lt;/em&gt; 编写一条 &lt;em&gt;if let&lt;/em&gt; 语句根据包含值或者 &lt;em&gt;nil&lt;/em&gt; 打印不同的字符串。&lt;br /&gt;
 解决方案：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;if let number = optionalNumber  {
@@ -932,15 +1468,15 @@ else  {
 
 &lt;h1 id=&quot;conversion-between-data-types&quot;&gt;数据类型之间的转换(Conversion Between Data Types)&lt;/h1&gt;
 
-&lt;p&gt;让我们看看它在程序中发挥着什么作用。可选类型能够帮助你在两个变量之间进行类型转换。尝试以下代码将 &lt;code&gt;String&lt;/code&gt; 转换成 &lt;code&gt;Int&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;让我们看看它在程序中发挥着什么作用。可选类型能够帮助你在两个变量之间进行类型转换。尝试以下代码将 &lt;em&gt;String&lt;/em&gt; 转换成 &lt;em&gt;Int&lt;/em&gt; 。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;var languagesLearned: String = &quot;3&quot;
 var languagesLearnedNum: Int? = Int(languagesLearned)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;languagesLearned&lt;/code&gt; 定义成 &lt;code&gt;String&lt;/code&gt; 类型并且初始化值为”3”，&lt;code&gt;languagesLearnedNum&lt;/code&gt; 定义成一个可选类型并且等于 &lt;code&gt;toInt()&lt;/code&gt; 。这个方法跟你之前选的 &lt;code&gt;print()&lt;/code&gt; 函数非常相似，不同的是它们是class(类)中的一部分。接下来你会学的更多。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;languagesLearned&lt;/em&gt; 定义成 &lt;em&gt;String&lt;/em&gt; 类型并且初始化值为”3”，&lt;em&gt;languagesLearnedNum&lt;/em&gt; 定义成一个可选类型并且等于 &lt;em&gt;toInt()&lt;/em&gt; 。这个方法跟你之前选的 &lt;em&gt;print()&lt;/em&gt; 函数非常相似，不同的是它们是class(类)中的一部分。接下来你会学的更多。&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;Int()&lt;/code&gt; 是一个构造器，允许你将一个 &lt;code&gt;String&lt;/code&gt; 类型的值转化成 &lt;code&gt;Int&lt;/code&gt; 类型。之所以要将 &lt;code&gt;languagesLearnedNum&lt;/code&gt; 设置成可选类型是因为转化后的值可能为 &lt;code&gt;nil&lt;/code&gt; 。有可能尝试转换的 &lt;code&gt;String&lt;/code&gt; 变量值不是一个数字，而是”Hello, World”。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Int()&lt;/em&gt; 是一个构造器，允许你将一个 &lt;em&gt;String&lt;/em&gt; 类型的值转化成 &lt;em&gt;Int&lt;/em&gt; 类型。之所以要将 &lt;em&gt;languagesLearnedNum&lt;/em&gt; 设置成可选类型是因为转化后的值可能为 &lt;em&gt;nil&lt;/em&gt; 。有可能尝试转换的 &lt;em&gt;String&lt;/em&gt; 变量值不是一个数字，而是”Hello, World”。&lt;/p&gt;
 
 &lt;p&gt;编写以下代码来找出答案：&lt;/p&gt;
 
@@ -952,13 +1488,13 @@ else  {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;if let&lt;/code&gt; 语句用来检验 &lt;code&gt;languagesLearnedNum&lt;/code&gt; 是否包含值。如果变量包含值，该值赋值到 &lt;code&gt;num&lt;/code&gt; 变量并且执行花括号内的代码。如果为 &lt;code&gt;nil&lt;/code&gt; ，将执行 &lt;code&gt;else&lt;/code&gt; 括号内的代码。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;if let&lt;/em&gt; 语句用来检验 &lt;em&gt;languagesLearnedNum&lt;/em&gt; 是否包含值。如果变量包含值，该值赋值到 &lt;em&gt;num&lt;/em&gt; 变量并且执行花括号内的代码。如果为 &lt;em&gt;nil&lt;/em&gt; ，将执行 &lt;em&gt;else&lt;/em&gt; 括号内的代码。&lt;/p&gt;
 
-&lt;p&gt;如果将字符串 &lt;code&gt;languagesLearned&lt;/code&gt; 变量值改成”Three”看看会发生什么。程序将会打印”It is not a number”到控制台因为执行”Three”转成 &lt;code&gt;Int&lt;/code&gt; 返回结果 &lt;code&gt;nil&lt;/code&gt; 给 &lt;code&gt;languagesLearnedNum&lt;/code&gt;变量。&lt;/p&gt;
+&lt;p&gt;如果将字符串 &lt;em&gt;languagesLearned&lt;/em&gt; 变量值改成”Three”看看会发生什么。程序将会打印”It is not a number”到控制台因为执行”Three”转成 &lt;em&gt;Int&lt;/em&gt; 返回结果 &lt;em&gt;nil&lt;/em&gt; 给 &lt;em&gt;languagesLearnedNum&lt;/em&gt; 变量。&lt;/p&gt;
 
 &lt;p&gt;#综合所学&lt;/p&gt;
 
-&lt;p&gt;挑战：最后一道！尝试编写一个变量存放 &lt;code&gt;String&lt;/code&gt; 转换 &lt;code&gt;Int&lt;/code&gt; 的结果值。接着将结果放在 &lt;code&gt;if&lt;/code&gt; 语句中与其他变量进行比较并执行 &lt;code&gt;print()&lt;/code&gt; 函数。 &lt;code&gt;print()&lt;/code&gt; 函数花括号内应该使用字符串插值(String Interpolation)，因此你可以打印一个值大于/小于另外一个值。&lt;/p&gt;
+&lt;p&gt;挑战：最后一道！尝试编写一个变量存放 &lt;em&gt;String&lt;/em&gt; 转换 &lt;em&gt;Int&lt;/em&gt; 的结果值。接着将结果放在 &lt;em&gt;if&lt;/em&gt; 语句中与其他变量进行比较并执行 &lt;em&gt;print()&lt;/em&gt; 函数。 &lt;em&gt;print()&lt;/em&gt; 函数花括号内应该使用字符串插值(String Interpolation)，因此你可以打印一个值大于/小于另外一个值。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d1/17.png&quot; alt=&quot;图17&quot; /&gt;&lt;/p&gt;
 
@@ -986,6 +1522,10 @@ if let numTutorial = tutorialTeamNum  {
 
 &lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn3.raywenderlich.com/wp-content/uploads/2015/09/MyPlaygroundplayground.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
 点击该系列&lt;a href=&quot;/2016/02/28/swift-tutorial-2/&quot;&gt;下一篇&lt;/a&gt;教程，你将会学到如何将你已学到Swift知识来创建一个简单的命令行猜数字游戏！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h1 id=&quot;section-8&quot;&gt;著作权声明&lt;/h1&gt;
 &lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114148/learn-to-code-ios-apps-with-swift-tutorial-1-welcome-to-programming&quot;&gt;Learn to Code iOS Apps with Swift Tutorial 1: Welcome to Programming&lt;/a&gt;&lt;/p&gt;

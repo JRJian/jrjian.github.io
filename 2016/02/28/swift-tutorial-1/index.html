@@ -236,7 +236,7 @@ var str = "Hello, playground"
 </code></pre>
 
 <p>第三行代码你应该需要聚焦一下。<br />
-这行代码创建了一个 <code>str</code> 变量并且持有值”Hello, playground”。在窗口的右边，Xcode会持续跟踪这个 <code>str</code> 变量的持有值。</p>
+这行代码创建了一个 <em>str</em> 变量并且持有值”Hello, playground”。在窗口的右边，Xcode会持续跟踪这个 <em>str</em> 变量的持有值。</p>
 
 <p><img src="/img/swift-tutorial-series/d1/4.png" alt="图4" /></p>
 
@@ -251,7 +251,7 @@ var str = "Hello, playground"
 
 <h1 id="section-1">专属计算器</h1>
 
-<p>让我们看看你还能做啥。在文件底部，尝试编一条基本运算表达式 <code>2+2</code> 然后键入回车键：</p>
+<p>让我们看看你还能做啥。在文件底部，尝试编一条基本运算表达式 <em>2+2</em> 然后键入回车键：</p>
 
 <pre><code>2+2
 </code></pre>
@@ -262,7 +262,7 @@ var str = "Hello, playground"
 
 <p>真酷，不是吗？你还可以编写其他的数学表达式。</p>
 
-<p>挑战：快速通过Playgrounds告诉我 <code>123 * 456</code> 的结果是什么！</p>
+<p>挑战：快速通过Playgrounds告诉我 <em>123 * 456</em> 的结果是什么！</p>
 
 <p>解决方案：<br />
 在playground编写以下代码：</p>
@@ -303,10 +303,10 @@ var str = "Hello, playground"
 var age: Int = 18
 </code></pre>
 
-<p>第一行代码创建了一个 <code>String</code> 类型的变量 <code>str</code> ，并且设置了个初始值为 “Look what I can do!”<br />
-第二行代码创建了一个 <code>Int</code> 类型的变量 <code>age</code>，初始值为18。</p>
+<p>第一行代码创建了一个 <em>String</em> 类型的变量 <em>str</em> ，并且设置了个初始值为 “Look what I can do!”<br />
+第二行代码创建了一个 <em>Int</em> 类型的变量 <em>age</em>，初始值为18。</p>
 
-<p>你学了如何创建一个变量，但是你可能想知道 <code>String</code> 跟 <code>Int</code> 类型有什么不同，并且还有什么其它的类型。</p>
+<p>你学了如何创建一个变量，但是你可能想知道 <em>String</em> 跟 <em>Int</em> 类型有什么不同，并且还有什么其它的类型。</p>
 
 <h1 id="section-3">类型</h1>
 
@@ -327,13 +327,13 @@ var hungry: Bool = true
 var name: String = "Ryland"
 </code></pre>
 
-<p>注意playground窗口的右边区域会持续跟踪每一个变量的值。现在，尝试改变字符变量 <code>name</code> 的值。<br />
+<p>注意playground窗口的右边区域会持续跟踪每一个变量的值。现在，尝试改变字符变量 <em>name</em> 的值。<br />
 在playground的底部编写如下代码：</p>
 
 <pre><code>name = "Ry"
 </code></pre>
 
-<p>这一行代码不需要使用关键字 <code>var</code> 或者：<code>String</code> ，因为变量已经创建过了。你需要做的只是改变它存储的值。</p>
+<p>这一行代码不需要使用关键字 <em>var</em> 或者：<em>String</em> ，因为变量已经创建过了。你需要做的只是改变它存储的值。</p>
 
 <p>挑战：尝试一下。在代码底部，创建一个变量来表达你喜欢的视频游戏。<br />
 解决方案：</p>
@@ -346,8 +346,8 @@ favoriteGame = "宠物小精灵。"
 
 <p>一些特殊的变量类型叫常量。</p>
 
-<p>不再是用 <code>var</code> 关键字定义，而是 <code>let</code> 。它使定义的变量不可变，或者说不能够修改。<br />
-尽可能的，你应该使用 <code>let</code> 来替代 <code>var</code> 它能使你的程序跑的更快，因为编译器不需要计算值的改变。任何数据类型都能够被定义成常量，如同任何数据类型都能够被定义成变量一样。</p>
+<p>不再是用 <em>var</em> 关键字定义，而是 <em>let</em> 。它使定义的变量不可变，或者说不能够修改。<br />
+尽可能的，你应该使用 <em>let</em> 来替代 <em>var</em> 它能使你的程序跑的更快，因为编译器不需要计算值的改变。任何数据类型都能够被定义成常量，如同任何数据类型都能够被定义成变量一样。</p>
 
 <p>在playground的底部编写如下代码：</p>
 
@@ -357,7 +357,7 @@ let canTouchThis: Bool = false
 let captain: String = "Kirk"
 </code></pre>
 
-<p>尝试给 <code>captain</code> 变量赋新值，例如”Hook”。在playground的底部编写如下代码：</p>
+<p>尝试给 <em>captain</em> 变量赋新值，例如”Hook”。在playground的底部编写如下代码：</p>
 
 <pre><code>captain = "Hook"
 </code></pre>
@@ -366,12 +366,12 @@ let captain: String = "Kirk"
 
 <p><img src="/img/swift-tutorial-series/d1/7.png" alt="图7" /></p>
 
-<p>点击标志，会弹出提示错误信息”Cannot assign to ‘let’ value ‘captain’ “。这表示一旦你初始化的变量定义为 <code>let</code> ，它的值就不能够被改变。</p>
+<p>点击标志，会弹出提示错误信息”Cannot assign to ‘let’ value ‘captain’ “。这表示一旦你初始化的变量定义为 <em>let</em> ，它的值就不能够被改变。</p>
 
 <p><img src="/img/swift-tutorial-series/d1/8.png" alt="图8" /></p>
 
 <p>移除 <code>captain = "Hook"</code> 来摆脱错误。<br />
-挑战：定义一个 <code>Int</code> 常量 <code>favoriteNumber</code> ，并且设置你喜欢的数字。<br />
+挑战：定义一个 <em>Int</em> 常量 <em>favoriteNumber</em> ，并且设置你喜欢的数字。<br />
 解决方案：</p>
 
 <pre><code>let favoriteNumber: Int = 3
@@ -391,7 +391,7 @@ Swift的一个新特性叫类型推导。意思是如果你在定义变量的时
 <p><img src="/img/swift-tutorial-series/d1/9.jpg" alt="图9" /></p>
 
 <p>这也许看起来不是个大事，但是长远来说它节省了你许多宝贵时间！<br />
-记住，类型推导只会在你提供了正确的信息后才会工作。如果你希望变量 <code>luckyNumber</code> 是 <code>Double</code> 类型，你需要设置 <code>luckyNumber</code> 等于7.0(清晰的表示它就是个浮点数,而不是一个整型)。</p>
+记住，类型推导只会在你提供了正确的信息后才会工作。如果你希望变量 <em>luckyNumber</em> 是 <em>Double</em> 类型，你需要设置 <em>luckyNumber</em> 等于7.0(清晰的表示它就是个浮点数,而不是一个整型)。</p>
 
 <p>挑战：将之前的变量或者常量改成使用类型推导。<br />
 解决方案：</p>
@@ -453,9 +453,9 @@ batmanCoolness &lt; supermanCoolness || aquamanCoolness &lt; supermanCoolness
 
 <p><img src="/img/swift-tutorial-series/d1/10.png" alt="图10" /></p>
 
-<p>AND`表达式(&amp;&amp;)，两边的表达式都必须为真才为真。OR表达式(||)，两个表达式只要一个为真就为真。如果左边的表达式已经为真，那么剩下的表达式将不会被执行。</p>
+<p>AND表达式(&amp;&amp;)，两边的表达式都必须为真才为真。OR表达式(||)，两个表达式只要一个为真就为真。如果左边的表达式已经为真，那么剩下的表达式将不会被执行。</p>
 
-<p>挑战：尝试为蜘蛛侠定义一个新变量 <code>spidermanCoolness</code> 并且给它一个冷酷的值。然后尝试使用比较运算符(如 &gt;, &lt;, ==, &amp;&amp;, 和 ||)对比蜘蛛侠和其他超级英雄的冷酷值。 <em>(注意我定义了一个不可变的蝙蝠侠常量 <code>batmanCoolness</code> ）</em> 。</p>
+<p>挑战：尝试为蜘蛛侠定义一个新变量 <em>spidermanCoolness</em> 并且给它一个冷酷的值。然后尝试使用比较运算符(如 &gt;, &lt;, ==, &amp;&amp;, 和 ||)对比蜘蛛侠和其他超级英雄的冷酷值。 <em>(注意我定义了一个不可变的蝙蝠侠常量 batmanCoolness)</em> 。</p>
 
 <p><img src="/img/swift-tutorial-series/d1/11.png" alt="图11" /></p>
 
@@ -468,7 +468,7 @@ spidermanCoolness == 7 &amp;&amp; aquamanCoolness == 2
 
 <h1 id="ifelse">if/else控制流语句</h1>
 
-<p><code>if</code> 语句中，如果表达式为真，计算机将会执行为真的代码块，如果表示为假，计算机将不会执行为真的代码块。<br />
+<p><em>if</em> 语句中，如果表达式为真，计算机将会执行为真的代码块，如果表示为假，计算机将不会执行为真的代码块。<br />
 在playground的底部编写如下代码块：</p>
 
 <pre><code>if (batmanCoolness &gt; spidermanCoolness) {
@@ -482,9 +482,9 @@ spidermanCoolness == 7 &amp;&amp; aquamanCoolness == 2
 
 <p>如果蝙蝠侠（Batman）更冷酷那么蜘蛛侠（Spiderman）的冷酷值会递减，如果蜘蛛侠更冷酷那么蜘蛛侠的冷酷值会递增。</p>
 
-<p>如果蜘蛛侠的冷酷值不等于蝙蝠侠，你可以通过Playground让蜘蛛侠的冷酷值减少至6.正如你看到的灰色区域，程序永远不会进入 <code>else if</code> 语句，甚至 <code>else if</code>语句为真。这是因为程序已经找到第一个 <code>if</code> 语句为真，所以不会检测剩下的 <code>if/else</code> 语句。</p>
+<p>如果蜘蛛侠的冷酷值不等于蝙蝠侠，你可以通过Playground让蜘蛛侠的冷酷值减少至6。正如你看到的灰色区域，程序永远不会进入 <em>else if</em> 语句，甚至 <em>else if</em> 语句为真。这是因为程序已经找到第一个 <em>if</em> 语句为真，所以不会检测剩下的 <em>if/else</em> 语句。</p>
 
-<p>挑战：在最后一个例子下面使用超级英雄（superheroes）创建你自己的控制流语句。记住，并不是 <code>if</code> 或者 <code>else if</code> 语句中必须有一个为真。程序要么执行 <code>else</code> 语句，要么在程序中继续执行它的下一步内容。</p>
+<p>挑战：在最后一个例子下面使用超级英雄（superheroes）创建你自己的控制流语句。记住，并不是 <em>if</em> 或者 <em>else if</em> 语句中必须有一个为真。程序要么执行 <em>else</em> 语句，要么在程序中继续执行它的下一步内容。</p>
 
 <p>解决方案：</p>
 
@@ -502,12 +502,12 @@ spidermanCoolness == 7 &amp;&amp; aquamanCoolness == 2
 
 <h1 id="section-6">简单函数</h1>
 
-<p>函数(Functions)就是一块实现某些任务的代码。例如，一个函数 <code>printMyFavoriteSnack()</code> 会打印”Pringles”。</p>
+<p>函数(Functions)就是一块实现某些任务的代码。例如，一个函数 <em>printMyFavoriteSnack()</em> 会打印”Pringles”。</p>
 
 <p><img src="/img/swift-tutorial-series/d1/12.jpg" alt="图12" /></p>
 
 <p>你可以编写你自己使用的函数，也可以使用别的程序猿（媛）写的函数。例如，苹果提供了一些内置让你使用的功能函数。<br />
-比如 <code>print()</code> 函数。当你调用print函数，程序会”打印”圆括号内的内容到控制台上。</p>
+比如 <em>print()</em> 函数。当你调用print函数，程序会”打印”圆括号内的内容到控制台上。</p>
 
 <p>快速尝试一下，在playground的底部编写如下代码：</p>
 
@@ -518,7 +518,7 @@ spidermanCoolness == 7 &amp;&amp; aquamanCoolness == 2
 
 <p>任何编程都会涉及到许多不同功能的函数。有时候你会使用到苹果或者其他开发人员的函数，就像刚才完成的功能print，有时候你要自己写函数，稍后你就会体会到。</p>
 
-<p>挑战：尝试修改函数 <code>print()</code> 括号内的字符串，告诉大家一些关于你的好事情。另外，你也可以放入一个超级英雄的冷酷值变量到括号内看看发生什么。<br />
+<p>挑战：尝试修改函数 <em>print()</em> 括号内的字符串，告诉大家一些关于你的好事情。另外，你也可以放入一个超级英雄的冷酷值变量到括号内看看发生什么。<br />
 解决方案：</p>
 
 <pre><code>print("博主真帅")
@@ -545,7 +545,7 @@ print(batmanCoolness)
 
 <p><img src="/img/swift-tutorial-series/d1/13.png" alt="图13" /></p>
 
-<p>挑战：是时候结合你所学的概念。创建两个变量代表班里学生的成绩：John的分数95和Sam的分数为85。然后创建比较他们两个分数的 <code>if/else</code> 语句，并且打印出John的分数小于，大于，或者等于Sam的分数。我相信你能够做到！</p>
+<p>挑战：是时候结合你所学的概念。创建两个变量代表班里学生的成绩：John的分数95和Sam的分数为85。然后创建比较他们两个分数的 <em>if/else</em> 语句，并且打印出John的分数小于，大于，或者等于Sam的分数。我相信你能够做到！</p>
 
 <p>解决方案：</p>
 
@@ -564,9 +564,9 @@ else {
 
 <h1 id="whilewhile-loops">While循环(While Loops)</h1>
 
-<p><code>While</code> 循环是另一种控制流语句,例如你之前学的 <code>if/else</code> 语句。它们实际上功能很相似,都必须提供一条可执行的条件语句。</p>
+<p><em>While</em> 循环是另一种控制流语句,例如你之前学的 <em>if/else</em> 语句。它们实际上功能很相似,都必须提供一条可执行的条件语句。</p>
 
-<p>不同的是，<code>while</code> 语句不止简单的执行代码块一次，只要 <code>while</code> 条件语句为真，代码块里面内容会被一直执行。在playground底部添加以下代码：</p>
+<p>不同的是，<em>while</em> 语句不止简单的执行代码块一次，只要 <em>while</em> 条件语句为真，代码块里面内容会被一直执行。在playground底部添加以下代码：</p>
 
 <pre><code>var secondsLeft = 3
 while (secondsLeft &gt; 0) {
@@ -582,7 +582,7 @@ print("Blast off!")
 
 <p><img src="/img/swift-tutorial-series/d1/14.png" alt="图14" /></p>
 
-<p>挑战：尝试自己写一个 <code>while</code> 循环 - 例如创建一个警察正在吃一些甜甜圈的 <code>while</code> 循环。记住，防止死循环！<br />
+<p>挑战：尝试自己写一个 <em>while</em> 循环 - 例如创建一个警察正在吃一些甜甜圈的 <em>while</em> 循环。记住，防止死循环！<br />
 解决方案：</p>
 
 <pre><code>var donutsLeft = 6
@@ -596,7 +596,7 @@ print("You are all out of donuts :(")
 
 <h1 id="break">Break语句</h1>
 
-<p>你的程序有一些循环的代码，比如 <code>while</code> 循环，你也许想在一件特殊情况发生的时候退出循环。 <code>break</code> 命令因此而诞生。根据这个场景在playground底部添加以下代码：</p>
+<p>你的程序有一些循环的代码，比如 <em>while</em> 循环，你也许想在一件特殊情况发生的时候退出循环。 <em>break</em> 命令因此而诞生。根据这个场景在playground底部添加以下代码：</p>
 
 <pre><code>var cokesLeft = 7
 var fantasLeft = 4
@@ -614,7 +614,7 @@ print("You stop drinking Cokes.")
 
 <p><img src="/img/swift-tutorial-series/d1/15.png" alt="图15" /></p>
 
-<p>挑战：轮到你编程了。创建一个有结束点的 <code>while</code> 循环。例如老板走到身边的时候停止偷懒。在这个循环中，添加一个 <code>if</code> 条件语句来 <code>break</code> 循环。<br />
+<p>挑战：轮到你编程了。创建一个有结束点的 <em>while</em> 循环。例如老板走到身边的时候停止偷懒。在这个循环中，添加一个 <em>if</em> 条件语句来 <em>break</em> 循环。<br />
 解决方案：</p>
 
 <pre><code>var goofOffTime = 10
@@ -632,7 +632,7 @@ print("Done goofing off.")
 
 <h1 id="continue">Continue语句</h1>
 
-<p><code>Continue</code> 语句跟 <code>break</code> 语句有些相似，然而，不同于退出循环，它的功能是告诉程序进行下一次循环。在playground底部添加以下代码：</p>
+<p><em>Continue</em> 语句跟 <em>break</em> 语句有些相似，然而，不同于退出循环，它的功能是告诉程序进行下一次循环。在playground底部添加以下代码：</p>
 
 <pre><code>var numbers = 0
 while(numbers &lt;= 10)  {
@@ -648,7 +648,7 @@ while(numbers &lt;= 10)  {
 <p>接下来你能在控制台看到程序打印出来的内容，0到10之间的数字被打印出来除了9，因为9太坏，被7吃了。出于这个原因，我们的列表中不能包括他。<br />
 <img src="/img/swift-tutorial-series/d1/16.png" alt="图16" /></p>
 
-<p>挑战：在你的循环中使用 <code>continue</code> 语句。找一个特定的值写个条件语句进行 <code>continue</code> 命令进行下一个循环，其他的值继续执行。<br />
+<p>挑战：在你的循环中使用 <em>continue</em> 语句。找一个特定的值写个条件语句进行 <em>continue</em> 命令进行下一个循环，其他的值继续执行。<br />
 解决方案：</p>
 
 <pre><code>print("List of World Wars:")
@@ -666,23 +666,23 @@ print("That's the beauty of World War V, Lois. It's so intense it skips over the
 
 <h1 id="optionals">Optionals(可选类型)</h1>
 
-<p>有时，由于使用了不同的功能，你并不知道一个变量是否有值。当它没有值的时候为 <code>nil</code> 。这就引入了 <em>optionals(可选类型)</em> 。<br />
-可选类型的变量能够包含值或者 <code>nil</code> 。定义成可选类型表示这个变量可以设置成 <code>nil</code> 值:</p>
+<p>有时，由于使用了不同的功能，你并不知道一个变量是否有值。当它没有值的时候为 <em>nil</em> 。这就引入了 <em>optionals(可选类型)</em> 。<br />
+可选类型的变量能够包含值或者 <em>nil</em> 。定义成可选类型表示这个变量可以设置成 <em>nil</em> 值:</p>
 
 <pre><code>var optionalNumber: Int? = 5
 optionalNumber = nil
 </code></pre>
 
-<p>输入?(问号)将变量定义成可选类型。如果想知道可选变量是包含一个值还是 <code>nil</code> 值，需要调用 <code>if let</code> 语句。就像下面这段代码：</p>
+<p>输入?(问号)将变量定义成可选类型。如果想知道可选变量是包含一个值还是 <em>nil</em> 值，需要调用 <em>if let</em> 语句。就像下面这段代码：</p>
 
 <pre><code>if let number = optionalNumber
 </code></pre>
 
-<p><code>if let</code> 语句作用实际上跟if语句很相似。如果 <code>optionalNumber</code> 包含一个 <code>Int</code> 整型，<code>number</code> 变量将会被设置成该值，并且 <code>if let</code> 花括号内的代码会被执行。</p>
+<p><em>if let</em> 语句作用实际上跟if语句很相似。如果 <em>optionalNumber</em> 包含一个 <em>Int</em> 整型，<em>number</em> 变量将会被设置成该值，并且 <em>if let</em> 花括号内的代码会被执行。</p>
 
 <p>可选地，如果optionalNumber返回nil你可以设置执行else语句。</p>
 
-<p>挑战：为 <code>optionalNumber</code> 编写一条 <code>if let</code> 语句根据包含值或者 <code>nil</code> 打印不同的字符串。<br />
+<p>挑战：为 <em>optionalNumber</em> 编写一条 <em>if let</em> 语句根据包含值或者 <em>nil</em> 打印不同的字符串。<br />
 解决方案：</p>
 
 <pre><code>if let number = optionalNumber  {
@@ -695,15 +695,15 @@ else  {
 
 <h1 id="conversion-between-data-types">数据类型之间的转换(Conversion Between Data Types)</h1>
 
-<p>让我们看看它在程序中发挥着什么作用。可选类型能够帮助你在两个变量之间进行类型转换。尝试以下代码将 <code>String</code> 转换成 <code>Int</code> 。</p>
+<p>让我们看看它在程序中发挥着什么作用。可选类型能够帮助你在两个变量之间进行类型转换。尝试以下代码将 <em>String</em> 转换成 <em>Int</em> 。</p>
 
 <pre><code>var languagesLearned: String = "3"
 var languagesLearnedNum: Int? = Int(languagesLearned)
 </code></pre>
 
-<p><code>languagesLearned</code> 定义成 <code>String</code> 类型并且初始化值为”3”，<code>languagesLearnedNum</code> 定义成一个可选类型并且等于 <code>toInt()</code> 。这个方法跟你之前选的 <code>print()</code> 函数非常相似，不同的是它们是class(类)中的一部分。接下来你会学的更多。</p>
+<p><em>languagesLearned</em> 定义成 <em>String</em> 类型并且初始化值为”3”，<em>languagesLearnedNum</em> 定义成一个可选类型并且等于 <em>toInt()</em> 。这个方法跟你之前选的 <em>print()</em> 函数非常相似，不同的是它们是class(类)中的一部分。接下来你会学的更多。</p>
 
-<p><code>Int()</code> 是一个构造器，允许你将一个 <code>String</code> 类型的值转化成 <code>Int</code> 类型。之所以要将 <code>languagesLearnedNum</code> 设置成可选类型是因为转化后的值可能为 <code>nil</code> 。有可能尝试转换的 <code>String</code> 变量值不是一个数字，而是”Hello, World”。</p>
+<p><em>Int()</em> 是一个构造器，允许你将一个 <em>String</em> 类型的值转化成 <em>Int</em> 类型。之所以要将 <em>languagesLearnedNum</em> 设置成可选类型是因为转化后的值可能为 <em>nil</em> 。有可能尝试转换的 <em>String</em> 变量值不是一个数字，而是”Hello, World”。</p>
 
 <p>编写以下代码来找出答案：</p>
 
@@ -715,13 +715,13 @@ else  {
 }
 </code></pre>
 
-<p><code>if let</code> 语句用来检验 <code>languagesLearnedNum</code> 是否包含值。如果变量包含值，该值赋值到 <code>num</code> 变量并且执行花括号内的代码。如果为 <code>nil</code> ，将执行 <code>else</code> 括号内的代码。</p>
+<p><em>if let</em> 语句用来检验 <em>languagesLearnedNum</em> 是否包含值。如果变量包含值，该值赋值到 <em>num</em> 变量并且执行花括号内的代码。如果为 <em>nil</em> ，将执行 <em>else</em> 括号内的代码。</p>
 
-<p>如果将字符串 <code>languagesLearned</code> 变量值改成”Three”看看会发生什么。程序将会打印”It is not a number”到控制台因为执行”Three”转成 <code>Int</code> 返回结果 <code>nil</code> 给 <code>languagesLearnedNum</code>变量。</p>
+<p>如果将字符串 <em>languagesLearned</em> 变量值改成”Three”看看会发生什么。程序将会打印”It is not a number”到控制台因为执行”Three”转成 <em>Int</em> 返回结果 <em>nil</em> 给 <em>languagesLearnedNum</em> 变量。</p>
 
 <p>#综合所学</p>
 
-<p>挑战：最后一道！尝试编写一个变量存放 <code>String</code> 转换 <code>Int</code> 的结果值。接着将结果放在 <code>if</code> 语句中与其他变量进行比较并执行 <code>print()</code> 函数。 <code>print()</code> 函数花括号内应该使用字符串插值(String Interpolation)，因此你可以打印一个值大于/小于另外一个值。</p>
+<p>挑战：最后一道！尝试编写一个变量存放 <em>String</em> 转换 <em>Int</em> 的结果值。接着将结果放在 <em>if</em> 语句中与其他变量进行比较并执行 <em>print()</em> 函数。 <em>print()</em> 函数花括号内应该使用字符串插值(String Interpolation)，因此你可以打印一个值大于/小于另外一个值。</p>
 
 <p><img src="/img/swift-tutorial-series/d1/17.png" alt="图17" /></p>
 
@@ -749,6 +749,10 @@ if let numTutorial = tutorialTeamNum  {
 
 <p>到目前为止这边教程系列的<a href="http://cdn3.raywenderlich.com/wp-content/uploads/2015/09/MyPlaygroundplayground.zip">完整playground文件</a>。<br />
 点击该系列<a href="/2016/02/28/swift-tutorial-2/">下一篇</a>教程，你将会学到如何将你已学到Swift知识来创建一个简单的命令行猜数字游戏！</p>
+
+<blockquote>
+  <p>如果你有问题或者反馈，加入下面的评论系统！</p>
+</blockquote>
 
 <h1 id="section-8">著作权声明</h1>
 <p>本文译自<a href="http://www.raywenderlich.com/114148/learn-to-code-ios-apps-with-swift-tutorial-1-welcome-to-programming">Learn to Code iOS Apps with Swift Tutorial 1: Welcome to Programming</a></p>
@@ -805,7 +809,7 @@ if let numTutorial = tutorialTeamNum  {
                             
         				
                             
-                				<a href="/tags/#iOS" title="iOS" rel="4">
+                				<a href="/tags/#iOS" title="iOS" rel="5">
                                     iOS
                                 </a>
                             
@@ -823,19 +827,19 @@ if let numTutorial = tutorialTeamNum  {
                             
         				
                             
-                				<a href="/tags/#教程" title="教程" rel="3">
+                				<a href="/tags/#教程" title="教程" rel="4">
                                     教程
                                 </a>
                             
         				
                             
-                				<a href="/tags/#Swift" title="Swift" rel="2">
+                				<a href="/tags/#Swift" title="Swift" rel="3">
                                     Swift
                                 </a>
                             
         				
                             
-                				<a href="/tags/#翻译" title="翻译" rel="2">
+                				<a href="/tags/#翻译" title="翻译" rel="3">
                                     翻译
                                 </a>
                             
