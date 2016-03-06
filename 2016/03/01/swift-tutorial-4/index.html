@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="icon" href="http://jrjian.github.io/img/favicon.ico" type="image/x-icon">
+
+    <title>学习Swift开发iOS应用教程第四篇「译」 - 陈坚涛的博客｜Jian Blog</title>
+
+    <link rel="canonical" href="http://jrjian.github.io/2016/03/01/swift-tutorial-4/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/jrjian-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- JRJian change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- JRJian Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Jian Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by JRJian:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="jrjianblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#jrjianblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/swift-tutorial-series/post-bg-2016.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/swift-tutorial-series/post-bg-2016.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Swift" title="Swift">Swift</a>
+                        
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                        <a class="tag" href="/tags/#教程" title="教程">教程</a>
+                        
+                        <a class="tag" href="/tags/#翻译" title="翻译">翻译</a>
+                        
+                    </div>
+                    <h1>学习Swift开发iOS应用教程第四篇「译」</h1>
+                    
+                    
+                    <h2 class="subheading">您的第一个应用程序</h2>
+                    
+                    <span class="meta">Posted by Jian on March 1, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>很高兴，你来到Swift教程系列编写iOS应用第四部分！</p>
+
+<p>在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。</p>
+
+<p>在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中.</p>
+
+<p>在系列的第三部分，你创建了一个记录用户名和年龄的命令行应用。</p>
+
+<p>在系列的第四部分，是时候创建您的第一个 <em>iPhone</em> 应用！</p>
+
+<p>在这一教程中，你会学着创建一个应用，应用名叫 <em>点击我吧(Tap Me)</em> ！该应用的玩法是在30秒的时间内，尽你最快的速度点击应用的按钮，最终应用将会告诉你30秒内点击的次数（其实就是类似微信里面第三方的一些加油活动）。</p>
+
+<h1 id="section">开始（多图预警）</h1>
+
+<p>打开Xcode,点击 <em>Get started with a playground</em> :</p>
+
+<p><img src="/img/swift-tutorial-series/d4/1.png" alt="图1" /></p>
+
+<p>然后选择 <em>iOS &gt; Application &gt; Single View Application</em> 点击 <em>Next</em> 。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/2.png" alt="图2" /></p>
+
+<p>在下面的屏幕中，根据指示填写表格：</p>
+
+<ul>
+  <li>Product Name           : Tap Me</li>
+  <li>Organization Name      : 选填</li>
+  <li>Organization Identifier: 输入 com.yourname, 例如 com.rybristow</li>
+  <li>Language               : Swift</li>
+  <li>Devie                  : iPhone</li>
+</ul>
+
+<p><img src="/img/swift-tutorial-series/d4/3.png" alt="图3" /></p>
+
+<h1 id="storyboards">故事板（Storyboards）</h1>
+
+<p>您将会发现这个项目创建成功之后的目录结构跟之前的命令行项目不同。第一个不同点就是下面选中的这个文件 <em>Main.storyboard</em> :</p>
+
+<p><img src="/img/swift-tutorial-series/d4/4.png" alt="图4" /></p>
+
+<p>当你开打这个文件，将会印入眼帘的是一个模拟 iPhone 手机运行时的窗口的图形用户界面(GUI)。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/5.png" alt="图5" /></p>
+
+<p><strong>注意: 你也许会问为什么 iPhone 的屏幕看起来像个方形。 在 iOS 开发中，你的目标是设计你自己的应用因此它们应该适配各种尺寸的屏幕 - 这叫做 <em>自应式布局（Adaptive Layout）</em> 。基本上，界面元素的布局排版根据 “离顶部距离多远” 或 “居中” 的原则；这种方式布局能够在多种尺寸的屏幕适用，从 iPhone 5 到 iPhone 6 Plus 等等</strong></p>
+
+<p>现在，该应用的界面是空白一片并且非常无趣。做一些事情改变下它，首先确保你选中并打开了右边的工具菜单(Utilities Menu)。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/6.png" alt="图6" /></p>
+
+<p>接着，选中属性检查器(Attributes Inspector)。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/7.png" alt="图7" /></p>
+
+<p>这样你就可以看到控制器(View Controller)的界面属性以及修改它们。确保你第一个点击的视图(View)能够看到它的属性。</p>
+
+<p>修改视图的背景色为绿色。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/8.png" alt="图8" /></p>
+
+<p>现在，在顶部的菜单选择 <em>iPhone 6 模拟器</em> 并运行它，你就能看到运行的界面是什么样子。编译和运行你的程序会花一点时间，请耐心等待。当它运行完成的时候，你将会看到一个窗口弹出，该窗口模拟着 iPhone 手机界面并运行着您的应用程序。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/9.png" alt="图9" /></p>
+
+<h1 id="labels">往屏幕增加标签(Labels)</h1>
+
+<p>你的程序看上去运行的很好，但是界面太不美观因为它没有任何可以跟用户交互的内容。为界面添加对象，你需要在工具菜单的对象库(Object Library)里找到名叫标签(Label)的对象，标签的功能是显示文本，可以通过程序控制文本内容。滚动对象库直到你找到它为止。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/10.png" alt="图10" /></p>
+
+<p>拖动文本标签到屏幕的顶部并水平居中。  </p>
+
+<p><img src="/img/swift-tutorial-series/d4/11.png" alt="图11" /></p>
+
+<p>你可以使用属性检查器来修改文本标签的标题。修改标签的标题为 “Time: 30”。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/12.png" alt="图12" /></p>
+
+<p>此刻你的标签内容在屏幕显示应该是不完全的。为了解决这个问题，点击标签选择 <em>Editor\Size to Fit</em>  (Command =快捷键)。</p>
+
+<p>现在，运行程序您应该看到的是：</p>
+
+<p><img src="/img/swift-tutorial-series/d4/13.png" alt="图13" /></p>
+
+<p>根据你的故事板布局，标签应该显示在中间才对呀？问题是并不是每一个 iOS 社保拥有着相同的面积，所以有时候不能那么顺心。你需要做的是为标签增加一条约束(constraint)让它一直保持在中间。</p>
+
+<p>要实现这一点，首先点击标签。然后，选择屏幕底部的对齐按钮(Align button)并且勾选水平居中的约束，最后点击添加一条约束(Add 1 Constraint)按钮。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/14.png" alt="图14" /></p>
+
+<p>该约束能够让标签固定在水平位置。但是你还需要定义它在垂直方向的位置。要实现这一点，点击屏幕底部的方块按钮(Pin button)并且点击红色的条子让它钉在屏幕的上方，基于它当前跟顶部的距离点击添加一条约束(Add 1 Constraint)按钮：</p>
+
+<p><img src="/img/swift-tutorial-series/d4/15.png" alt="图15" /></p>
+
+<p>最新添加的标签约束会延展出一条橘色的参考线。这是因为文本标签的位置跟约束的指定位置不同。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/16.png" alt="图16" /></p>
+
+<p>如果这是个污点，点击右下角的三角图标，在 <em>All Views in View Controller</em> 栏目选中 <em>Update Frames</em> 选项。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/17.png" alt="图17" /></p>
+
+<p>现在，创建另一个标签在屏幕的底部用来记录点击次数。设置字体大小为 <em>40</em> ，行数为 <em>2</em> 以及 <em>对齐方式</em> 居中。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/18.png" alt="图18" /></p>
+
+<p>在尺寸检查器中，设置 <em>高度</em> 为 <em>130</em> 点。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/19.png" alt="图19" /></p>
+
+<p>你最好为这个标签设置一些约束。首先你需要让它居中。选中分数标签，点击对齐按钮，选中 <em>Horizontal Center in Container</em> 并且点击 <em>Add 1 Constraint</em> 。</p>
+
+<p>接着点击方块按钮。固定底部距离并且选中 <em>height</em> 约束。设置高度为 <em>130</em> 。最后，点击 <em>Add 2 Constraints</em> 。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/20.png" alt="图20" /></p>
+
+<p>如果你看见了许多橘色参考线，点击右下角的 <em>三角图标</em> 并且在 <em>All Views in View Controller</em> 栏目里选中 <em>Update Frames</em> 。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/21.png" alt="图21" /></p>
+
+<p>编译并运行，现在你所有的标签都居中在屏幕上：</p>
+
+<p><img src="/img/swift-tutorial-series/d4/22.png" alt="图22" /></p>
+
+<h1 id="section-1">添加一个按钮</h1>
+
+<p>添加最后一个对象到屏幕，使用对象库添加一个按钮到屏幕并且固定在屏幕的中间。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/23.png" alt="图23" /></p>
+
+<p>别忘了为按钮添加约束，这次需要水平和垂直居中两条约束。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/24.png" alt="图24" /></p>
+
+<p>现在，使用 <em>属性检查器</em> 来改变按钮的标题为 <em>Tap Me</em>!并且设置背景成白色。为了让按钮显示更多的白色背景，你需要拉伸它并且设置其他约束。这次，你需要点击方块按钮并且设置它的宽为 <em>167</em> 和高为 <em>113</em> 。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/25.png" alt="图25" /></p>
+
+<p>如果你看到了橘色参考线，可以参照教程的 <em>Update Frames</em> 方法让它消失。</p>
+
+<p>你的按钮应该是一个拥有较大的可点击区域。编译并且运行，你的应用应该看起来如下图：</p>
+
+<p><img src="/img/swift-tutorial-series/d4/26.png" alt="图26" /></p>
+
+<p>你可以尝试疯狂的点击按钮，但是你发现什么事情都没有发生。接下来你会让它有所反应。</p>
+
+<h1 id="section-2">连接视图和代码</h1>
+
+<p>现在故事板里的视图已经布局好了，你需要让它们跟代码关联起来。</p>
+
+<p>每一个 iOS 应用”屏幕”被一个叫 <em>View Controller（视图控制器）</em> 的东西控制着。Xcode在模板中已经创建了一个 - <em>ViewController.swift</em> 。</p>
+
+<p>你需要在你的游戏中为这个类设置两个标签属性，这样你才能通过程序更新它们的内容。要实现这点，在 <em>ViewController.swift</em> 的视图控制器类中添加以下两个属性：</p>
+
+<pre><code>@IBOutlet var scoreLabel: UILabel!
+@IBOutlet var timerLabel: UILabel!
+</code></pre>
+
+<p>这两行代码创建了两个 <em>UILabel</em> 属性。此刻，你将会连接这两个属性所对应在故事板中的标签视图。通过为属性设置 <em>@IBOutlet</em> 关键字，故事板编辑器就能够识别它们。</p>
+
+<p><strong><em>注意：你也许察觉到标签的末尾有感叹号。这是标记标签为“强制解包可选类型”。这会使在你访问它们之前，编译器自动解包了可选类型，因此你可以将变量视作-不是可选类型变量，意思是普通变量(哪怕它们是可选变量)。</em></strong>  </p>
+
+<p>你可以这样做因为你已经确定你将会将它们设置成故事板里的视图，因此它们不可能为 <em>nil</em> 。</p>
+
+<p>类似地，你希望当按钮点击的时候调用一个函数。因此添加以下代码到 <em>ViewController</em> 类中：</p>
+
+<pre><code>@IBAction func buttonPressed()  {
+  NSLog("Button Pressed")
+}
+</code></pre>
+
+<p>跟 <em>@IBOutlet</em> 一样, 添加 <em>@IBAction</em> 关键字能够让故事板识别到该函数，因此你能够将该函数连接按钮的点击事件。</p>
+
+<p>尝试连接这些属性和函数！打开 <em>Main.storyboard</em> ，找到文档大纲，你需要做的是通过按住 <em>CTRL</em> 键并且拖动左边的 <em>View Controller</em> 到在视图顶部的标签。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/27.png" alt="图27" /></p>
+
+<p>一个黑色盒子将会弹出输出列表。选中 timerLabel。这是你之前在 <em>ViewController.swift</em> 创建的一个 UILabel 对象。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/28.png" alt="图28" /></p>
+
+<p>为 score label 进行同样的操作。但是连接的对象是 scoreLabel。</p>
+
+<p>为按钮添加 <em>buttonPressed()</em> 点击事件，你需要采取反向操作。按住 CTRL 键点击故事板中的按钮拖动连接到左边的文档大纲 <em>View Controller</em>。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/29.png" alt="图29" /></p>
+
+<p>然后，选择</p>
+
+<p><img src="/img/swift-tutorial-series/d4/30.png" alt="图30" /></p>
+
+<p>现在，尝试运行游戏并且点击几次按钮。因为 <em>buttonPressed()</em> 函数里的 <em>NSLog</em> 语句，你每次点击按钮的时候屏幕底部的控制台将会输出一些日志。</p>
+
+<p><img src="/img/swift-tutorial-series/d4/31.png" alt="图31" /></p>
+
+<h1 id="section-3">巧妙地控制标签</h1>
+
+<p>按钮真正的目的并不是打印日志在控制台，而是每当点击时候改变分数里面的值。首先，你应该学着如何控制标签里面的内容。</p>
+
+<p>好消息 - 这很简单！替换 <em>buttonPressed()</em> 函数里面的代码：</p>
+
+<pre><code>scoreLabel.text = "Pressed"
+</code></pre>
+
+<p>现在，当你运行你的游戏并且点击按钮，屏幕底部的文本将会改变成 “Pressed”。</p>
+
+<p>为了使用这个技能来让你的分数标签显示正确的分数，你还需要做点东西。</p>
+
+<h1 id="section-4">分数记录</h1>
+
+<p>为了记录分数，首先你需要创建一个变量。在类的顶部左括号内两个 <em>@IBOutlet</em> 定义下面，创建一个属性 <em>count</em> 来记录分数。=</p>
+
+<pre><code>var count = 0
+</code></pre>
+
+<p>下一步是在 <em>buttonPressed()</em> 函数顶部进行分数累加：</p>
+
+<pre><code>count++
+</code></pre>
+
+<p>这一行的缩写的原意是：</p>
+
+<pre><code>count = count + 1
+</code></pre>
+
+<p>现在，修改代码 _ scoreLabel_ 文本：</p>
+
+<pre><code>scoreLabel.text = "Score \n\(count)"
+</code></pre>
+
+<p>运行你的游戏再次测试。当你点击按钮的时候，屏幕的底部标签将会记录你的分数。你的程序已经越来越接近一个可玩的游戏了！</p>
+
+<h1 id="section-5">倒计时</h1>
+
+<p>为了这游戏能有走时准确的时钟，你需要创建两个新属性。一个是 <em>int</em> 类型来记录秒数和一个 <em>NSTimer</em> 来实现倒计时。</p>
+
+<p>在 <em>count</em> 的定义下方加入以下两个变量：</p>
+
+<pre><code>var seconds = 0
+var timer = NSTimer()
+</code></pre>
+
+<p>为了使用这些变量，你需要创建两个函数。第一个是 <em>setupGame()</em>。在类的底部花括内加入以下代码：</p>
+
+<pre><code>func setupGame()  {
+  seconds = 30
+  count = 0
+ 
+  timerLabel.text = "Time: \(seconds)"
+  scoreLabel.text = "Score: \(count)"
+}
+</code></pre>
+
+<p>这块代码是在游戏进行中还原所有变量到原始值。如果你没有加入这些代码，秒数会继续递减至0并且分数将会持续一直递增下去。</p>
+
+<p>下一步还需要为 <em>setupGame()</em> 函数启动一个定时器。为了实现这点，你需要使用 <em>scheduledTimerWithTimeInterval()</em> 函数来获得你想要的定时器。在 <em>setupGame()</em> 加入以下代码。</p>
+
+<pre><code>timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("subtractTime"), userInfo: nil, repeats: true)
+</code></pre>
+
+<p>现在，确保你在 <em>viewDidLoad()</em> 函数里调用了 <em>setupGame()</em> 函数：</p>
+
+<pre><code>setupGame()
+</code></pre>
+
+<p>下一个方法是 <em>subtractTime()</em>。你会发现当你使用 <em>setupGame</em> 里的定时器的时候你需要在选择器中使用这个函数。这就是所涉及道德。这个函数用来递减秒数，更新 <em>timeLabel</em>，当计时器为0时触发一个警报器。</p>
+
+<p>你已经知道事情的顺序：递减 <em>seconds</em>，更新 <em>timerLabel</em>，并且当秒数为 <em>0</em> 的时候创建一个 <em>if</em> 语句。</p>
+
+<pre><code>func subtractTime() {
+  seconds--
+  timerLabel.text = "Time: \(seconds)"
+ 
+  if(seconds == 0)  {
+ 
+  }
+}
+</code></pre>
+
+<p>在 <em>if</em> 条件语句中第一件要做的事情是停止已经计时为0的计时器。</p>
+
+<pre><code>timer.invalidate()
+</code></pre>
+
+<p>编译并且运行你的游戏，现在时钟已经会倒计时了!</p>
+
+<p><img src="/img/swift-tutorial-series/d4/32.png" alt="图32" /></p>
+
+<h1 id="section-6">红色警报!</h1>
+
+<p>下一步，你将会学习如何使用警报。当你完成警报的编程时候，你应该看到的界面如下：</p>
+
+<p><img src="/img/swift-tutorial-series/d4/33.png" alt="图33" /></p>
+
+<p>是时候干正事了。第一件事创建一个 <em>UIAlertController</em>。在 <em>if</em> 判断内的 <em>invalidate()</em> 语句后面添加：</p>
+
+<pre><code>let alert = UIAlertController(title: "Time is up!",
+ message: "You scored \(count) points",
+ preferredStyle: UIAlertControllerStyle.Alert)
+</code></pre>
+
+<p>这一行定义了警报的内容。指定了标题，消息，还有显示的风格。</p>
+
+<p>接着，你需要调整按钮的内容和事件。为了实现这一点，你需要使用 <em>addAction()</em>。在 alert 的定义下面编写如下代码。</p>
+
+<pre><code>alert.addAction(UIAlertAction(title: "Play Again", style: UIAlertActionStyle.Default, handler: {
+  action in self.setupGame()
+}))
+</code></pre>
+
+<p>如果你仔细阅读这段代码，你将会发现 <em>title</em> 决定了按钮的显示文字，并且按钮点击会触发 <em>setupGame()</em> 函数，警报框会消失。</p>
+
+<p>最后一条代码!这一句是告诉应用跳出一个 <em>UIAlertController</em>。使用 <em>presentViewController()</em> 函数。在 <em>alert.addAction(…)</em> 之后加入以下代码：</p>
+
+<pre><code>presentViewController(alert, animated: true, completion:nil)
+</code></pre>
+
+<p>现在运行您的游戏。你能够打败我吗？</p>
+
+<p><img src="/img/swift-tutorial-series/d4/34.png" alt="图34" /></p>
+
+<h1 id="section-7">何去何从？</h1>
+
+<p>到目前为止这边教程系列的<a href="http://www.raywenderlich.com/wp-content/uploads/2015/09/TapMeFinal.zip">完整playground文件</a>。<br />
+点击该系列[下一篇]（敬请期待）教程，你将会学习如何制造一个更有视觉吸引的游戏！</p>
+
+<blockquote>
+  <p>如果你有问题或者反馈，加入下面的评论系统！</p>
+</blockquote>
+
+<h1 id="section-8">著作权声明</h1>
+
+<p>本文译自<a href="https://www.raywenderlich.com/114262/learn-to-code-ios-apps-with-swift-tutorial-4-your-first-app">Learn To Code iOS Apps With Swift Tutorial 4: Your First App</a></p>
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/02/29/swift-tutorial-3/" data-toggle="tooltip" data-placement="top" title="学习Swift开发iOS应用教程第三篇「译」">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="1">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#iOS" title="iOS" rel="6">
+                                    iOS
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#实用功能" title="实用功能" rel="1">
+                                    实用功能
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#NSValueTransformer" title="NSValueTransformer" rel="1">
+                                    NSValueTransformer
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Swift" title="Swift" rel="4">
+                                    Swift
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="#">Jian Blog</a></li>
+                    
+                        <li><a href="http://microlv.herokuapp.com">Microlv Blog</a></li>
+                    
+                        <li><a href="http://reactjs-web.heroku.com">抠门鉴</a></li>
+                    
+                        <li><a href="http://www.slebee.me">SLEBEE</a></li>
+                    
+                        <li><a href="http://xiongzenghuidegithub.github.io">逗比熊</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "httpjrjiangithubio";
+    var disqus_identifier = "/2016/03/01/swift-tutorial-4";
+    var disqus_url = "http://jrjian.github.io/2016/03/01/swift-tutorial-4/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by JRJian, add target = "_blank" to <a> by JRJian -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/yin-xiao-jian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/jiantaochen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/JRJian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Jian Blog 2016
+                    <!-- <br>
+                    Theme by <a href="http://huangxuan.me">Jian</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=JRJianpro&repo=JRJianpro.github.io&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/jrjian-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="/css/atelier-lakeside-dark.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by JRJian
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by JRJian
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

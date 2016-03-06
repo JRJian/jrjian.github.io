@@ -5,9 +5,360 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Feb 2016 23:09:52 +0800</pubDate>
-    <lastBuildDate>Mon, 29 Feb 2016 23:09:52 +0800</lastBuildDate>
+    <pubDate>Sun, 06 Mar 2016 19:51:54 +0800</pubDate>
+    <lastBuildDate>Sun, 06 Mar 2016 19:51:54 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>学习Swift开发iOS应用教程第四篇「译」</title>
+        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用第四部分！&lt;/p&gt;
+
+&lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
+
+&lt;p&gt;在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中.&lt;/p&gt;
+
+&lt;p&gt;在系列的第三部分，你创建了一个记录用户名和年龄的命令行应用。&lt;/p&gt;
+
+&lt;p&gt;在系列的第四部分，是时候创建您的第一个 &lt;em&gt;iPhone&lt;/em&gt; 应用！&lt;/p&gt;
+
+&lt;p&gt;在这一教程中，你会学着创建一个应用，应用名叫 &lt;em&gt;点击我吧(Tap Me)&lt;/em&gt; ！该应用的玩法是在30秒的时间内，尽你最快的速度点击应用的按钮，最终应用将会告诉你30秒内点击的次数（其实就是类似微信里面第三方的一些加油活动）。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;开始（多图预警）&lt;/h1&gt;
+
+&lt;p&gt;打开Xcode,点击 &lt;em&gt;Get started with a playground&lt;/em&gt; :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后选择 &lt;em&gt;iOS &amp;gt; Application &amp;gt; Single View Application&lt;/em&gt; 点击 &lt;em&gt;Next&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在下面的屏幕中，根据指示填写表格：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Product Name           : Tap Me&lt;/li&gt;
+  &lt;li&gt;Organization Name      : 选填&lt;/li&gt;
+  &lt;li&gt;Organization Identifier: 输入 com.yourname, 例如 com.rybristow&lt;/li&gt;
+  &lt;li&gt;Language               : Swift&lt;/li&gt;
+  &lt;li&gt;Devie                  : iPhone&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;storyboards&quot;&gt;故事板（Storyboards）&lt;/h1&gt;
+
+&lt;p&gt;您将会发现这个项目创建成功之后的目录结构跟之前的命令行项目不同。第一个不同点就是下面选中的这个文件 &lt;em&gt;Main.storyboard&lt;/em&gt; :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当你开打这个文件，将会印入眼帘的是一个模拟 iPhone 手机运行时的窗口的图形用户界面(GUI)。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/5.png&quot; alt=&quot;图5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意: 你也许会问为什么 iPhone 的屏幕看起来像个方形。 在 iOS 开发中，你的目标是设计你自己的应用因此它们应该适配各种尺寸的屏幕 - 这叫做 &lt;em&gt;自应式布局（Adaptive Layout）&lt;/em&gt; 。基本上，界面元素的布局排版根据 “离顶部距离多远” 或 “居中” 的原则；这种方式布局能够在多种尺寸的屏幕适用，从 iPhone 5 到 iPhone 6 Plus 等等&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，该应用的界面是空白一片并且非常无趣。做一些事情改变下它，首先确保你选中并打开了右边的工具菜单(Utilities Menu)。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/6.png&quot; alt=&quot;图6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接着，选中属性检查器(Attributes Inspector)。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这样你就可以看到控制器(View Controller)的界面属性以及修改它们。确保你第一个点击的视图(View)能够看到它的属性。&lt;/p&gt;
+
+&lt;p&gt;修改视图的背景色为绿色。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/8.png&quot; alt=&quot;图8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，在顶部的菜单选择 &lt;em&gt;iPhone 6 模拟器&lt;/em&gt; 并运行它，你就能看到运行的界面是什么样子。编译和运行你的程序会花一点时间，请耐心等待。当它运行完成的时候，你将会看到一个窗口弹出，该窗口模拟着 iPhone 手机界面并运行着您的应用程序。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/9.png&quot; alt=&quot;图9&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;labels&quot;&gt;往屏幕增加标签(Labels)&lt;/h1&gt;
+
+&lt;p&gt;你的程序看上去运行的很好，但是界面太不美观因为它没有任何可以跟用户交互的内容。为界面添加对象，你需要在工具菜单的对象库(Object Library)里找到名叫标签(Label)的对象，标签的功能是显示文本，可以通过程序控制文本内容。滚动对象库直到你找到它为止。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/10.png&quot; alt=&quot;图10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;拖动文本标签到屏幕的顶部并水平居中。  &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/11.png&quot; alt=&quot;图11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你可以使用属性检查器来修改文本标签的标题。修改标签的标题为 “Time: 30”。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/12.png&quot; alt=&quot;图12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;此刻你的标签内容在屏幕显示应该是不完全的。为了解决这个问题，点击标签选择 &lt;em&gt;Editor\Size to Fit&lt;/em&gt;  (Command =快捷键)。&lt;/p&gt;
+
+&lt;p&gt;现在，运行程序您应该看到的是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/13.png&quot; alt=&quot;图13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;根据你的故事板布局，标签应该显示在中间才对呀？问题是并不是每一个 iOS 社保拥有着相同的面积，所以有时候不能那么顺心。你需要做的是为标签增加一条约束(constraint)让它一直保持在中间。&lt;/p&gt;
+
+&lt;p&gt;要实现这一点，首先点击标签。然后，选择屏幕底部的对齐按钮(Align button)并且勾选水平居中的约束，最后点击添加一条约束(Add 1 Constraint)按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/14.png&quot; alt=&quot;图14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;该约束能够让标签固定在水平位置。但是你还需要定义它在垂直方向的位置。要实现这一点，点击屏幕底部的方块按钮(Pin button)并且点击红色的条子让它钉在屏幕的上方，基于它当前跟顶部的距离点击添加一条约束(Add 1 Constraint)按钮：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/15.png&quot; alt=&quot;图15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最新添加的标签约束会延展出一条橘色的参考线。这是因为文本标签的位置跟约束的指定位置不同。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/16.png&quot; alt=&quot;图16&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果这是个污点，点击右下角的三角图标，在 &lt;em&gt;All Views in View Controller&lt;/em&gt; 栏目选中 &lt;em&gt;Update Frames&lt;/em&gt; 选项。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/17.png&quot; alt=&quot;图17&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，创建另一个标签在屏幕的底部用来记录点击次数。设置字体大小为 &lt;em&gt;40&lt;/em&gt; ，行数为 &lt;em&gt;2&lt;/em&gt; 以及 &lt;em&gt;对齐方式&lt;/em&gt; 居中。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/18.png&quot; alt=&quot;图18&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在尺寸检查器中，设置 &lt;em&gt;高度&lt;/em&gt; 为 &lt;em&gt;130&lt;/em&gt; 点。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/19.png&quot; alt=&quot;图19&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你最好为这个标签设置一些约束。首先你需要让它居中。选中分数标签，点击对齐按钮，选中 &lt;em&gt;Horizontal Center in Container&lt;/em&gt; 并且点击 &lt;em&gt;Add 1 Constraint&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;接着点击方块按钮。固定底部距离并且选中 &lt;em&gt;height&lt;/em&gt; 约束。设置高度为 &lt;em&gt;130&lt;/em&gt; 。最后，点击 &lt;em&gt;Add 2 Constraints&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/20.png&quot; alt=&quot;图20&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你看见了许多橘色参考线，点击右下角的 &lt;em&gt;三角图标&lt;/em&gt; 并且在 &lt;em&gt;All Views in View Controller&lt;/em&gt; 栏目里选中 &lt;em&gt;Update Frames&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/21.png&quot; alt=&quot;图21&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;编译并运行，现在你所有的标签都居中在屏幕上：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/22.png&quot; alt=&quot;图22&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;添加一个按钮&lt;/h1&gt;
+
+&lt;p&gt;添加最后一个对象到屏幕，使用对象库添加一个按钮到屏幕并且固定在屏幕的中间。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/23.png&quot; alt=&quot;图23&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;别忘了为按钮添加约束，这次需要水平和垂直居中两条约束。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/24.png&quot; alt=&quot;图24&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，使用 &lt;em&gt;属性检查器&lt;/em&gt; 来改变按钮的标题为 &lt;em&gt;Tap Me&lt;/em&gt;!并且设置背景成白色。为了让按钮显示更多的白色背景，你需要拉伸它并且设置其他约束。这次，你需要点击方块按钮并且设置它的宽为 &lt;em&gt;167&lt;/em&gt; 和高为 &lt;em&gt;113&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/25.png&quot; alt=&quot;图25&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你看到了橘色参考线，可以参照教程的 &lt;em&gt;Update Frames&lt;/em&gt; 方法让它消失。&lt;/p&gt;
+
+&lt;p&gt;你的按钮应该是一个拥有较大的可点击区域。编译并且运行，你的应用应该看起来如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/26.png&quot; alt=&quot;图26&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你可以尝试疯狂的点击按钮，但是你发现什么事情都没有发生。接下来你会让它有所反应。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;连接视图和代码&lt;/h1&gt;
+
+&lt;p&gt;现在故事板里的视图已经布局好了，你需要让它们跟代码关联起来。&lt;/p&gt;
+
+&lt;p&gt;每一个 iOS 应用”屏幕”被一个叫 &lt;em&gt;View Controller（视图控制器）&lt;/em&gt; 的东西控制着。Xcode在模板中已经创建了一个 - &lt;em&gt;ViewController.swift&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;你需要在你的游戏中为这个类设置两个标签属性，这样你才能通过程序更新它们的内容。要实现这点，在 &lt;em&gt;ViewController.swift&lt;/em&gt; 的视图控制器类中添加以下两个属性：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@IBOutlet var scoreLabel: UILabel!
+@IBOutlet var timerLabel: UILabel!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两行代码创建了两个 &lt;em&gt;UILabel&lt;/em&gt; 属性。此刻，你将会连接这两个属性所对应在故事板中的标签视图。通过为属性设置 &lt;em&gt;@IBOutlet&lt;/em&gt; 关键字，故事板编辑器就能够识别它们。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;注意：你也许察觉到标签的末尾有感叹号。这是标记标签为“强制解包可选类型”。这会使在你访问它们之前，编译器自动解包了可选类型，因此你可以将变量视作-不是可选类型变量，意思是普通变量(哪怕它们是可选变量)。&lt;/em&gt;&lt;/strong&gt;  &lt;/p&gt;
+
+&lt;p&gt;你可以这样做因为你已经确定你将会将它们设置成故事板里的视图，因此它们不可能为 &lt;em&gt;nil&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;类似地，你希望当按钮点击的时候调用一个函数。因此添加以下代码到 &lt;em&gt;ViewController&lt;/em&gt; 类中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@IBAction func buttonPressed()  {
+  NSLog(&quot;Button Pressed&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;跟 &lt;em&gt;@IBOutlet&lt;/em&gt; 一样, 添加 &lt;em&gt;@IBAction&lt;/em&gt; 关键字能够让故事板识别到该函数，因此你能够将该函数连接按钮的点击事件。&lt;/p&gt;
+
+&lt;p&gt;尝试连接这些属性和函数！打开 &lt;em&gt;Main.storyboard&lt;/em&gt; ，找到文档大纲，你需要做的是通过按住 &lt;em&gt;CTRL&lt;/em&gt; 键并且拖动左边的 &lt;em&gt;View Controller&lt;/em&gt; 到在视图顶部的标签。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/27.png&quot; alt=&quot;图27&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一个黑色盒子将会弹出输出列表。选中 timerLabel。这是你之前在 &lt;em&gt;ViewController.swift&lt;/em&gt; 创建的一个 UILabel 对象。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/28.png&quot; alt=&quot;图28&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;为 score label 进行同样的操作。但是连接的对象是 scoreLabel。&lt;/p&gt;
+
+&lt;p&gt;为按钮添加 &lt;em&gt;buttonPressed()&lt;/em&gt; 点击事件，你需要采取反向操作。按住 CTRL 键点击故事板中的按钮拖动连接到左边的文档大纲 &lt;em&gt;View Controller&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/29.png&quot; alt=&quot;图29&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后，选择&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/30.png&quot; alt=&quot;图30&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，尝试运行游戏并且点击几次按钮。因为 &lt;em&gt;buttonPressed()&lt;/em&gt; 函数里的 &lt;em&gt;NSLog&lt;/em&gt; 语句，你每次点击按钮的时候屏幕底部的控制台将会输出一些日志。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/31.png&quot; alt=&quot;图31&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;巧妙地控制标签&lt;/h1&gt;
+
+&lt;p&gt;按钮真正的目的并不是打印日志在控制台，而是每当点击时候改变分数里面的值。首先，你应该学着如何控制标签里面的内容。&lt;/p&gt;
+
+&lt;p&gt;好消息 - 这很简单！替换 &lt;em&gt;buttonPressed()&lt;/em&gt; 函数里面的代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scoreLabel.text = &quot;Pressed&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，当你运行你的游戏并且点击按钮，屏幕底部的文本将会改变成 “Pressed”。&lt;/p&gt;
+
+&lt;p&gt;为了使用这个技能来让你的分数标签显示正确的分数，你还需要做点东西。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;分数记录&lt;/h1&gt;
+
+&lt;p&gt;为了记录分数，首先你需要创建一个变量。在类的顶部左括号内两个 &lt;em&gt;@IBOutlet&lt;/em&gt; 定义下面，创建一个属性 &lt;em&gt;count&lt;/em&gt; 来记录分数。=&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var count = 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下一步是在 &lt;em&gt;buttonPressed()&lt;/em&gt; 函数顶部进行分数累加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;count++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这一行的缩写的原意是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;count = count + 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，修改代码 _ scoreLabel_ 文本：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scoreLabel.text = &quot;Score \n\(count)&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行你的游戏再次测试。当你点击按钮的时候，屏幕的底部标签将会记录你的分数。你的程序已经越来越接近一个可玩的游戏了！&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;倒计时&lt;/h1&gt;
+
+&lt;p&gt;为了这游戏能有走时准确的时钟，你需要创建两个新属性。一个是 &lt;em&gt;int&lt;/em&gt; 类型来记录秒数和一个 &lt;em&gt;NSTimer&lt;/em&gt; 来实现倒计时。&lt;/p&gt;
+
+&lt;p&gt;在 &lt;em&gt;count&lt;/em&gt; 的定义下方加入以下两个变量：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var seconds = 0
+var timer = NSTimer()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为了使用这些变量，你需要创建两个函数。第一个是 &lt;em&gt;setupGame()&lt;/em&gt;。在类的底部花括内加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func setupGame()  {
+  seconds = 30
+  count = 0
+ 
+  timerLabel.text = &quot;Time: \(seconds)&quot;
+  scoreLabel.text = &quot;Score: \(count)&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这块代码是在游戏进行中还原所有变量到原始值。如果你没有加入这些代码，秒数会继续递减至0并且分数将会持续一直递增下去。&lt;/p&gt;
+
+&lt;p&gt;下一步还需要为 &lt;em&gt;setupGame()&lt;/em&gt; 函数启动一个定时器。为了实现这点，你需要使用 &lt;em&gt;scheduledTimerWithTimeInterval()&lt;/em&gt; 函数来获得你想要的定时器。在 &lt;em&gt;setupGame()&lt;/em&gt; 加入以下代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector(&quot;subtractTime&quot;), userInfo: nil, repeats: true)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，确保你在 &lt;em&gt;viewDidLoad()&lt;/em&gt; 函数里调用了 &lt;em&gt;setupGame()&lt;/em&gt; 函数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setupGame()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下一个方法是 &lt;em&gt;subtractTime()&lt;/em&gt;。你会发现当你使用 &lt;em&gt;setupGame&lt;/em&gt; 里的定时器的时候你需要在选择器中使用这个函数。这就是所涉及道德。这个函数用来递减秒数，更新 &lt;em&gt;timeLabel&lt;/em&gt;，当计时器为0时触发一个警报器。&lt;/p&gt;
+
+&lt;p&gt;你已经知道事情的顺序：递减 &lt;em&gt;seconds&lt;/em&gt;，更新 &lt;em&gt;timerLabel&lt;/em&gt;，并且当秒数为 &lt;em&gt;0&lt;/em&gt; 的时候创建一个 &lt;em&gt;if&lt;/em&gt; 语句。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func subtractTime() {
+  seconds--
+  timerLabel.text = &quot;Time: \(seconds)&quot;
+ 
+  if(seconds == 0)  {
+ 
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在 &lt;em&gt;if&lt;/em&gt; 条件语句中第一件要做的事情是停止已经计时为0的计时器。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;timer.invalidate()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译并且运行你的游戏，现在时钟已经会倒计时了!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/32.png&quot; alt=&quot;图32&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;红色警报!&lt;/h1&gt;
+
+&lt;p&gt;下一步，你将会学习如何使用警报。当你完成警报的编程时候，你应该看到的界面如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/33.png&quot; alt=&quot;图33&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是时候干正事了。第一件事创建一个 &lt;em&gt;UIAlertController&lt;/em&gt;。在 &lt;em&gt;if&lt;/em&gt; 判断内的 &lt;em&gt;invalidate()&lt;/em&gt; 语句后面添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let alert = UIAlertController(title: &quot;Time is up!&quot;,
+ message: &quot;You scored \(count) points&quot;,
+ preferredStyle: UIAlertControllerStyle.Alert)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这一行定义了警报的内容。指定了标题，消息，还有显示的风格。&lt;/p&gt;
+
+&lt;p&gt;接着，你需要调整按钮的内容和事件。为了实现这一点，你需要使用 &lt;em&gt;addAction()&lt;/em&gt;。在 alert 的定义下面编写如下代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alert.addAction(UIAlertAction(title: &quot;Play Again&quot;, style: UIAlertActionStyle.Default, handler: {
+  action in self.setupGame()
+}))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果你仔细阅读这段代码，你将会发现 &lt;em&gt;title&lt;/em&gt; 决定了按钮的显示文字，并且按钮点击会触发 &lt;em&gt;setupGame()&lt;/em&gt; 函数，警报框会消失。&lt;/p&gt;
+
+&lt;p&gt;最后一条代码!这一句是告诉应用跳出一个 &lt;em&gt;UIAlertController&lt;/em&gt;。使用 &lt;em&gt;presentViewController()&lt;/em&gt; 函数。在 &lt;em&gt;alert.addAction(…)&lt;/em&gt; 之后加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;presentViewController(alert, animated: true, completion:nil)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在运行您的游戏。你能够打败我吗？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d4/34.png&quot; alt=&quot;图34&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;何去何从？&lt;/h1&gt;
+
+&lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://www.raywenderlich.com/wp-content/uploads/2015/09/TapMeFinal.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
+点击该系列[下一篇]（敬请期待）教程，你将会学习如何制造一个更有视觉吸引的游戏！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;著作权声明&lt;/h1&gt;
+
+&lt;p&gt;本文译自&lt;a href=&quot;https://www.raywenderlich.com/114262/learn-to-code-ios-apps-with-swift-tutorial-4-your-first-app&quot;&gt;Learn To Code iOS Apps With Swift Tutorial 4: Your First App&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 Mar 2016 18:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/03/01/swift-tutorial-4/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/03/01/swift-tutorial-4/</guid>
+        
+        <category>Swift</category>
+        
+        <category>iOS</category>
+        
+        <category>教程</category>
+        
+        <category>翻译</category>
+        
+        
+      </item>
     
       <item>
         <title>学习Swift开发iOS应用教程第三篇「译」</title>
@@ -15,13 +366,13 @@
 
 &lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
 
-&lt;p&gt;在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中！&lt;/p&gt;
+&lt;p&gt;在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中。&lt;/p&gt;
 
-&lt;p&gt;在系列的第三部分，你将会创建一个记录用户名和年龄的命令行应用。。&lt;/p&gt;
+&lt;p&gt;在系列的第三部分，你将会创建一个记录用户名和年龄的命令行应用。&lt;/p&gt;
 
 &lt;p&gt;跟着学习的步伐，这部分你将会学习到Swift关于 &lt;code&gt;Arrays&lt;/code&gt;, &lt;code&gt;Objects&lt;/code&gt;, 和 &lt;code&gt;Classes&lt;/code&gt;的概念。让我们开始吧！&lt;/p&gt;
 
-&lt;p&gt;注意：第二部分一样&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意: 系列的这一部分，您将开发一个命令行的 OS X 应用程序。因此，你需要最低Xcode 6.1版本来完成这个教程。在开始之前请再三确认您的Xcode版本。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;section&quot;&gt;开始&lt;/h1&gt;
 
