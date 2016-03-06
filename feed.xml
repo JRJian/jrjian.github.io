@@ -5,13 +5,328 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Mar 2016 19:51:54 +0800</pubDate>
-    <lastBuildDate>Sun, 06 Mar 2016 19:51:54 +0800</lastBuildDate>
+    <pubDate>Sun, 06 Mar 2016 20:54:56 +0800</pubDate>
+    <lastBuildDate>Sun, 06 Mar 2016 20:54:56 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
+        <title>学习Swift开发iOS应用教程第五篇「译」</title>
+        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用最终篇！&lt;/p&gt;
+
+&lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
+
+&lt;p&gt;在系列的第二部分，你将所学到的技能运用到一个简单的猜数字的游戏中.&lt;/p&gt;
+
+&lt;p&gt;在系列的第三部分，你创建了一个记录用户名和年龄的命令行应用。&lt;/p&gt;
+
+&lt;p&gt;在系列的第四部分，你创建了第一个 &lt;em&gt;iPhone&lt;/em&gt; 应用！&lt;/p&gt;
+
+&lt;p&gt;在教程的最后一篇，使游戏看起来有点更具有视觉吸引力的怎么样?。&lt;/p&gt;
+
+&lt;p&gt;这部分将会学习到如何设置屏幕上的元素背景。而且，你还会学到如何实现播放背景音乐和音响效果。让我们开始吧！&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;开始&lt;/h1&gt;
+
+&lt;p&gt;开始前需要打开上一个项目的工程，如果你没有该工程点击&lt;a href=&quot;http://cdn4.raywenderlich.com/wp-content/uploads/2014/07/TapMeFinal.zip&quot;&gt;下载备份工程&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;我建议在开始前先备份一份项目。这样你就可以有一份原始版本进行对比。不仅能比较两个完整版本的内容，而且如果你搞杂了界面，还可以用回原始版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后，你也许想要下载&lt;a href=&quot;http://cdn3.raywenderlich.com/wp-content/uploads/2014/07/TapMe_Resources.zip&quot;&gt;Tap Me资源&lt;/a&gt;，该文件包含着该项目需要的一些图片和音乐素材。在你下载完后，你应该打开文件并且将所有的文件放到你的工程目录里。将这些资源拖放到文档大纲的辅助文件夹(Supporting Files)里面。&lt;/p&gt;
+
+&lt;p&gt;确保勾选了 &lt;em&gt;Copy items if needed&lt;/em&gt; 选项，如果你 移动/删除 了下载的资源文件，这样您的项目在其他的电脑依然也能够使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;设置按钮的背景图&lt;/h1&gt;
+
+&lt;p&gt;比起给按钮设置背景色，在图片编辑器中设置了一张图片要更好看的多。要设置背景图片，你需要设置按钮对应的状态。确定按钮的状态在属性检查器中为	&lt;em&gt;Default&lt;/em&gt; 。这是普通状态下的按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后，找到名为 &lt;em&gt;Background&lt;/em&gt; 的盒子，设置为 &lt;em&gt;button_tap_deselected.png&lt;/em&gt;，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/4.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在你上一个版本的应用中，你已经设置过按钮背景成白色。修改背景色为透明 &lt;em&gt;Default&lt;/em&gt; ，这样在图片的后面就不会有白色的方块。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/5.png&quot; alt=&quot;图5&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/swift-tutorial-series/d5/5_1.png&quot; alt=&quot;图5_1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;糟糕！标题设置成 “Tap Me!” 导致图片看起来效果不好。因为图片里面也有文字，因此你需要将按钮的标题设置为空。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/6.png&quot; alt=&quot;图6&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/swift-tutorial-series/d5/6_1.png&quot; alt=&quot;图6_1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;好多了！现在，按钮应该是清秀的并且比之前的一个版本好看很多。不再是一个单调的白色文本，是一个有丰富色彩和好看的文字的3维按钮。&lt;/p&gt;
+
+&lt;p&gt;下一步你需要为按钮的高亮状态设置另一张背景图。当用户点击了按钮时候的状态称为高亮状态。高亮状态的背景设置成 &lt;em&gt;button_tap_selected.png&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你应该察觉到了按钮看起来有些压扁的赶脚。这是因为硬编码的宽高约束比实际上的图片要小一些导致的。&lt;/p&gt;
+
+&lt;p&gt;幸运的是，有一个简单的方法解决这个问题。所有的视图都有一个 &lt;em&gt;intrinsic content size(本质内容大小)&lt;/em&gt; 的东西，你可以把它当做是根据它原有的呈现自动添加了大小约束。在我们的图片中，它将会自动调整自己的大小。&lt;/p&gt;
+
+&lt;p&gt;不再需要硬编码的宽高约束，你能够依赖本质内容大小的特性让图片自己适应大小。&lt;/p&gt;
+
+&lt;p&gt;让我们试试，在文档导航器中，找到按钮宽和高约束然后点击删除：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/8.png&quot; alt=&quot;图8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后，更新控制器里所有的视图的排版位置通过点击右下角的三角图标按钮，然后选中 &lt;em&gt;All Views\Update Frames&lt;/em&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/9.png&quot; alt=&quot;图9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;编译并运行，体验下你的按钮吧！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/10.png&quot; alt=&quot;图10&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;给屏幕添加图片&lt;/h1&gt;
+
+&lt;p&gt;有时候，你也许想给屏幕添加一些图片让它跟按钮有些不同。在这个情况下，你可以使用一个 &lt;em&gt;UIImageView&lt;/em&gt; 对象。在对象库里找到 &lt;em&gt;Image View&lt;/em&gt; 并且拖拽到屏幕中。&lt;/p&gt;
+
+&lt;p&gt;你将会使用这个 &lt;em&gt;Image View&lt;/em&gt; 对象来创建边框，并且给它设置尺寸和摆放在屏幕的顶端，拉伸至屏幕的两端。对底部的 &lt;em&gt;Image View&lt;/em&gt; 对象采取同样的操作。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/11.png&quot; alt=&quot;图11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;移动您的标签来腾出点空间。最简单方式是更新它的约束通过在尺寸检查点击编辑按钮。选中 &lt;em&gt;Time&lt;/em&gt; 表情，然后在约束一栏找到 Size Inspector(尺寸检查器)，点击 &lt;em&gt;Top Space to&lt;/em&gt; 编辑按钮设置 &lt;em&gt;Top Layout Guide&lt;/em&gt; 约束。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/12.png&quot; alt=&quot;图12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，为顶部的 Image View 设置约束。点击右下角的方框按钮。首先，确保取消勾选了 &lt;em&gt;Constrain to margins&lt;/em&gt; 这一项。接着，设置 &lt;em&gt;左&lt;/em&gt;, &lt;em&gt;上&lt;/em&gt;, 和 &lt;em&gt;右横杆&lt;/em&gt; 的值都为 &lt;em&gt;0&lt;/em&gt;。最后，检查 &lt;em&gt;高&lt;/em&gt; 约束。确保值为 &lt;em&gt;22&lt;/em&gt;。一旦完成，点击 &lt;em&gt;Add 4 Constraints&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/13.png&quot; alt=&quot;图13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你看到橘色参考线，请参考上面的 &lt;em&gt;update the frames&lt;/em&gt; 方法。&lt;/p&gt;
+
+&lt;p&gt;对底部的 &lt;em&gt;Image view&lt;/em&gt; 做相同的操作。尝试着参照顶部的 &lt;em&gt;Image View&lt;/em&gt; 约束设置。如果你觉得有困难，参考以下剧透。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;p&gt;点击方块按钮。首先，确保取消勾选了 &lt;em&gt;Constrain to margins&lt;/em&gt; 这一项。接着，设置 &lt;em&gt;左&lt;/em&gt;, &lt;em&gt;下&lt;/em&gt;, 和 &lt;em&gt;右横杆&lt;/em&gt; 的值都为 &lt;em&gt;0&lt;/em&gt;。最后，检查 &lt;em&gt;高&lt;/em&gt; 约束。确保值为 &lt;em&gt;22&lt;/em&gt;。一旦完成，点击 &lt;em&gt;Add 4 Constraints&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/14.png&quot; alt=&quot;图14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;确保操作了 &lt;em&gt;update the frames&lt;/em&gt;。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;在检查器的顶部选中 &lt;em&gt;Image View&lt;/em&gt; 选项，设置 &lt;em&gt;Image&lt;/em&gt; 属性为 &lt;em&gt;chekecker_top.png&lt;/em&gt;。设置 &lt;em&gt;Mode&lt;/em&gt; 属性为 &lt;em&gt;Aspect Fill&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/15.png&quot; alt=&quot;图15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对底部的 Image View 做相同操作，除了 &lt;em&gt;Image&lt;/em&gt; 设置为 &lt;em&gt;checker_bottom.png&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;再一次运行您的应用并且欣赏美观的边框。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/16.png&quot; alt=&quot;图16&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;通过编程设置背景色&lt;/h1&gt;
+
+&lt;p&gt;你不需要总是在故事板修改改变您的应用外观。让我通过代码来修改背景色成紫色。尝试在 &lt;em&gt;ViewController.swift&lt;/em&gt; 里的 &lt;em&gt;viewDidLoad()&lt;/em&gt; 函数内加入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view.backgroundColor = UIColor.purpleColor()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面这行代表是设置视图的属性 &lt;em&gt;backgroundColor&lt;/em&gt;，将 &lt;em&gt;UIColor&lt;/em&gt; 返回的 &lt;em&gt;purpleColor()&lt;/em&gt; 赋值给背景色。&lt;/p&gt;
+
+&lt;p&gt;运行应用并且看下界面是怎样的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/17.png&quot; alt=&quot;图17&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;尽管这验证了概念，但是它仍然看起来不是很美观。然而，幸运的是，你可以设置视图的背景为一张图片。让我再一次通过编程实现。将下面的代码替换掉设置紫色背景的代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;view.backgroundColor = UIColor(patternImage: UIImage(named: &quot;bg_tile.png&quot;)!)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这段代码表示设置一张平铺的图片当做视图背景。运行应用看看是什么样的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/18.png&quot; alt=&quot;图18&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;继续为你的标签通过编程设置它们的背景。要实现这一点，编写以下两个代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scoreLabel.backgroundColor = UIColor(patternImage: UIImage(named: &quot;field_score.png&quot;)!)
+timerLabel.backgroundColor = UIColor(patternImage: UIImage(named: &quot;field_time.png&quot;)!)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行应用看看是什么样的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/19.png&quot; alt=&quot;图19&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;调整标签的位置和大小&lt;/h1&gt;
+
+&lt;p&gt;这里需要几处的改进。一件是调整标签的位置和大小。 &lt;em&gt;scoreLabel&lt;/em&gt; 显然位置太上点，大小不对以及形状跟图片不符。&lt;/p&gt;
+
+&lt;p&gt;解决这些问题，选中顶部的标签，点击方框按钮设置它的约束宽度为 &lt;em&gt;133&lt;/em&gt; 和高度为 &lt;em&gt;46&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/20.png&quot; alt=&quot;图20&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后选中底部的标签，在项目导航栏中找到它当前高度的约束，点击删除来移除该约束：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/21.png&quot; alt=&quot;图21&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后点击方框按钮设置约束宽为 &lt;em&gt;146&lt;/em&gt; 和高为 &lt;em&gt;102&lt;/em&gt;：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/22.png&quot; alt=&quot;图22&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后，清空你的选项，点击第三个按钮，然后选择 &lt;em&gt;All Views in View Controller\Update Frames&lt;/em&gt; 更新你的视图。&lt;/p&gt;
+
+&lt;p&gt;最后一个调整。背景色跟标签的字体色很接近，这样的外观不友好。为了解决这个问题，修改文本颜色为浅蓝色，这样界面看起来会好多了。根据下面进行设置 &lt;em&gt;timeLabel&lt;/em&gt; 和 &lt;em&gt;scoreLabel&lt;/em&gt; 的属性。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/23.png&quot; alt=&quot;图23&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设置每个标签的对其方式为居中对齐。&lt;/p&gt;
+
+&lt;p&gt;现在，运行应用新的颜色文本多么适合阅读。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/24.png&quot; alt=&quot;图24&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-5&quot;&gt;添加声音&lt;/h1&gt;
+
+&lt;p&gt;音乐和音响效果都是很好的特性。这就是该应用最后一件缺失的东西！&lt;/p&gt;
+
+&lt;p&gt;首先，你需要一些音频文件。&lt;a href=&quot;http://cdn5.raywenderlich.com/wp-content/uploads/2014/08/Sounds.zip&quot;&gt;下载这些音频文件&lt;/a&gt;，解压文件，并且将3个音频文件拖放到您的项目中。&lt;/p&gt;
+
+&lt;p&gt;这三个音频文件分别是：背景音乐，按钮点击的蜂鸣声，并且是标签倒计时每一秒的声音，这是为了让用户体验更好！&lt;/p&gt;
+
+&lt;p&gt;通过控制器的代码来控制背景音乐，所以开打 &lt;em&gt;ViewController.swift&lt;/em&gt;。在顶部加入下面这句代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你还需要导入一个重要的 &lt;em&gt;AVFoundation&lt;/em&gt; 框架，该框架是苹果提供用来负责音频播放的。在刚刚导入的 UIKit 下面添加代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import AVFoundation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就像导入 UIKit 框架能够让你使用 UIButton 和 UILabel 一样，导入 AVFoundation 能够让你使用非常强大实用的 &lt;em&gt;AVAudioPlayer&lt;/em&gt; 类。接着，你将会需要为3个音频文件设置3个实例变量。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var buttonBeep : AVAudioPlayer?
+var secondBeep : AVAudioPlayer?
+var backgroundMusic : AVAudioPlayer?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因为 AVAudioPlayer 音频播放器有可能是不可用的，因此变量需要定义成可选类型。&lt;/p&gt;
+
+&lt;p&gt;接着，你需要在 &lt;em&gt;viewDidLoad&lt;/em&gt; 函数上面添加下面这个辅助函数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  func setupAudioPlayerWithFile(file:NSString, type:NSString) -&amp;gt; AVAudioPlayer?  {
+    //1
+    let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
+    let url = NSURL.fileURLWithPath(path!)
+ 
+    //2
+    var audioPlayer:AVAudioPlayer?
+ 
+    // 3
+    do {
+      try audioPlayer = AVAudioPlayer(contentsOfURL: url)
+    } catch {
+      print(&quot;Player not available&quot;)
+    }
+ 
+    return audioPlayer
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;该方法将会返回一个 AVAudioPlayer 对象 (通过 &lt;em&gt;-&amp;gt;&lt;/em&gt; 符号定义返回类型)，并且接收两个参数：一个文件名和文件类型。让我们看看这段代码干了啥。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;你需要知道音频文件的完整路径，&lt;em&gt;NSBundle.mainBundle()&lt;/em&gt; 会告诉你在项目的哪个地方。AVAudioPlayer 需要知道资源的路径通过设置 URL，所以完整的路径需要转换成 URL 格式。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;audioPlayer&lt;/em&gt; 是个可选类型。因为 &lt;em&gt;AVAudioPlayer&lt;/em&gt; 在实例化的时候，依赖的设备可能有不支持该功能现象。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;这是你即将创建 &lt;em&gt;AVAudioPlayer&lt;/em&gt; 的地方。创建这个对象的时候也许会抛出异常，你定义了一个 block 通过 &lt;em&gt;do&lt;/em&gt; 关键字。接着你尝试创建 player对象。如果 player 是不能够被创建的时候，你将会接收一个错误。此时，在一个真正的应用中打印错误的信息，将会在 block 处理异常。这种错误处理方式在 Swift 2.0 里出现。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果一切顺利，将会返回一个 &lt;em&gt;AVAudioPlayer&lt;/em&gt; 对象!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;现在你有一个方便的函数来设置 &lt;em&gt;AVAudioPlayer&lt;/em&gt; 对象，是时候使用它了！添加以下代码到 &lt;em&gt;viewDidLoad()&lt;/em&gt; 函数里的 &lt;em&gt;setupGame()&lt;/em&gt; 之上:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if let buttonBeep = self.setupAudioPlayerWithFile(&quot;ButtonTap&quot;, type:&quot;wav&quot;) {
+  self.buttonBeep = buttonBeep
+}
+if let secondBeep = self.setupAudioPlayerWithFile(&quot;SecondBeep&quot;, type:&quot;wav&quot;) {
+  self.secondBeep = secondBeep
+}
+if let backgroundMusic = self.setupAudioPlayerWithFile(&quot;HallOfTheMountainKing&quot;, type:&quot;mp3&quot;) {
+  self.backgroundMusic = backgroundMusic
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在你创建了几个 players。如果 players 能够创建成功，对象将会赋值给实例变量。&lt;/p&gt;
+
+&lt;p&gt;此刻在 &lt;em&gt;viewDidLoad&lt;/em&gt;，你将会有3个音频对象能够被你的代码调用！&lt;/p&gt;
+
+&lt;p&gt;第一个音频对象，buttonBeep，当按钮被点击时播放。更新 &lt;em&gt;buttonPressed&lt;/em&gt; 函数来播放声音：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;buttonBeep?.play()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过在变量名后标记一个问号，表示你尝试通过可选的方式调用一个函数。如果它是一个对象，函数将会被调用。否则，代码将会被忽略。&lt;/p&gt;
+
+&lt;p&gt;那里还有2个其他的音频对象。 &lt;em&gt;secondBeep&lt;/em&gt; 将会在每一次倒计时后播放。在 &lt;em&gt;subtractTime()&lt;/em&gt; 函数里调用播放声音的代码。在 &lt;em&gt;if&lt;/em&gt; 语句之前调用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;secondBeep?.play()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;已经接近完成！&lt;/p&gt;
+
+&lt;p&gt;最后一步是添加背景音乐。在每次新的游戏开始后播放，添加播放代码到 &lt;em&gt;setupGame()&lt;/em&gt; 函数的最下面：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;backgroundMusic?.volume = 0.3
+backgroundMusic?.play()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你可以调整背景音乐的音量使蜂鸣声能够被听到。修改 &lt;em&gt;backgroundMusic&lt;/em&gt; 的 &lt;em&gt;volume&lt;/em&gt; 属性能够做到这一点。它的值能够被设置成0(静音)至1.0(最大声)，但是0.3应该比较好。&lt;/p&gt;
+
+&lt;p&gt;最后一次运行游戏并且体验您的劳动成果！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/swift-tutorial-series/d5/25.png&quot; alt=&quot;图25&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;何去何从？&lt;/h1&gt;
+
+&lt;p&gt;祝贺你！你刚刚完成了您的第一个 iPhone 应用程序，使用了非常多的基础功能来完成它，使它成为了一个美观和有声的应用。&lt;a href=&quot;http://www.raywenderlich.com/wp-content/uploads/2015/09/TapMe2Final.zip&quot;&gt;完整的项目代码&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;你的应用还有很多可以完善，例如添加或者修改一些图像，添加不同的等级，甚至修改音响效果 - 闹洞大开！&lt;/p&gt;
+
+&lt;p&gt;你也许想要学习 iOS 学徒系列，它讲解了更多制作 iOS 应用的进阶知识。它适合有入门经验的开发者，更多信息请查看&lt;a href=&quot;https://www.raywenderlich.com&quot;&gt;raywenderlich&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;著作权声明&lt;/h1&gt;
+
+&lt;p&gt;本文译自&lt;a href=&quot;http://www.raywenderlich.com/114298/learn-to-code-ios-apps-with-swift-tutorial-5-making-it-beautiful&quot;&gt;Learn To Code iOS Apps With Swift Tutorial 5: Making it Beautiful&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 06 Mar 2016 18:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/03/06/swift-tutorial-5/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/03/06/swift-tutorial-5/</guid>
+        
+        <category>Swift</category>
+        
+        <category>iOS</category>
+        
+        <category>教程</category>
+        
+        <category>翻译</category>
+        
+        
+      </item>
+    
+      <item>
         <title>学习Swift开发iOS应用教程第四篇「译」</title>
-        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用第四部分！&lt;/p&gt;
+        <description>&lt;p&gt;很高兴，你来到Swift教程系列编写iOS应用最终篇！&lt;/p&gt;
 
 &lt;p&gt;在系列的第一部分，你学会了Swift编程基础知识。学习了变量，if/else语句，循环，可选类型等等。&lt;/p&gt;
 
@@ -335,7 +650,7 @@ var timer = NSTimer()
 &lt;h1 id=&quot;section-7&quot;&gt;何去何从？&lt;/h1&gt;
 
 &lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://www.raywenderlich.com/wp-content/uploads/2015/09/TapMeFinal.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
-点击该系列[下一篇]（敬请期待）教程，你将会学习如何制造一个更有视觉吸引的游戏！&lt;/p&gt;
+点击该系列&lt;a href=&quot;/2016/03/06/swift-tutorial-5/&quot;&gt;下一篇&lt;/a&gt;教程，你将会学习如何制造一个更有视觉吸引的游戏！&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
@@ -345,9 +660,9 @@ var timer = NSTimer()
 
 &lt;p&gt;本文译自&lt;a href=&quot;https://www.raywenderlich.com/114262/learn-to-code-ios-apps-with-swift-tutorial-4-your-first-app&quot;&gt;Learn To Code iOS Apps With Swift Tutorial 4: Your First App&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 01 Mar 2016 18:44:22 +0800</pubDate>
-        <link>http://jrjian.github.io/2016/03/01/swift-tutorial-4/</link>
-        <guid isPermaLink="true">http://jrjian.github.io/2016/03/01/swift-tutorial-4/</guid>
+        <pubDate>Sun, 06 Mar 2016 18:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/03/06/swift-tutorial-4/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/03/06/swift-tutorial-4/</guid>
         
         <category>Swift</category>
         
@@ -866,7 +1181,7 @@ for onePerson in people  {
 &lt;h1 id=&quot;section-4&quot;&gt;何去何从？&lt;/h1&gt;
 
 &lt;p&gt;到目前为止这边教程系列的&lt;a href=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2015/09/PeopleDatabase.zip&quot;&gt;完整playground文件&lt;/a&gt;。&lt;br /&gt;
-点击该系列[下一篇]（敬请期待）教程，你将会制作你的第一个 &lt;em&gt;iPhone&lt;/em&gt; 游戏！&lt;/p&gt;
+点击该系列&lt;a href=&quot;/2016/03/06/swift-tutorial-4/&quot;&gt;下一篇&lt;/a&gt;教程，你将会制作你的第一个 &lt;em&gt;iPhone&lt;/em&gt; 游戏！&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
