@@ -5,9 +5,134 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Mar 2016 20:54:56 +0800</pubDate>
-    <lastBuildDate>Sun, 06 Mar 2016 20:54:56 +0800</lastBuildDate>
+    <pubDate>Thu, 10 Mar 2016 21:26:39 +0800</pubDate>
+    <lastBuildDate>Thu, 10 Mar 2016 21:26:39 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>如何在 Objective-C 项目中使用 Swift 类</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;背景&lt;/h1&gt;
+
+&lt;p&gt;在 Objectvie-C 代码中使用 Swift 类是可能的(反之亦然) - 但是由于苹果的官方文档实现这个黑魔法文章讲的比较模糊(冗长&amp;amp;英文)。因此写个笔记记录下。&lt;/p&gt;
+
+&lt;p&gt;我们建立一个 OC 的项目（比如公司的项目大部分都是采用OC），但是我们想使用新的语言来进行开发，并且保留旧的项目 OC 源码。因此我们就需要在 OC 的项目下嵌入 Swift。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;以下内容采用 Xcode 7.2，并且你已经有一定的 Objective-C 和 Swift 编程经验。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;xcode-oc-&quot;&gt;准备好 Xcode OC 项目&lt;/h1&gt;
+
+&lt;p&gt;当我们往 OC 项目添加 Swift 文件的时候，如果是第一次将会看见一个 Xcode 的招待框：”Would you like to configure an Objective-C bridging header?”。根据我们的主题（OC 嵌 Swift），这显然应该不需要桥接：但是创建后有利于我们 Swift 调用 OC，也许未来我们需要用到，所以我们选择 Create。文件的目录结构将会多出 &lt;em&gt;项目名-Bridging-Header.h&lt;/em&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/embed-swift-to-oc/p1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也许你以为这就完事了，Xcode 帮我们做了剩下的事情，其实不是。我们还需要告诉 Xcode：”我们需要在项目里使用 Swift 和 Objective-C”（通过配置项目）。&lt;/p&gt;
+
+&lt;p&gt;为了实现这点，点击您的项目 target-&amp;gt; Build Setting 选显卡。	找到 &lt;em&gt;Embedded Content contains Swift Code(在Build Options中)&lt;/em&gt; 选项：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/embed-swift-to-oc/p2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;开启这个配置是让这个 target 项目包含 Swift 的代码，因此 Swift 的标准库将能够在该项目使用，&lt;a href=&quot;https://developer.apple.com/library/prerelease/ios/qa/qa1881/_index.html&quot;&gt;官方文档说明&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;swift-&quot;&gt;准备好 Swift 类&lt;/h1&gt;
+
+&lt;p&gt;这里我们创建了一个继承自 &lt;code&gt;UIViewcController&lt;/code&gt; 的 &lt;code&gt;SwiftViewController&lt;/code&gt; 类。代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class SwiftViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.purpleColor()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为了让 OC 能够调用该类，需要在类的定义前加入一个关键字 &lt;em&gt;@objc&lt;/em&gt;。这是告诉编译器在幕后进行一些额外操作（命名，创建一个不可见的头文件等），让 Swift 的代码暴露给 OC：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@objc class SwiftViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.purpleColor()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID53&quot;&gt;@objc 官方文档说明&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;objective-c-&quot;&gt;准备好 Objective-C 类&lt;/h1&gt;
+
+&lt;p&gt;最后一步，跟 OC 调用其他文件一样，需要引入一个 Xcode 生成的 Swift 头文件到 OC 类里。有一件事是，Swift 并没有头文件 - 怎么办呢？&lt;/p&gt;
+
+&lt;p&gt;其实我们需要引入的这个头文件并不真实的存在 - 不是一个物理文件。是由 Xcode 在幕后生成的虚拟文件。文件名是根据你的项目名字而定，但是我们并不知道文件的名字，如何 &lt;code&gt;Import&lt;/code&gt; 呢？&lt;/p&gt;
+
+&lt;p&gt;继续找到 target-&amp;gt;Build Setting 选项卡。在 &lt;em&gt;Swift Compiler – Code Generation&lt;/em&gt; 里找到 &lt;em&gt;Objective-C Generated Interface Header Name&lt;/em&gt;：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/embed-swift-to-oc/p3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我创建的项目名为 &lt;em&gt;SwiftInOCDemo&lt;/em&gt;，因此 Xcode 生成的文件名 “SwiftInOCDemo-Swift.h”。这就是 OC 中需要引入的头文件。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;注意不需要引入 Xcode 生成的桥接文件 SwiftInOCDemo-Bridging-Header.h&lt;/em&gt;,这个文件是用来暴露 OC 的库给 Swift 的。因此我们只需要引入 SwiftInOCDemo-Swift.h 即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#import &quot;ViewController.h&quot;
+#import &quot;SwiftInOCDemo-Swift.h&quot;
+
+@interface ViewController ()
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：也许你想问是否有多个这种 XXX-Swift.h 头文件，答案是否，所有通过 @objc 关键字暴露的 Swift 代码都会被放置这个 SwiftInOCDemo-Swift.h 文件中。因此只有一个头文件。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;objective-c--swift-&quot;&gt;在 Objective-C 代码中调用 Swift 方法&lt;/h1&gt;
+
+&lt;p&gt;经过上面的所有步骤，终于可以在 OC 中调用 Swift 方法了：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)viewDidLoad {
+    [super viewDidLoad];
+    SwiftViewController *controller = [[SwiftViewController alloc] init];
+    NSString *title = [controller myTitle];
+    NSLog(@&quot;%@&quot;, title);
+
+    // 输出: SwiftViewController
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Tip: 如果你发现敲完代码后，编译器报错。不需要担心，点击 CMD + B 编译项目：这会强制让编译器查看所有引用的类。每次你修改完 Swift 代码后都应该干这件事。你也可以按住 CMD 点击 SwiftViewController 查看源文件代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;总结&lt;/h1&gt;
+
+&lt;p&gt;这篇文章的概念适用于所有 Objective-C 调用 Swift 类，包括属性，方法和协议等。&lt;a href=&quot;https://github.com/JRJian/SwiftInOCDemo&quot;&gt;demo地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;更多阅读&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/index.html#//apple_ref/doc/uid/TP40014216-CH2-ID0&quot;&gt;Using Swift with Cocoa and Objective-C (Swift 2.2)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果你有问题或者反馈，加入下面的评论系统！&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Thu, 10 Mar 2016 17:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/03/10/embed-swift-to-oc/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/03/10/embed-swift-to-oc/</guid>
+        
+        <category>iOS</category>
+        
+        <category>Swift</category>
+        
+        <category>Objective-C</category>
+        
+        <category>Magic</category>
+        
+        
+      </item>
     
       <item>
         <title>学习Swift开发iOS应用教程第五篇「译」</title>

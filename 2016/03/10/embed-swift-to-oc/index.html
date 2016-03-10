@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="icon" href="http://jrjian.github.io/img/favicon.ico" type="image/x-icon">
 
-    <title>Welcome to Jian Blog - 陈坚涛的博客｜Jian Blog</title>
+    <title>如何在 Objective-C 项目中使用 Swift 类 - 陈坚涛的博客｜Jian Blog</title>
 
-    <link rel="canonical" href="http://jrjian.github.io/2015/11/28/hello-2015/">
+    <link rel="canonical" href="http://jrjian.github.io/2016/03/10/embed-swift-to-oc/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -129,12 +129,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+<!-- <img src="/img/2016/embed-swift-to-oc/post-bg-2016.jpeg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-2015.jpg')
+        background-image: url('/img/2016/embed-swift-to-oc/post-bg-2016.jpeg')
     }
 </style>
 <header class="intro-header" >
@@ -144,15 +144,21 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+                        
+                        <a class="tag" href="/tags/#Swift" title="Swift">Swift</a>
+                        
+                        <a class="tag" href="/tags/#Objective-C" title="Objective-C">Objective-C</a>
+                        
+                        <a class="tag" href="/tags/#Magic" title="Magic">Magic</a>
                         
                     </div>
-                    <h1>Welcome to Jian Blog</h1>
+                    <h1>如何在 Objective-C 项目中使用 Swift 类</h1>
                     
                     
-                    <h2 class="subheading"> "Hello World, Hello Blog"</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Jian on November 28, 2015</span>
+                    <span class="meta">Posted by Jian on March 10, 2016</span>
                 </div>
             </div>
         </div>
@@ -170,59 +176,113 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
-  <p>“Yeah It’s on. ”</p>
+				<h1 id="section">背景</h1>
+
+<p>在 Objectvie-C 代码中使用 Swift 类是可能的(反之亦然) - 但是由于苹果的官方文档实现这个黑魔法文章讲的比较模糊(冗长&amp;英文)。因此写个笔记记录下。</p>
+
+<p>我们建立一个 OC 的项目（比如公司的项目大部分都是采用OC），但是我们想使用新的语言来进行开发，并且保留旧的项目 OC 源码。因此我们就需要在 OC 的项目下嵌入 Swift。</p>
+
+<blockquote>
+  <p>以下内容采用 Xcode 7.2，并且你已经有一定的 Objective-C 和 Swift 编程经验。</p>
 </blockquote>
 
-<h2 id="section">前言</h2>
+<h1 id="xcode-oc-">准备好 Xcode OC 项目</h1>
 
-<p>Jian 的 Blog 就这么开通了。</p>
+<p>当我们往 OC 项目添加 Swift 文件的时候，如果是第一次将会看见一个 Xcode 的招待框：”Would you like to configure an Objective-C bridging header?”。根据我们的主题（OC 嵌 Swift），这显然应该不需要桥接：但是创建后有利于我们 Swift 调用 OC，也许未来我们需要用到，所以我们选择 Create。文件的目录结构将会多出 <em>项目名-Bridging-Header.h</em> 文件</p>
 
-<p><a href="#build">跳过废话，直接看技术实现 </a></p>
+<p><img src="/img/2016/embed-swift-to-oc/p1.png" alt="图1" /></p>
 
-<p>2015 年，Jian 总算有个地方可以好好写点东西了。</p>
+<p>也许你以为这就完事了，Xcode 帮我们做了剩下的事情，其实不是。我们还需要告诉 Xcode：”我们需要在项目里使用 Swift 和 Objective-C”（通过配置项目）。</p>
 
-<p>作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。</p>
+<p>为了实现这点，点击您的项目 target-&gt; Build Setting 选显卡。	找到 <em>Embedded Content contains Swift Code(在Build Options中)</em> 选项：</p>
 
-<p>在玩了github之后，发现github可以定制自己的网站。所以花了一天时间搞搞Personal Blog!</p>
+<p><img src="/img/2016/embed-swift-to-oc/p2.png" alt="图2" /></p>
 
-<p id="build"></p>
-<hr />
+<blockquote>
+  <p>开启这个配置是让这个 target 项目包含 Swift 的代码，因此 Swift 的标准库将能够在该项目使用，<a href="https://developer.apple.com/library/prerelease/ios/qa/qa1881/_index.html">官方文档说明</a>。</p>
+</blockquote>
 
-<h2 id="section-1">正文</h2>
+<h1 id="swift-">准备好 Swift 类</h1>
 
-<p>接下来说说搭建这个博客的技术细节。  </p>
+<p>这里我们创建了一个继承自 <code>UIViewcController</code> 的 <code>SwiftViewController</code> 类。代码如下：</p>
 
-<p>正好之前就有关注过 <a href="https://pages.github.com/">GitHub Pages</a> + <a href="http://jekyllrb.com/">Jekyll</a> 快速 Building Blog 的技术方案，非常轻松时尚。</p>
+<pre><code>class SwiftViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.purpleColor()
+    }
+}
+</code></pre>
 
-<p>其优点非常明显：</p>
+<p>为了让 OC 能够调用该类，需要在类的定义前加入一个关键字 <em>@objc</em>。这是告诉编译器在幕后进行一些额外操作（命名，创建一个不可见的头文件等），让 Swift 的代码暴露给 OC：</p>
+
+<pre><code>@objc class SwiftViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.purpleColor()
+    }
+}
+</code></pre>
+
+<blockquote>
+  <p><a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID53">@objc 官方文档说明</a></p>
+</blockquote>
+
+<h1 id="objective-c-">准备好 Objective-C 类</h1>
+
+<p>最后一步，跟 OC 调用其他文件一样，需要引入一个 Xcode 生成的 Swift 头文件到 OC 类里。有一件事是，Swift 并没有头文件 - 怎么办呢？</p>
+
+<p>其实我们需要引入的这个头文件并不真实的存在 - 不是一个物理文件。是由 Xcode 在幕后生成的虚拟文件。文件名是根据你的项目名字而定，但是我们并不知道文件的名字，如何 <code>Import</code> 呢？</p>
+
+<p>继续找到 target-&gt;Build Setting 选项卡。在 <em>Swift Compiler – Code Generation</em> 里找到 <em>Objective-C Generated Interface Header Name</em>：</p>
+
+<p><img src="/img/2016/embed-swift-to-oc/p3.png" alt="图3" /></p>
+
+<p>我创建的项目名为 <em>SwiftInOCDemo</em>，因此 Xcode 生成的文件名 “SwiftInOCDemo-Swift.h”。这就是 OC 中需要引入的头文件。</p>
+
+<p><em>注意不需要引入 Xcode 生成的桥接文件 SwiftInOCDemo-Bridging-Header.h</em>,这个文件是用来暴露 OC 的库给 Swift 的。因此我们只需要引入 SwiftInOCDemo-Swift.h 即可：</p>
+
+<pre><code>#import "ViewController.h"
+#import "SwiftInOCDemo-Swift.h"
+
+@interface ViewController ()
+
+@end
+</code></pre>
+
+<p><strong>注意：也许你想问是否有多个这种 XXX-Swift.h 头文件，答案是否，所有通过 @objc 关键字暴露的 Swift 代码都会被放置这个 SwiftInOCDemo-Swift.h 文件中。因此只有一个头文件。</strong></p>
+
+<h1 id="objective-c--swift-">在 Objective-C 代码中调用 Swift 方法</h1>
+
+<p>经过上面的所有步骤，终于可以在 OC 中调用 Swift 方法了：</p>
+
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    SwiftViewController *controller = [[SwiftViewController alloc] init];
+    NSString *title = [controller myTitle];
+    NSLog(@"%@", title);
+
+    // 输出: SwiftViewController
+}
+</code></pre>
+
+<blockquote>
+  <p>Tip: 如果你发现敲完代码后，编译器报错。不需要担心，点击 CMD + B 编译项目：这会强制让编译器查看所有引用的类。每次你修改完 Swift 代码后都应该干这件事。你也可以按住 CMD 点击 SwiftViewController 查看源文件代码。</p>
+</blockquote>
+
+<h1 id="section-1">总结</h1>
+
+<p>这篇文章的概念适用于所有 Objective-C 调用 Swift 类，包括属性，方法和协议等。<a href="https://github.com/JRJian/SwiftInOCDemo">demo地址</a></p>
+
+<h1 id="section-2">更多阅读</h1>
 
 <ul>
-  <li><strong>Markdown</strong> 带来的优雅写作体验</li>
-  <li>非常熟悉的 Git workflow ，<strong>Git Commit 即 Blog Post</strong></li>
-  <li>利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机
-    <ul>
-      <li>如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了</li>
-    </ul>
-  </li>
-  <li>Jekyll 的自定制非常容易，基本就是个模版引擎</li>
+  <li><a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/index.html#//apple_ref/doc/uid/TP40014216-CH2-ID0">Using Swift with Cocoa and Objective-C (Swift 2.2)</a></li>
 </ul>
 
-<hr />
-
-<p>配置的过程中也没遇到什么坑，基本就是 Git 的流程，相当顺手</p>
-
-<p>大的 Jekyll 主题上直接 fork 了 <a href="https://github.com/Huxpro/huxpro.github.io#featured-tags">Hux Blog</a></p>
-
-<p>本地调试环境需要 <code>gem install jekyll</code>，结果 rubygem 的源居然被墙了……后来手动改成了我大淘宝的镜像源才成功 <a href="https://ruby.taobao.org">RubyGems 镜像</a></p>
-
-<p>Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Less 里改就好了（平时更习惯 SCSS 些），**Hux Blog的作者补了很多Bootstrap的缺陷，并且优化了文字布局排版等，具体可以看<a href="https://github.com/Huxpro/huxpro.github.io#featured-tags">原文</a>……</p>
-
-<h2 id="section-2">后记</h2>
-
-<p>蛮喜欢这个主题风格的blog，后续慢慢加强前端的技能，同时build出令自己满意的Jian Blog!</p>
-
-<p>—— Jian 后记于 2015.10</p>
+<blockquote>
+  <p>如果你有问题或者反馈，加入下面的评论系统！</p>
+</blockquote>
 
 
                 <hr>
@@ -232,10 +292,10 @@
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2015/12/09/iOS-small-functions/" data-toggle="tooltip" data-placement="top" title="iOS实用小功能">Next Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/2016/03/06/swift-tutorial-5/" data-toggle="tooltip" data-placement="top" title="学习Swift开发iOS应用教程第五篇「译」">&larr; Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
@@ -354,8 +414,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "httpjrjiangithubio";
-    var disqus_identifier = "/2015/11/28/hello-2015";
-    var disqus_url = "http://jrjian.github.io/2015/11/28/hello-2015/";
+    var disqus_identifier = "/2016/03/10/embed-swift-to-oc";
+    var disqus_url = "http://jrjian.github.io/2016/03/10/embed-swift-to-oc/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
