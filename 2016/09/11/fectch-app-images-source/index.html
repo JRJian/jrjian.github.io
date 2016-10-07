@@ -10,9 +10,9 @@
     <meta name="keyword"  content="">
     <link rel="icon" href="http://jrjian.github.io/img/favicon.ico" type="image/x-icon">
 
-    <title>NSValueTransformer教程 - 陈坚涛的博客｜Jian Blog</title>
+    <title>如何巧妙拷贝iPhone应用程序图片素材 - 陈坚涛的博客｜Jian Blog</title>
 
-    <link rel="canonical" href="http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/">
+    <link rel="canonical" href="http://jrjian.github.io/2016/09/11/fectch-app-images-source/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -129,12 +129,12 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/2015-12-19-iOS-NSValueTransformer-tutorial/post-bg-2015.jpg" width="0" height="0"> -->
+<!-- <img src="/img/2016/embed-swift-to-oc/post-bg-2016.jpeg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/2015-12-19-iOS-NSValueTransformer-tutorial/post-bg-2015.jpg')
+        background-image: url('/img/2016/embed-swift-to-oc/post-bg-2016.jpeg')
     }
 </style>
 <header class="intro-header" >
@@ -146,17 +146,17 @@
                         
                         <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
                         
-                        <a class="tag" href="/tags/#NSValueTransformer" title="NSValueTransformer">NSValueTransformer</a>
+                        <a class="tag" href="/tags/#Objective-C" title="Objective-C">Objective-C</a>
                         
-                        <a class="tag" href="/tags/#教程" title="教程">教程</a>
+                        <a class="tag" href="/tags/#Magic" title="Magic">Magic</a>
                         
                     </div>
-                    <h1>NSValueTransformer教程</h1>
+                    <h1>如何巧妙拷贝iPhone应用程序图片素材</h1>
                     
                     
-                    <h2 class="subheading"> "NSValueTransformer完整教程"</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Jian on December 20, 2015</span>
+                    <span class="meta">Posted by Jian on September 11, 2016</span>
                 </div>
             </div>
         </div>
@@ -174,144 +174,69 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">背景</h2>
-<p>由于最近在用Mantle框架，发现代码中使用了 <code>NSValueTransformer</code>，看懵了，不知道是用来干啥的，根据字面意思猜了个大概是 <em>值转换</em>，为了认清这个东西，所以去了<a href="http://nshipster.cn">NSHipster</a>查看了相关教程。由于发现作者讲的东西相对对于初学者来说可能有些难消化，所以产生了对原文进行更清晰的讲解的念头。</p>
+				<p>在开发应用中，难免需要很多图标素材，例如高仿XX应用。这时，我们就需要被高仿应用的图片素材。怎么办呢，别急，下面一步一步教你如何抓取app元素。</p>
 
-<h2 id="section-1">是什么？</h2>
-<p><code>NSValueTransformer</code> 是一个抽象类，用来将一个输入的类型值转换成另为一个类型值，主要被用于 AppKit 框架的 Cocoa binding 中。它指定了可以处理哪类输入，并且合适时甚至支持反向的转换。</p>
+<h1 id="section">设备</h1>
 
-<p>创建一个 <code>NSValueTransformer</code> 子类，重写几个必要的方法来实现自定义转化。<br />
-有些类似于 <code>Protocol</code>，定义了一些需要子类自己去实现的方法。</p>
+<p>Mac系统电脑一台<br />
+Xcode应用</p>
 
-<h2 id="section-2">实战</h2>
+<h1 id="itunes">iTunes</h1>
 
-<p>下面继承自 <code>NSValueTransformer</code> 的实现代码：</p>
+<p>打开iTunes，如果是手机的应用，请同步到iTunes，如果不需要同步可以直接在iTunes中搜索，下载该应用。</p>
 
-<pre><code>@interface ClassNameTransformer: NSValueTransformer {}// 继承NSValueTransformer
-@end
+<p>找到iTunes资源库/应用程序，找到刚才下载的应用。</p>
 
-#pragma mark -
+<p><img src="/img/2016/fetch-imgs/p1.png" alt="图1" /></p>
 
-@implementation ClassNameTransformer
+<p>右键该应用，选择 在Finder中显示</p>
 
-+ (Class)transformedValueClass {// 输出的源的类型
-    // 经过测试，调用转换的时候，并没有调用该方法，
-    // 该方法只是告诉使用者，我输出的类型是 NSString 类型
-    return [NSString class];
-}
+<p><img src="/img/2016/fetch-imgs/p2.png" alt="图2" /></p>
 
-+ (BOOL)allowsReverseTransformation {// 是否允许逆向转换
-    // YES 需要实现 reverseTransformedValue:
-    // NO 不需要实现
-    // ⚠️：当返回 NO，如果调用了 reverseTransformedValue，
-        由于当前类没有实现该方法，系统会自动调用 transformedValue:
-    return NO; 
-}
+<p>找到ipa文件，右键 归档实用工具，解压完后就能打开目录-Payload-应用 右键 显示包内容。好了这样就能看到图片资源。</p>
 
-- (id)transformedValue:(id)value {// 转换输入的值成另一个值
-    // 返回输入的值对应类型的字符串
-    return (value == nil) ? nil : NSStringFromClass([value class]);
-}
+<p><img src="/img/2016/fetch-imgs/p3.png" alt="图3" /></p>
 
-@end
+<p><img src="/img/2016/fetch-imgs/p5.png" alt="图4" /></p>
+
+<p><img src="/img/2016/fetch-imgs/p4.png" alt="图5" /></p>
+
+<h1 id="ios7">iOS7之前</h1>
+
+<p>在iOS7之前，由于开发的原因，所有默认开发中用到的图片都会显示在目录中。</p>
+
+<h1 id="ios7-1">iOS7之后</h1>
+
+<p>在iOS7出来了，不仅系统风格大变，硬件和开发工具都发生了巨大改变。这里我们说下 <code>image.xcassets</code> 资源目录。在新的 Xcode 开发工具中，如果你把图片资源放进了这个目录，那么在目录中是看不到这个图片的。</p>
+
+<p>找到 <code>Assets.car</code> 文件，这其实是个压缩包需要安装一些工具才能解压。</p>
+
+<h1 id="section-1">工具推荐</h1>
+
+<ul>
+  <li><em>ThemeEngine</em> ，Mac下的Assets.car文件查看工具，能够将图片导入到PhotoShop中进行编辑，提供了导出图片的功能。ThemeEngine拥有命令行版和图形界面版。使用私有APICoreUI开发。 <a href="https://github.com/alexzielenski/ThemeEngine">下载地址</a></li>
+  <li><em>cartool</em> ，Mac下的命令行小工具，能够将Assets.car文件解包到指定文件夹。目标文件夹需要事先创建好。该工具使用私有API中的CoreUI进行开发。 <a href="https://github.com/steventroughtonsmith/cartool">下载地址</a></li>
+  <li><em>acextract</em> ，Mac下的命令行工具，Swift版。 <a href="https://github.com/bartoszj/acextract">下载地址</a></li>
+</ul>
+
+<h1 id="assetscar">提取Assets.car中的图片</h1>
+
+<p>笔者用的是第二种 <em>cartool</em> ，打开链接地址下载成功后，双击打开工程目录 <code>cartool.xcodeproj</code>。接着 build 一下工程。</p>
+
+<p><img src="/img/2016/fetch-imgs/p6.png" alt="图6" /></p>
+
+<p>找到prodcut目录中的编译后的文件，右键 Show in Finder。</p>
+
+<p>打开终端，进入到刚才编译后的文件目录。</p>
+
+<p>执行</p>
+
+<pre><code>./cartool Assets.car路径 解压路径
 </code></pre>
 
-<p>我们通常不会直接初始化 <code>NSValueTransformer</code>。而是，与 <code>NSPersistentStore</code> 和 <code>NSURLProtocol</code> 类似，需要注册相应的实现类<code>setValueTransformer:forName:</code>，由管理者角色的对象负责初始化它们——这里有点不同的是，你需要为注册的对象指定一个唯一的名字。</p>
+<p><img src="/img/2016/fetch-imgs/p7.png" alt="图7" /></p>
 
-<p>下面是Demo:</p>
-
-<pre><code>NSString * const ClassNameTransformerName = @"ClassNameTransformer";
-
-// 注册
-[NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
-
-// 获得已经注册过的 NSValueTransformer
-NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
-
-NSDate *date = [NSDate date];
-NSString *className = [valueTransformer transformedValue:date];
-
-// 由于 ClassNameTransformer 没有实现 reverseTransformedValue:
-// 故系统自动调用 transformedValue:
-NSString *value     = [valueTransformer reverseTransformedValue:className];
-NSLog(@"%@, %@", className, value);
-</code></pre>
-
-<p>结果输出 __NSDate， NSTaggedPointerString</p>
-
-<p>我们可以在实现 <code>ClassNameTransformer</code> 的时候，在 <code>+initialize</code> 方法中注册该对象，这样我们在使用的时候，就直接获取该 <code>transformer</code>。</p>
-
-<p>改版后的代码:</p>
-
-<pre><code>extern NSString * const ClassNameTransformerName;
-
-@interface ClassNameTransformer: NSValueTransformer {}
-@end
-
-#pragma mark -
-
-NSString * const ClassNameTransformerName = @"ClassNameTransformer";
-
-@implementation ClassNameTransformer
-
-+ (void)initialize {
-    [NSValueTransformer setValueTransformer:[[ClassNameTransformer alloc] init] forName:ClassNameTransformerName];
-}
-
-+ (Class)transformedValueClass {
-    return [NSString class];
-}
-
-+ (BOOL)allowsReverseTransformation {
-    return YES;
-}
-
-- (id)transformedValue:(id)value {
-    return (value == nil) ? nil : NSStringFromClass([value class]);
-}
-
-@end
-</code></pre>
-
-<p>改版后的demo:</p>
-
-<pre><code>NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:ClassNameTransformerName];
-
-NSDate *date = [NSDate date];
-NSString *className = [valueTransformer transformedValue:date];
-NSString *value     = [valueTransformer reverseTransformedValue:className];
-NSLog(@"%@, %@", className, value);
-</code></pre>
-
-<h2 id="section-3">优化</h2>
-
-<p>到这里你可能发现了 <code>NSValueTransformer</code> 的一个大毛病：它太难用了！如果定义多个转换器，那不是有很多冗余的代码？创建一个类，实现一大把的方法，声明一个常量，并且还要在 <code>+initialize</code> 方法中注册它？我看还是别用算了。</p>
-
-<p>在这个使用 <code>block</code> 的年代，我们想要——不对，需要——一种一行（坨）代码就能搞定的实现方式。</p>
-
-<p>一点儿元编程就可以轻松搞定这件事情。<a href="https://github.com/mattt/TransformerKit/blob/master/TransformerKit/NSValueTransformer%2BTransformerKit.m#L36">戳这里获取封装好的代码</a>，然后我们使用的时候可以如下：</p>
-
-<pre><code>NSString * const TKCapitalizedStringTransformerName = @"TKCapitalizedStringTransformerName";
-
-// 注册一个实现了逆向转换的 NSValueTransformer 
-[NSValueTransformer registerValueTransformerWithName:TKCapitalizedStringTransformerName transformedValueClass:[NSString class] returningTransformedValueWithBlock:^id(id value) {
-    return [value capitalizedString];
-} allowingReverseTransformationWithBlock:^id(id value) {
-    return [value lowercaseString];
-}];
-</code></pre>
-
-<p>作者是利用了 <code>runtime</code> 的机制，将这几个需要实现的方法通过用 <code>block</code> 的方式在运行时动态生成自定义的 <code>NSValueTransformer</code> 对象，是不是很方便。<br />
-也许有人会问，这种数据转化我自定义一个类方法不就好了，如果需要逆向，实现两个互相转化的工具方法就好了，为什么需要用 <code>NSValueTransformer</code> 这么复杂的东西？</p>
-
-<h2 id="section-4">优点:</h2>
-
-<ol>
-  <li><code>NSValueTransformers</code> 可以很好地用于表示一个转换链。比如，一个应用可能需要把用户输入经过一系列的转换（比如，去掉首尾空格，去掉注音字符，然后让首字母大写）后才能把结果发送到主干系统中。</li>
-  <li>与 <code>block</code> 不同的是，<code>NSValueTransformer</code> 封装了反向转换。比如说，你想要把 REST API 中的键值与模型对象的属性一一对应(<a href="https://github.com/Mantle/Mantle">Mantle</a>)；你可以创建一个可以逆向转换的 <code>NSValueTransformer</code> 类，初始化时把 snake_case 转换为 llamaCase，发送数据到服务器端时把 llamaCase 转换为 snake_case。</li>
-  <li>另外一个优于 <code>block</code> 的地方是：<code>NSValueTransformer</code> 子类可以暴露出新的属性来配置转换行为。增加成员变量还可以简单清楚地记录结果，或者保存一些转换过程中需要用到的东西。</li>
-  <li>不要忘了，我们还可以用在 <code>Core Data</code> 中使用 <code>NSValueTransformer</code>，可以用它从二进制字段中编码及解码出组合数据。这些年似乎不再流行这么做了，但是，对于那些模型化得不是很好的信息，把简单的数据用这种方式序列化是非常有效的。但是不要这样把图片存到数据库中——那八成不会是个好主意。 <em>(这个我也不是很懂！)</em></li>
-</ol>
+<p>完成，打开解压的文件目录就能看到你想要的图片素材了！</p>
 
 
                 <hr>
@@ -322,13 +247,9 @@ NSLog(@"%@, %@", className, value);
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2015/12/09/iOS-small-functions/" data-toggle="tooltip" data-placement="top" title="iOS实用小功能">&larr; Previous Post</a>
+                        <a href="/2016/03/10/embed-swift-to-oc/" data-toggle="tooltip" data-placement="top" title="如何在 Objective-C 项目中使用 Swift 类">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2016/02/28/swift-tutorial-1/" data-toggle="tooltip" data-placement="top" title="学习Swift开发iOS应用教程第一篇「译」">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -447,8 +368,8 @@ NSLog(@"%@, %@", className, value);
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "httpjrjiangithubio";
-    var disqus_identifier = "/2015/12/20/iOS-NSValueTransformer-tutorial";
-    var disqus_url = "http://jrjian.github.io/2015/12/20/iOS-NSValueTransformer-tutorial/";
+    var disqus_identifier = "/2016/09/11/fectch-app-images-source";
+    var disqus_url = "http://jrjian.github.io/2016/09/11/fectch-app-images-source/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

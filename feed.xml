@@ -5,9 +5,88 @@
     <description></description>
     <link>http://jrjian.github.io/</link>
     <atom:link href="http://jrjian.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 10 Mar 2016 21:26:39 +0800</pubDate>
-    <lastBuildDate>Thu, 10 Mar 2016 21:26:39 +0800</lastBuildDate>
+    <pubDate>Fri, 07 Oct 2016 23:50:40 +0800</pubDate>
+    <lastBuildDate>Fri, 07 Oct 2016 23:50:40 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>如何巧妙拷贝iPhone应用程序图片素材</title>
+        <description>&lt;p&gt;在开发应用中，难免需要很多图标素材，例如高仿XX应用。这时，我们就需要被高仿应用的图片素材。怎么办呢，别急，下面一步一步教你如何抓取app元素。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;设备&lt;/h1&gt;
+
+&lt;p&gt;Mac系统电脑一台&lt;br /&gt;
+Xcode应用&lt;/p&gt;
+
+&lt;h1 id=&quot;itunes&quot;&gt;iTunes&lt;/h1&gt;
+
+&lt;p&gt;打开iTunes，如果是手机的应用，请同步到iTunes，如果不需要同步可以直接在iTunes中搜索，下载该应用。&lt;/p&gt;
+
+&lt;p&gt;找到iTunes资源库/应用程序，找到刚才下载的应用。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p1.png&quot; alt=&quot;图1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;右键该应用，选择 在Finder中显示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p2.png&quot; alt=&quot;图2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;找到ipa文件，右键 归档实用工具，解压完后就能打开目录-Payload-应用 右键 显示包内容。好了这样就能看到图片资源。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p3.png&quot; alt=&quot;图3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p5.png&quot; alt=&quot;图4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p4.png&quot; alt=&quot;图5&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;ios7&quot;&gt;iOS7之前&lt;/h1&gt;
+
+&lt;p&gt;在iOS7之前，由于开发的原因，所有默认开发中用到的图片都会显示在目录中。&lt;/p&gt;
+
+&lt;h1 id=&quot;ios7-1&quot;&gt;iOS7之后&lt;/h1&gt;
+
+&lt;p&gt;在iOS7出来了，不仅系统风格大变，硬件和开发工具都发生了巨大改变。这里我们说下 &lt;code&gt;image.xcassets&lt;/code&gt; 资源目录。在新的 Xcode 开发工具中，如果你把图片资源放进了这个目录，那么在目录中是看不到这个图片的。&lt;/p&gt;
+
+&lt;p&gt;找到 &lt;code&gt;Assets.car&lt;/code&gt; 文件，这其实是个压缩包需要安装一些工具才能解压。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;工具推荐&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;ThemeEngine&lt;/em&gt; ，Mac下的Assets.car文件查看工具，能够将图片导入到PhotoShop中进行编辑，提供了导出图片的功能。ThemeEngine拥有命令行版和图形界面版。使用私有APICoreUI开发。 &lt;a href=&quot;https://github.com/alexzielenski/ThemeEngine&quot;&gt;下载地址&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;cartool&lt;/em&gt; ，Mac下的命令行小工具，能够将Assets.car文件解包到指定文件夹。目标文件夹需要事先创建好。该工具使用私有API中的CoreUI进行开发。 &lt;a href=&quot;https://github.com/steventroughtonsmith/cartool&quot;&gt;下载地址&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;acextract&lt;/em&gt; ，Mac下的命令行工具，Swift版。 &lt;a href=&quot;https://github.com/bartoszj/acextract&quot;&gt;下载地址&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;assetscar&quot;&gt;提取Assets.car中的图片&lt;/h1&gt;
+
+&lt;p&gt;笔者用的是第二种 &lt;em&gt;cartool&lt;/em&gt; ，打开链接地址下载成功后，双击打开工程目录 &lt;code&gt;cartool.xcodeproj&lt;/code&gt;。接着 build 一下工程。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p6.png&quot; alt=&quot;图6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;找到prodcut目录中的编译后的文件，右键 Show in Finder。&lt;/p&gt;
+
+&lt;p&gt;打开终端，进入到刚才编译后的文件目录。&lt;/p&gt;
+
+&lt;p&gt;执行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./cartool Assets.car路径 解压路径
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/fetch-imgs/p7.png&quot; alt=&quot;图7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;完成，打开解压的文件目录就能看到你想要的图片素材了！&lt;/p&gt;
+</description>
+        <pubDate>Sun, 11 Sep 2016 20:44:22 +0800</pubDate>
+        <link>http://jrjian.github.io/2016/09/11/fectch-app-images-source/</link>
+        <guid isPermaLink="true">http://jrjian.github.io/2016/09/11/fectch-app-images-source/</guid>
+        
+        <category>iOS</category>
+        
+        <category>Objective-C</category>
+        
+        <category>Magic</category>
+        
+        
+      </item>
     
       <item>
         <title>如何在 Objective-C 项目中使用 Swift 类</title>
