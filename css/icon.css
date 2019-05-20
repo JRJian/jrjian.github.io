@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'iconfont';
+    /* project id 1196932 */
+    src: url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.eot');
+    src: url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.woff2') format('woff2'), url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.woff') format('woff'), url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.ttf') format('truetype'), url('//at.alicdn.com/t/font_1196932_ntkaj1gnpm.svg#iconfont') format('svg');
+}
+
+.icon-font {
+    font-family: 'iconfont' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    display: inline-block;
+    font-size: 2em;
+    color: #f1f1f1;
+}
+
+.icon-video::before {
+    content: '\E620';
+}
+.icon-apple::before {
+    content: '\E63a';
+}
+.icon-icloud::before {
+    content: '\EDC8';
+}
+.icon-chart::before {
+    content: '\EBFF';
+}
+.icon-theme::before {
+    content: '\E60D';
+}
+.icon-lang::before {
+    content: '\E600';
+}
+.icon-safe::before {
+    content: '\E617';
+}
+.icon-backup::before {
+    content: '\E651';
+}
+.icon-notes::before {
+    content: '\E692';
+}
+.icon-category::before {
+    content: '\E60C';
+}
+.icon-animation::before {
+    content: '\E62E';
+}
