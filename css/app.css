@@ -142,6 +142,7 @@ a, a:hover, a:focus {
     min-height: 640px;
     position: relative;
     box-sizing: border-box;
+    opacity: 0;
 }
 
 a, li, span {
@@ -159,6 +160,7 @@ a, li, span {
 .logo h1 {
     font-size: 1.2em;
     color: #333;
+    margin-left: .5em;
 }
 
 .logo img {
@@ -188,7 +190,12 @@ a, li, span {
         transform: translateY(0px);
     }
 }
-
+@media screen and (max-width:420px) {
+    .logo h1 {
+        font-size: 1em;
+        margin-left: 0.25em;
+    }
+}
 /*
 Header
 **/
@@ -314,6 +321,7 @@ Brief
 @media screen and (max-width: 740px) {
     .brief {
         flex-direction: column;
+        justify-content: space-evenly;
     }
     .brief .text h1 {
         font-size: 1.5625em;
@@ -347,6 +355,7 @@ help
 .help .container {
     max-width: 950px;
 }
+
 .help .content {
     display: flex;
     flex-direction: row;
@@ -481,14 +490,10 @@ function
 /*
 Story
 **/
-
-.story {}
-
 .story p {
     text-align: center;
-    line-height: 1.5625em;
+    line-height: 2.5625em;
     color: #5f6169;
-    letter-spacing: -.9px;
     font-size: 1.125em;
     margin-bottom: 15px;
 }
@@ -508,5 +513,6 @@ Footer
     color: #848484;
     font-weight: 500;
     font-size: .8125em;
+    line-height: 10em;
     margin-bottom: 0;
 }
