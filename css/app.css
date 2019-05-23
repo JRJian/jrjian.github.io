@@ -190,12 +190,6 @@ a, li, span {
         transform: translateY(0px);
     }
 }
-@media screen and (max-width:420px) {
-    .logo h1 {
-        font-size: 1em;
-        margin-left: 0.25em;
-    }
-}
 /*
 Header
 **/
@@ -236,6 +230,15 @@ Header
     position: relative;
 }
 
+@media screen and (max-width:420px) {
+    .logo h1 {
+        font-size: 1em;
+        margin-left: 0.25em;
+    }
+    .header .menu .menu-item a {
+        font-weight: 1;
+    }
+}
 .header .menu .menu-item a::before {
     content: "";
     position: absolute;
